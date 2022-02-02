@@ -6,12 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Currency;
+use App\Models\Gallery;
 use App\Models\Generalsetting;
 use App\Models\Subcategory;
 use App\Models\VendorOrder;
 use App\Models\Verification;
 use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use DB;
 
 use Image;
@@ -83,6 +85,9 @@ class DallController extends Controller
             $input['previous_price'] = ($input['previous_price'] / $sign->value);
             $input['user_id'] = Auth::user()->id;
 
+            //length insert by unit
+            
+
 
             // Save Data
             $data->fill($input)->save();
@@ -90,6 +95,15 @@ class DallController extends Controller
             // Set SLug
 
             $prod = Product::find($data->id);
+            $prod->slug = Str::slug($data->name,'-').'-'.strtolower(Str::random(3).$data->id.Str::random(3));
+            // if($prod->type != 'Physical'){
+            //     $prod->slug = Str::slug($data->name,'-').'-'.strtolower(Str::random(3).$data->id.Str::random(3));
+            // }
+            // else {
+            //     $prod->slug = Str::slug($data->name,'-').'-'.strtolower($data->sku);
+            // }
+            
+            
             // Set Photo
             $resizedImage = Image::make(public_path() . '/assets/images/products/' . $prod->photo)->resize(800, null, function ($c) {
                 $c->aspectRatio();
@@ -136,8 +150,8 @@ class DallController extends Controller
             //logic Section Ends
 
             //--- Redirect Section
-            $msg = 'New Product Added Successfully.<a href="' . route('vendor-prod-index') . '">View Product Lists.</a>';
-            return response()->json($msg);
+            // $msg = 'New Product Added Successfully.<a href="' . route('vendor-prod-index') . '">View Product Lists.</a>';
+            return response()->json(1);
             //--- Redirect Section Ends
         } else {
             //--- Redirect Section

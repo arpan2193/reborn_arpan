@@ -1609,6 +1609,8 @@ $(".addproductvendor").on('submit', function (e) {
     processData: false,
     success: function (data) {
       if (data == 1) {
+        alert("Your Product Succcesfully Added! Thank You.");
+        window.reload();
         // console.log(mainurl);
         // window.location = mainurl + '/user/dashboard';
       }else {

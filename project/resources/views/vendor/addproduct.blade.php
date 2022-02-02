@@ -146,7 +146,7 @@
                                                         unknown or not applicable)</span></h5>
 
                                                 <input type="text" class="form-control mt-2" placeholder="Type Here"
-                                                    value="{{ $user->name }}" name="user_name">
+                                                    value="{{ $user->name }}" name="artist">
                                                 <input type="hidden" class="form-control mt-2" placeholder="Type Here" value="{{ $user->id }}" name="user_id">
                                             </div>
                                             <div class="form-group mb-4">
@@ -222,7 +222,7 @@
                                                         class="form-check-input" value="yes"><label for=""
                                                         class="form-check-label">Yes</label>
                                                     <input type="radio" name="layaway_available"
-                                                        class="form-check-input" value="no"><label for=""
+                                                        class="form-check-input" value="no" checked><label for=""
                                                         class="form-check-label">No</label>
                                                 </div>
                                             </div>
@@ -794,15 +794,13 @@
                                         <h6>Would you be willing to make another baby just like this one if someone commissioned you (i.e., will you make a custom baby)?
                                         </h6>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="makecustombaby"
-                                                id="exampleRadios1" value="option1">
+                                            <input class="form-check-input" type="radio" name="makecustombaby" value="Yes">
                                             <label class="form-check-label" for="exampleRadios1">
                                                 Yes
                                             </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="makecustombaby"
-                                                id="exampleRadios2" value="option2" checked>
+                                            <input class="form-check-input" type="radio" name="makecustombaby" value="No" checked>
                                             <label class="form-check-label" for="exampleRadios1">
                                                 No
                                             </label>
