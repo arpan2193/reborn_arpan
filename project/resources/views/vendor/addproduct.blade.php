@@ -966,31 +966,31 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="Full Front Plate - Boy" name="torso">
+                                                    <input class="form-check-input" type="checkbox" value="Full Front Plate - Boy" name="torso[]">
                                                     <label class="form-check-label" for="flexCheckDefault">
                                                         Full Front Plate - Boy
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="Full Front Plate - Girl" name="torso">
+                                                    <input class="form-check-input" type="checkbox" value="Full Front Plate - Girl" name="torso[]">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Full Front Plate - Girl
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="Full Front Plate - Non Gendered" name="torso">
+                                                    <input class="form-check-input" type="checkbox" value="Full Front Plate - Non Gendered" name="torso[]">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Full Front Plate - Non Gendered
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="Full Back Plate (with baby butt)" name="torso">
+                                                    <input class="form-check-input" type="checkbox" value="Full Back Plate (with baby butt)" name="torso[]">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Full Back Plate (with baby butt)
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="Belly Plate [no chest or genitals]" name="torso">
+                                                    <input class="form-check-input" type="checkbox" value="Belly Plate [no chest or genitals]" name="torso[]">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Belly Plate [no chest or genitals]
                                                     </label>
@@ -998,31 +998,31 @@
                                             </div>
                                             <div class="col-md-5">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="Full Vinyl Torso - Girl" name="torso">
+                                                    <input class="form-check-input" type="checkbox" value="Full Vinyl Torso - Girl" name="torso[]">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Full Vinyl Torso - Girl
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="Full Vinyl Torso - Boy" name="torso">
+                                                    <input class="form-check-input" type="checkbox" value="Full Vinyl Torso - Boy" name="torso[]">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Full Vinyl Torso - Boy
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="Half Upper Vinyl Torso - Non Gendered" name="torso">
+                                                    <input class="form-check-input" type="checkbox" value="Half Upper Vinyl Torso - Non Gendered" name="torso[]">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Half Upper Vinyl Torso - Non Gendered
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="Half Lower Vinyl Torso - Girl" name="torso">
+                                                    <input class="form-check-input" type="checkbox" value="Half Lower Vinyl Torso - Girl" name="torso[]">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Half Lower Vinyl Torso - Girl
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="Half Lower Vinyl Torso - Boy" name="torso">
+                                                    <input class="form-check-input" type="checkbox" value="Half Lower Vinyl Torso - Boy" name="torso[]">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Half Lower Vinyl Torso - Boy
                                                     </label>
@@ -1214,31 +1214,31 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="Fine Glass Beads" name="weighting">
+                                                    <input class="form-check-input" type="checkbox" value="Fine Glass Beads" name="weighting[]">
                                                     <label class="form-check-label" for="flexCheckDefault">
                                                         Fine Glass Beads
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="Sand Blasted Glass" name="weighting">
+                                                    <input class="form-check-input" type="checkbox" value="Sand Blasted Glass" name="weighting[]">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Sand Blasted Glass
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="Polyfil" name="weighting">
+                                                    <input class="form-check-input" type="checkbox" value="Polyfil" name="weighting[]">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Polyfil
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="Luxury Fiberfill" name="weighting">
+                                                    <input class="form-check-input" type="checkbox" value="Luxury Fiberfill" name="weighting[]">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Luxury Fiberfill
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="Silicone Baby Fat Inserts" name="weighting">
+                                                    <input class="form-check-input" type="checkbox" value="Silicone Baby Fat Inserts" name="weighting[]">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Silicone Baby Fat Inserts
                                                     </label>
@@ -1246,31 +1246,31 @@
                                             </div>
                                             <div class="col-md-5">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="Silicone Baby Fat Pellets" name="weighting">
+                                                    <input class="form-check-input" type="checkbox" value="Silicone Baby Fat Pellets" name="weighting[]">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Silicone Baby Fat Pellets
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="Poly-Pellets" name="weighting">
+                                                    <input class="form-check-input" type="checkbox" value="Poly-Pellets" name="weighting[]">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Poly-Pellets
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="Steel Shots/BBs" name="weighting">
+                                                    <input class="form-check-input" type="checkbox" value="Steel Shots/BBs" name="weighting[]">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Steel Shots/BBs
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="Sand" name="weighting">
+                                                    <input class="form-check-input" type="checkbox" value="Sand" name="weighting[]">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Sand
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="Other Weighting Material" name="weighting">
+                                                    <input class="form-check-input" type="checkbox" value="Other Weighting Material" name="weighting[]">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Other Weighting Material
                                                     </label>
@@ -1736,7 +1736,15 @@
                                         <h6 class="text-danger">Do not upload watermarked, logo/branded, or images with
                                             text on them. They will be removed.</h6>
                                         <div class="mt-4">
-                                            <input type="file" class="form-control" name="photo" accept="image/jpeg,image/png">
+                                            <input type="file" id="uploadgallery" class="form-control" name="gallery[]" accept="image/jpeg,image/png" multiple>
+                                            <div class="gallery-images">
+                                                <div class="selected-image">
+                                                    <div class="row">
+                            
+                            
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="add-form">

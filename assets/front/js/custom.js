@@ -1610,7 +1610,10 @@ $(".addproductvendor").on('submit', function (e) {
     success: function (data) {
       if (data == 1) {
         alert("Your Product Succcesfully Added! Thank You.");
-        window.reload();
+        $('#uploadgallery').click();
+		    $('.selected-image .row').html('');
+		    $('#geniusform').find('.removegal').val(0);
+        // window.reload();
         // console.log(mainurl);
         // window.location = mainurl + '/user/dashboard';
       }else {
@@ -1672,3 +1675,31 @@ $("#itemtype4").on('change',function(){
   $("input[name='reborned']:checked").prop('checked',false);
 });
 
+//Changing sub-item-type toggle with item type end
+
+//GALLERY PORTION OF ADD PRODUCT NURSERY
+$("#uploadgallery").change(function (event) {
+  var total_file = document.getElementById("uploadgallery").files.length;
+  for (var i = 0; i < total_file; i++) {
+    $('.selected-image .row').append('<div class="col-sm-6">' +
+      '<div class="img gallery-img">' +
+      '<span class="remove-img">X</i>' +
+      '<input type="hidden" value="' + i + '">' +
+      '</span>' +
+      '<a href="' + URL.createObjectURL(event.target.files[i]) + '" target="_blank">' +
+      '<img src="' + URL.createObjectURL(event.target.files[i]) + '" alt="gallery image" class="gallery_img">' +
+      '</a>' +
+      '</div>' +
+      '</div> '
+    );
+    $('.addproductvendor').append('<input type="hidden" name="galval[]" id="galval' + i +
+      '" class="removegal" value="' + i + '">')
+  }
+
+});
+
+$('.remove-img').on('click', function () {
+  var id = $(this).find('input[type=hidden]').val();
+  $('#galval' + id).remove();
+  $(this).parent().parent().remove();
+});

@@ -39,7 +39,7 @@ class DallController extends Controller
 
     public function store(Request $request)
     {
-        dd($request);
+        // dd($request);
         $user = Auth::user();
         $package = $user->subscribes()->orderBy('id', 'desc')->first();
         $prods = $user->products()->orderBy('id', 'desc')->get()->count();
@@ -48,25 +48,35 @@ class DallController extends Controller
         //     return response()->json(array('errors' => [ 0 => 'You don\'t have any subscription plan.']));
         // }
 
-        if ($prods < $package->allowed_products || $package->allowed_products == 0) {
-
+        // if ($prods < $package->allowed_products || $package->allowed_products == 0) {
+        if (!empty($request)) {
+            
             //--- Validation Section
-            $rules = [
-                'photo'      => 'required|mimes:jpeg,jpg,png,svg',
-                'file'       => 'mimes:zip'
-            ];
+            // $rules = [
+            //     'photo'      => 'required|mimes:jpeg,jpg,png,svg',
+            //     'file'       => 'mimes:zip'
+            // ];
 
-            $validator = Validator::make($request->all(), $rules);
+            // $validator = Validator::make($request->all(), $rules);
 
-            if ($validator->fails()) {
-                return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
-            }
+            // if ($validator->fails()) {
+            //     return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
+            // }
             //--- Validation Section Ends
 
+            $input = $request->all();
+            // --- weighting section start
+            $input['weighting'] = json_encode($request->weighting);
+
+            //--- weighting Section end
+            $input['torso'] = json_encode($request->torso);
+
+            //--- Torso section starts
+
+            //--- Torso section ends
             //--- Logic Section
             $data = new Product;
             $sign = Currency::where('is_default', '=', 1)->first();
-            $input = $request->all();
             // Check File
             if ($file = $request->file('file')) {
                 $name = time() . str_replace(' ', '', $file->getClientOriginalName());
@@ -82,7 +92,7 @@ class DallController extends Controller
 
             // Conert Price According to Currency
             $input['price'] = ($input['price'] / $sign->value);
-            $input['previous_price'] = ($input['previous_price'] / $sign->value);
+            // $input['previous_price'] = ($input['previous_price'] / $sign->value);
             $input['user_id'] = Auth::user()->id;
 
             //length insert by unit
@@ -95,7 +105,9 @@ class DallController extends Controller
             // Set SLug
 
             $prod = Product::find($data->id);
+            // dd($prod);
             $prod->slug = Str::slug($data->name,'-').'-'.strtolower(Str::random(3).$data->id.Str::random(3));
+            // dd($prod->slug);
             // if($prod->type != 'Physical'){
             //     $prod->slug = Str::slug($data->name,'-').'-'.strtolower(Str::random(3).$data->id.Str::random(3));
             // }
@@ -105,29 +117,29 @@ class DallController extends Controller
             
             
             // Set Photo
-            $resizedImage = Image::make(public_path() . '/assets/images/products/' . $prod->photo)->resize(800, null, function ($c) {
-                $c->aspectRatio();
-            });
-            $photo = Str::random(12) . '.jpg';
-            $resizedImage->save(public_path() . '/assets/images/products/' . $photo);
+            // $resizedImage = Image::make(public_path() . '/assets/images/products/' . $prod->photo)->resize(800, null, function ($c) {
+            //     $c->aspectRatio();
+            // });
+            // $photo = Str::random(12) . '.jpg';
+            // $resizedImage->save(public_path() . '/assets/images/products/' . $photo);
 
 
-            // Set Thumbnail
-            $background = Image::canvas(300, 300);
-            $resizedImage = Image::make(public_path() . '/assets/images/products/' . $prod->photo)->resize(300, 300, function ($c) {
-                $c->aspectRatio();
-                $c->upsize();
-            });
-            // insert resized image centered into background
-            $background->insert($resizedImage, 'center');
-            // save or do whatever you like
-            $thumbnail = Str::random(12) . '.jpg';
-            $background->save(public_path() . '/assets/images/thumbnails/' . $thumbnail);
+            // // Set Thumbnail
+            // $background = Image::canvas(300, 300);
+            // $resizedImage = Image::make(public_path() . '/assets/images/products/' . $prod->photo)->resize(300, 300, function ($c) {
+            //     $c->aspectRatio();
+            //     $c->upsize();
+            // });
+            // // insert resized image centered into background
+            // $background->insert($resizedImage, 'center');
+            // // save or do whatever you like
+            // $thumbnail = Str::random(12) . '.jpg';
+            // $background->save(public_path() . '/assets/images/thumbnails/' . $thumbnail);
 
 
-            $prod->thumbnail  = $thumbnail;
-            $prod->photo  = $photo;
-            $prod->update();
+            // $prod->thumbnail  = $thumbnail;
+            // $prod->photo  = $photo;
+            // $prod->update();
 
             // Add To Gallery If any
             $lastid = $data->id;
