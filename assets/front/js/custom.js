@@ -1610,9 +1610,8 @@ $(".addproductvendor").on('submit', function (e) {
     success: function (data) {
       if (data == 1) {
         alert("Your Product Succcesfully Added! Thank You.");
-        $('#uploadgallery').click();
 		    $('.selected-image .row').html('');
-		    $('#geniusform').find('.removegal').val(0);
+		    $('.addproductvendor').find('.removegal').val(0);
         // window.reload();
         // console.log(mainurl);
         // window.location = mainurl + '/user/dashboard';
@@ -1681,9 +1680,9 @@ $("#itemtype4").on('change',function(){
 $("#uploadgallery").change(function (event) {
   var total_file = document.getElementById("uploadgallery").files.length;
   for (var i = 0; i < total_file; i++) {
-    $('.selected-image .row').append('<div class="col-sm-6">' +
+    $('.selected-image .row').append('<div class="col-sm-3">' +
       '<div class="img gallery-img">' +
-      '<span class="remove-img">X</i>' +
+      '<span class="remove-img"><i class="fa fa-times"></i>' +
       '<input type="hidden" value="' + i + '">' +
       '</span>' +
       '<a href="' + URL.createObjectURL(event.target.files[i]) + '" target="_blank">' +

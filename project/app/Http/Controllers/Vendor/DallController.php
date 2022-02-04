@@ -108,6 +108,7 @@ class DallController extends Controller
             // dd($prod);
             $prod->slug = Str::slug($data->name,'-').'-'.strtolower(Str::random(3).$data->id.Str::random(3));
             // dd($prod->slug);
+            // dd($prod->slug);
             // if($prod->type != 'Physical'){
             //     $prod->slug = Str::slug($data->name,'-').'-'.strtolower(Str::random(3).$data->id.Str::random(3));
             // }
@@ -117,29 +118,29 @@ class DallController extends Controller
             
             
             // Set Photo
-            // $resizedImage = Image::make(public_path() . '/assets/images/products/' . $prod->photo)->resize(800, null, function ($c) {
-            //     $c->aspectRatio();
-            // });
-            // $photo = Str::random(12) . '.jpg';
-            // $resizedImage->save(public_path() . '/assets/images/products/' . $photo);
+            $resizedImage = Image::make(public_path() . '/assets/images/products/' . $prod->photo)->resize(800, null, function ($c) {
+                $c->aspectRatio();
+            });
+            $photo = Str::random(12) . '.jpg';
+            $resizedImage->save(public_path() . '/assets/images/products/' . $photo);
 
 
-            // // Set Thumbnail
-            // $background = Image::canvas(300, 300);
-            // $resizedImage = Image::make(public_path() . '/assets/images/products/' . $prod->photo)->resize(300, 300, function ($c) {
-            //     $c->aspectRatio();
-            //     $c->upsize();
-            // });
-            // // insert resized image centered into background
-            // $background->insert($resizedImage, 'center');
-            // // save or do whatever you like
-            // $thumbnail = Str::random(12) . '.jpg';
-            // $background->save(public_path() . '/assets/images/thumbnails/' . $thumbnail);
+            // Set Thumbnail
+            $background = Image::canvas(300, 300);
+            $resizedImage = Image::make(public_path() . '/assets/images/products/' . $prod->photo)->resize(300, 300, function ($c) {
+                $c->aspectRatio();
+                $c->upsize();
+            });
+            // insert resized image centered into background
+            $background->insert($resizedImage, 'center');
+            // save or do whatever you like
+            $thumbnail = Str::random(12) . '.jpg';
+            $background->save(public_path() . '/assets/images/thumbnails/' . $thumbnail);
 
 
-            // $prod->thumbnail  = $thumbnail;
-            // $prod->photo  = $photo;
-            // $prod->update();
+            $prod->thumbnail  = $thumbnail;
+            $prod->photo  = $photo;
+            $prod->update();
 
             // Add To Gallery If any
             $lastid = $data->id;

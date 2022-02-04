@@ -32,7 +32,7 @@
     <link rel="stylesheet" href="{{asset('assets/front/css/plugins/countdownTimer.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/front/css/plugins/slick.min.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/front/css/plugins/bootstrap.css')}}" />
-
+    <link rel="stylesheet" href="{{asset('assets/front/css/font-awesome.css')}}" />
     <!-- Main Style -->
     <link rel="stylesheet" href="{{asset('assets/front/css/demo1.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/front/css/responsive.css')}}" />

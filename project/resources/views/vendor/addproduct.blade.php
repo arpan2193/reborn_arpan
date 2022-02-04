@@ -1710,6 +1710,14 @@
                                         </div>
                                     </div>
                                     <div class="add-form">
+                                        <h5>Feature Image</h5>
+                                        <p class="m-0">• Post a picture which will be shown on the site.
+                                            any size JPG or PNG file.</p>
+                                        <div class="mt-4">
+                                            <input type="file" class="form-control" name="photo" accept="image/jpeg,image/png">
+                                        </div>
+                                    </div>
+                                    <div class="add-form">
                                         <h5>Pictures</h5>
                                         <p class="m-0">• Post up to 20 pictures with your listing. Our system
                                             accepts
