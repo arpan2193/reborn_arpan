@@ -7,9 +7,8 @@
             <h2>{{$data->name}}</h2>
         </div>
     </section>
-    @include('front.menu')
-   
-    <!-- <section class="filter">
+    <!-- menu section start -->
+    <section class="filter">
         <div class="container">
             <div class="row d-flex">
                     <div class="col-sm-6">
@@ -21,23 +20,18 @@
                         </h1>
                     </div>
                 </div>
+  
             </div>
             <div class="menu-panel">
-             <button type="button" class="btn-close" ></button>
-                <ul class="cat-list">
-                    <li><a href="{{url('') }}"> Home </a></li>
-                    <li><a href="{{url('')}}/product/featured"> Featured </a></li>                   
-                    <li><a href="{{url('')}}/categories/custom-made"> custom Made</a></li>
-                    <li><a href="{{url('')}}/categories/collector-resale"> Collector Resale</a></li>
-                    <li><a href="{{url('')}}/categories/alternative"> Alternative</a></li>
-                    <li><a href="#"> Atlas Art Dolls </a></li>
-                    <li><a href="{{url('')}}/categories/accessories"> Accessories </a></li>
-                    <li><a href="{{url('')}}/categories/adopted"> Adopted </a></li>
-                    <li><a href="{{url('')}}/categories/nurseries"> Nurseries</a></li>
-                    <li><a href="{{url('')}}/categories/doll-kits"> Doll Kits</a></li>
-                </ul>
+             <button type="button" class="btn-close" ></button> 
+             @include('front.menu')
+             </ul>
             </div>
-    </section> -->
+    </section> 
+
+    <!-- menu section end -->
+
+    
     
     @php
         $attrPrice = 0;
@@ -61,15 +55,16 @@
                 <!--end menu section -->
               
                 <div class="w-100">                   
-                    <div class="row"> 
+                    
+                    <div class="row category-product"> 
                     @foreach($list as $products)
                         <div class="col-sm-3">                          
-                        <div class="ec-spe-products">                                                                
+                        <div class="ec-spe-products category-product-box">                                                                
                          <div class="artist-product-new">
                                     <div class="ec-fs-pro-inner">
                                     <img src="{{asset('assets/images/products/'.$products->photo)}}">
                                         <h5 class="ec-fs-pro-title">
-                                            <a href="{{  url('') }}/item/{{$products->slug}}">
+                                            <a href="{{  url('') }}/item/{{$products->slug}}" onclick="addrecent('{{$products->id}}')">
                                                 {{$products->name}}
                                             </a>
                                         </h5>
@@ -99,20 +94,34 @@
                                             <p class="time">                                                 
                                              {{ $attrPrice != 0 ?  $gs->currency_format == 0 ? $curr->sign.$withSelectedAtrributePrice : $withSelectedAtrributePrice.$curr->sign :$products->showPrice() }}
                                             </p> 
-                                             <p class="fabarite">Add to Favorities</p>
+                                            @php
+                                            $favorities_count = DB::table('favorite_items')->where('product_id', $products->id)->count();
+                                            @endphp
+                                        <p  onclick="addfev('{{$products->id}}')"><a href="javascript:void(0)">Add to Favorities 
+                                            {{$favorities_count}}</a></p>
                                         </div>
+                                        <p class="ec-fs-pro-desc" id="{{$products->id}}_favorite_msg"></p>
                                     </div>
                                 </div>
                             </div>                           
                         </div> 
                         @endforeach                        
                  </div>
+               
+                 <?php  $currentURL = last(request()->segments(1)); ?>
+                   
+                 @if($category_count>8)
                 
-                 <div class="view-more-btn featrured-doll-btn">
-                    <a href="#">View More Featured Dolls</a>
+                 <div class="view-more-btn category-doll-btns" category-totalResult="{{ $category_count }}" slugid="{{$currentURL}}"> 
+                <a href="javascript:void(0)">View More Dolls</a>
                 </div>
+
+                
+                @endif
             </div>
         </div>
     </section>  
     <!--product details page product slug - feature_listing  -->
     @endsection
+
+   

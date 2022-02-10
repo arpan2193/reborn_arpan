@@ -31,12 +31,7 @@
         </div>
     </div>
     <!-- Main Slider End -->
-    @include('front.menu')
-    @php
-        $prod_id = session()->get('cat_name');
-        $cat = DB::table('categories')->where('id',$prod_id)->first();       
-    @endphp 
-    <!-- <section class="filter">
+    <section class="filter">
         <div class="container">
             <div class="row d-flex">
                     <div class="col-sm-6">
@@ -48,32 +43,22 @@
                         </h1>
                     </div>
                 </div>
-
+  
             </div>
             <div class="menu-panel">
              <button type="button" class="btn-close" ></button>
-                <ul class="cat-list">
-                    <li><a href="{{ route('front.index') }}"> Home </a></li>
-                    <li><a href="{{ route('front.productfeatured') }}">Featured</a></li>
-                    <li><a href="{{ route('front.productcategory', 'custom-made') }}">Custom made</a></li>
-                    <li><a href="{{ route('front.productcategory', 'pre-loved') }}">Pre-loved</a></li>
-                    <li><a href="{{ route('front.productcategory', 'alternative') }}">Alternative</a></li>
-                    <li><a href="{{ route('front.productcategory', 'accessories') }}">Accessories</a></li>
-                    <li><a href="{{ route('front.productcategory', 'adopted') }}">Adopted</a></li>
-                    <li><a href="{{ route('front.nurseries') }}">Nurseries</a></li>
-                    <li><a href="javascript:void(0)" class="nursery-btn">Create Your Nursery</a></li>
-                </ul>
-            </div>
-    </section> -->
+             @include('front.menu')
+     </div>
+    </section>  
+
+
     @php
         $attrPrice = 0;
         $sessionCur = session()->get('currency');
         $sessionCurr = DB::table('currencies')->where('id',$sessionCur)->first();
         $databaseCurr = DB::table('currencies')->where('is_default',1)->first();
         $curr = $sessionCurr ? $sessionCurr: $databaseCurr;        
-    @endphp     
-
-   
+    @endphp   
     <section class="section ec-fre-spe-section section-space-p">
         <div class="container">
             <div class="row">
@@ -82,7 +67,7 @@
                         <h2 class="ec-title">Dolls For Adoption</h2>
                     </div>
                 </div>
-                                        
+                @include('includes.admin.form-login')                     
                 <div class="ec-fre-products">  
                 @foreach($adoption_doll as $doll)                
                     <div class="ec-fs-product">
@@ -90,10 +75,11 @@
                             <img src="{{asset('assets/images/products/'.$doll->photo)}}">
                             
                             <h5 class="ec-fs-pro-title">
-                                <a href="{{ route('front.productdetails', $doll->slug) }}">
+                                <a href="{{ route('front.productdetails', $doll->slug) }}" onclick="addrecent('{{$doll->id}}')">
                                     {{$doll->name}}
                                 </a>
                             </h5>
+                            <p class="ec-fs-pro-desc" id="{{$doll->id}}_recent_msg"></p>
                             <p class="ec-fs-pro-desc">
                                 Listed by  {{ $doll->user->shop_name}}({{$doll->user->name}})
                             </p>
@@ -109,15 +95,20 @@
                                              $datetime1 = new DateTime($date);
                                              $datetime2 = new DateTime($dt);
                                              $interval = $datetime1->diff($datetime2);
-                                             //echo $interval->format('%h')." Hours ".$interval->format('%i')." Minutes";
-                                        // {{$products->created_at}}  ?>
+                                 ?>
                                 </p>  
                                 <p class="artist-p-size">{{ $doll->length_by_inch}} " ({{ $doll->length_by_centimeters}} cm)</p>
                             </div>
                             
                             <div class="w-100 d-flex justify-content-between">
-                                <p class="time">{{$doll->showPrice() }}</p>  <p class="fabarite">Add to Favorities</p>
+                                <p class="time">{{$doll->showPrice() }}</p>
+                                @php
+                                    $favorities_count = DB::table('favorite_items')->where('product_id', $doll->id)->count();
+                                @endphp
+                                <p  onclick="addfev('{{$doll->id}}')"><a href="javascript:void(0)">Add to Favorities {{$favorities_count}}</a></p>
+
                             </div>
+                            <p class="ec-fs-pro-desc" id="{{$doll->id}}_favorite_msg"></p>
                         </div>                        
                     </div>
                     @endforeach
@@ -145,7 +136,7 @@
                                 <div class="artist-product">
                                 <img src="{{asset('assets/images/products/'.$reborn->photo)}}">
                                      <h5 class="ec-fs-pro-title">
-                                         <a href="{{ route('front.productdetails', $reborn->slug) }}">
+                                         <a href="{{ route('front.productdetails', $reborn->slug) }}" onclick="addrecent('{{$reborn->id}}')">
                                          {{$reborn->name}}
                                          </a>
                                      </h5>
@@ -155,7 +146,7 @@
                                      <div class="w-100 d-flex justify-content-between">
                                          <p class="ec-fs-pro-desc-time">
                                          <?php
-                                           $dt = $doll->created_at;
+                                           $dt = $reborn->created_at;
                                            $date = date('m/d/Y h:i:s a', time());                                       
                                             $date1=date_create($dt);
                                             $date2=date_create($date);
@@ -163,15 +154,19 @@
                                             echo $days =$diff->format("%a days"); 
                                              $datetime1 = new DateTime($date);
                                              $datetime2 = new DateTime($dt);
-                                             $interval = $datetime1->diff($datetime2);
-                                             //echo $interval->format('%h')." Hours ".$interval->format('%i')." Minutes";
-                                        // {{$products->created_at}}  ?>
+                                             $interval = $datetime1->diff($datetime2); ?>                                             
                                             </p>  
-                                         <p class="artist-p-size">{{ $doll->length_by_inch}} " ({{$doll->length_by_centimeters}} cm)</p>
+                                         <p class="artist-p-size">{{ $reborn->length_by_inch}} " ({{$reborn->length_by_centimeters}} cm)</p>
                                      </div>
                                      <div class="w-100 d-flex justify-content-between">
-                                         <p class="time">{{ $attrPrice != 0 ?  $gs->currency_format == 0 ? $curr->sign.$withSelectedAtrributePrice : $withSelectedAtrributePrice.$curr->sign :$reborn->showPrice() }}</p>  <p class="fabarite">Add to Favorities</p>
+                                         <p class="time">{{ $attrPrice != 0 ?  $gs->currency_format == 0 ? $curr->sign.$withSelectedAtrributePrice : $withSelectedAtrributePrice.$curr->sign :$reborn->showPrice() }}
+                                         </p> 
+                                         @php
+                                            $favorities_count = DB::table('favorite_items')->where('product_id', $reborn->id)->count();
+                                        @endphp
+                                        <p  onclick="addfev('{{$reborn->id}}')"><a href="javascript:void(0)">Add to Favorities {{$favorities_count}}</a></p>
                                      </div>
+                                     <p class="ec-fs-pro-desc" id="{{$reborn->id}}_favorite_msg"></p>
                                  </div>
                             </div>
                             @endforeach
@@ -180,7 +175,7 @@
             </div>
 
             <div class="artist-list">
-                <a href="#"> Reborn Nurseries</a>
+                <a href="javascript:void(0)"> Reborn Nurseries</a>
             </div>
             <div class="panel2">
                 <button type="button" class="btn-close" ></button>
@@ -219,7 +214,7 @@
                     </div>
                      <div class="ec-fs-pro-inner">
                        <h5 class="ec-fs-pro-title">
-                            <a href="{{ route('front.productdetails', $listed_dall->slug) }}">
+                            <a href="{{ route('front.productdetails', $listed_dall->slug) }}" onclick="addrecent('{{$listed_dall->id}}')">
                             {{$listed_dall->name}}  
                             </a>
                        </h5>
@@ -238,14 +233,18 @@
                                              $datetime1 = new DateTime($date);
                                              $datetime2 = new DateTime($dt);
                                              $interval = $datetime1->diff($datetime2);
-                                             //echo $interval->format('%h')." Hours ".$interval->format('%i')." Minutes";
-                                        // {{$products->created_at}}  ?>
+                            ?>
                             </p>  
                             <p class="artist-p-size">{{ $listed_dall->length_by_inch}} " ({{$listed_dall->length_by_centimeters}} cm)</p>
                         </div>
                         <div class="w-100 d-flex justify-content-between">
-                            <p class="time">{{ $attrPrice != 0 ?  $gs->currency_format == 0 ? $curr->sign.$withSelectedAtrributePrice : $withSelectedAtrributePrice.$curr->sign :$listed_dall->showPrice() }}</p>  <p class="fabarite">Add to Favorities</p>
+                            <p class="time">{{ $attrPrice != 0 ?  $gs->currency_format == 0 ? $curr->sign.$withSelectedAtrributePrice : $withSelectedAtrributePrice.$curr->sign :$listed_dall->showPrice() }}</p>
+                            @php
+                                $favorities_count = DB::table('favorite_items')->where('product_id', $listed_dall->id)->count();
+                            @endphp
+                            <p  onclick="addfev('{{$listed_dall->id}}')"><a href="javascript:void(0)">Add to Favorities {{$favorities_count}}</a></p>
                         </div>
+                        <p class="ec-fs-pro-desc" id="{{$listed_dall->id}}_favorite_msg"></p>
                    </div>
                 </div>
                @endforeach
@@ -297,7 +296,7 @@
                             <div class="ec-fs-pro-inner">
                                 <img src="{{asset('assets/images/products/'.$altdall->photo)}}">
                                 <h5 class="ec-fs-pro-title">
-                                <a href="{{ route('front.productdetails', $altdall->slug) }}">
+                                <a href="{{ route('front.productdetails', $altdall->slug) }}" onclick="addrecent('{{$altdall->id}}')">
                                     {{$altdall->name}}  
                                 </a>
                                 </h5>
@@ -307,7 +306,7 @@
                                 <div class="w-100 d-flex justify-content-between">
                                     <p class="ec-fs-pro-desc-time">
                                   <?php
-                                    $dt = $doll->created_at;
+                                    $dt = $altdall->created_at;
                                            $date = date('m/d/Y h:i:s a', time());                                       
                                             $date1=date_create($dt);
                                             $date2=date_create($date);
@@ -318,11 +317,16 @@
                                              $interval = $datetime1->diff($datetime2);
                                       ?>
                                     </p>  
-                                    <p class="artist-p-size">{{ $doll->length_by_inch}} " ({{$doll->length_by_centimeters}} cm)</p>
+                                    <p class="artist-p-size">{{ $altdall->length_by_inch}} " ({{$altdall->length_by_centimeters}} cm)</p>
                                 </div>
                                 <div class="w-100 d-flex justify-content-between">
-                                    <p class="time">{{ $attrPrice != 0 ?  $gs->currency_format == 0 ? $curr->sign.$withSelectedAtrributePrice : $withSelectedAtrributePrice.$curr->sign :$altdall->showPrice() }}</p>  <p class="fabarite">Add to Favorities</p>
+                                    <p class="time">{{ $attrPrice != 0 ?  $gs->currency_format == 0 ? $curr->sign.$withSelectedAtrributePrice : $withSelectedAtrributePrice.$curr->sign :$altdall->showPrice() }}</p>  
+                                    @php
+                                    $favorities_count = DB::table('favorite_items')->where('product_id', $altdall->id)->count();
+                                    @endphp
+                                <p  onclick="addfev('{{$altdall->id}}')"><a href="javascript:void(0)">Add to Favorities {{$favorities_count}}</a></p>
                                 </div>
+                                 <p class="ec-fs-pro-desc" id="{{$doll->id}}_favorite_msg"></p>
                             </div>
                         </div>
                     @endforeach

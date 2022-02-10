@@ -24,19 +24,7 @@
                     </div>
                     <div class="menu-panel">
                      <button type="button" class="btn-close"></button>
-                        <ul class="cat-list">
-                            <li><a href="#"> Home </a></li>
-                            <li><a href="#"> Featured </a></li>
-                            <li><a href="#"> custom Made</a></li>
-                            <li><a href="#"> Collector Resale</a></li>
-                            <li><a href="#"> Alternative</a></li>
-                            <li><a href="#"> Atlas Art Dolls </a></li>
-                            <li><a href="#"> Accessories </a></li>
-                            <li><a href="#"> Adopted </a></li>
-                            <li><a href="#"> Nurseries</a></li>
-                            <li><a href="#"> Doll Kits</a></li>
-                            <li><a href="#" class="nursery-btn">Create Your Nursery</a></li>
-                        </ul>
+                        @include('front.menu')
                     </div>
             </section>
 

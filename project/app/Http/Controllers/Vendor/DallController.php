@@ -52,16 +52,17 @@ class DallController extends Controller
         if (!empty($request)) {
             
             //--- Validation Section
-            // $rules = [
-            //     'photo'      => 'required|mimes:jpeg,jpg,png,svg',
-            //     'file'       => 'mimes:zip'
-            // ];
+            $rules = [
+                'photo'      => 'required|mimes:jpeg,jpg,png,svg',
+                'name'       => 'required',
+                
+            ];
 
-            // $validator = Validator::make($request->all(), $rules);
+            $validator = Validator::make($request->all(), $rules);
 
-            // if ($validator->fails()) {
-            //     return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
-            // }
+            if ($validator->fails()) {
+                return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
+            }
             //--- Validation Section Ends
 
             $input = $request->all();
@@ -95,9 +96,26 @@ class DallController extends Controller
             // $input['previous_price'] = ($input['previous_price'] / $sign->value);
             $input['user_id'] = Auth::user()->id;
 
-            //length insert by unit
+            // Shipping charges section
+            $c_charges = array();
+            if (count($request->shipping_charges) > 0) {
             
-
+                foreach ($request->shipping_charges as $charges) {
+                    $count = 0;
+                    if(count($charges) > 0){
+                        foreach($charges as $charge){
+                            $c_charges[$count][]  = $charge;
+                            $count++;
+                        }
+                    }
+                }
+            }
+            // dd($c_charges);
+            $charges = json_encode($c_charges);
+            //dd($charges);
+            $input['shipping_charges'] = $charges;
+            
+            // shipping charges section end
 
             // Save Data
             $data->fill($input)->save();

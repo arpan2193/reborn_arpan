@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Country;
 use Auth;
 use Session;
 
@@ -18,8 +19,8 @@ class LoginController extends Controller
 
   public function showLoginForm()
   {
-    $this->code_image();
-    return view('front.signin');
+    $countries = Country::orderBy('country_name', 'asc')->get();
+    return view('front.signin', compact('countries'));
   }
 
   public function login(Request $request)

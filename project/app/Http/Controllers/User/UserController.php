@@ -6,11 +6,18 @@ use App\Classes\GeniusMailer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Country;
-use Auth;
+use App\Models\Product; 
+use App\Models\Gallery;
+use App\Models\FavoriteItem;
+use App\Models\Recentview;
+use App\Models\VendorFollower;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 use Validator;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 use App\Models\Subscription;
 use App\Models\Generalsetting;
 use App\Models\UserSubscription;
@@ -24,10 +31,21 @@ class UserController extends Controller
         $this->middleware('auth');
     }
 
+    /**
+	 * @developer: Neha thakur ->@modifide
+	 * Date: 27/12/2022
+	 * Description:Show fevert product Dashboard.
+	 */
     public function index()
     {
-        $user = Auth::user();
-        return view('user.dashboard', compact('user'));
+    $userid = Auth::user()->id;
+    $fevrt_count = favoriteItem::with('Product','user')->where('user_id',$userid)->orderBy('id','desc')->count();
+    $fevrt_list = favoriteItem::with('Product','user')
+    ->where('user_id',$userid)
+    ->orderBy('id','desc')
+    ->take(6)    
+    ->get();
+    return view('user.dashboard', compact('fevrt_list','fevrt_count'));
     }
 
     public function profile()
@@ -247,4 +265,104 @@ class UserController extends Controller
         $msg = 'Successfully updated your profile';
         return Redirect::back()->with('status', 'Your profile has been Successfully updated');
     }
+
+     /**
+	 * @developer: Neha thakur ->@created
+	 * Date: 27/12/2022
+	 * Description:Showed Recent product.
+	 */
+    public function recentViewed(){ 
+        $userid = Auth::user()->id;
+        $recent_count = Recentview::with('Product','user')
+        ->where('user_id',$userid)
+        ->orderBy('id','desc')   
+        ->count();
+        $recentview_list = Recentview::with('Product','user')
+        ->where('user_id',$userid)
+        ->orderBy('id','desc') 
+        ->take(6)   
+        ->get();
+        //dd($recentview_list);
+        return view('user.recent-viewed', compact('recentview_list','recent_count'));
+    }
+
+
+    /**
+	 * @developer: Neha thakur ->@created
+	 * Date: 28/01/2022
+	 * Description:Pepole Followed list.
+	 */
+    public function peopleifollow(){
+        $userid = Auth::user()->id;     
+        $ifollow_count = VendorFollower::all()->where('user_id',$userid)->count();
+        $follow = DB::table('vendor_followers')
+         ->join('users', 'users.id', '=', 'vendor_followers.vendor_id')
+         ->select('users.*','vendor_followers.*')
+         ->where('users.is_vendor','1')
+         ->where('vendor_followers.user_id', $userid)
+         ->get();        
+        $count = VendorFollower::all()->where('vendor_id');
+
+        // foreach($follow as $followed) {
+        //     $id= $followed->vendor_id;
+        //     foreach($count as $vl) {
+        //         if($id == $vl->vendor_id) {
+
+        //           $arr[]  = $vl->vendor_id;
+                  
+        //              $val  =  count($arr);
+        //         }            
+        //     }
+        // }
+               
+        return view('user.followed_view',compact('ifollow_count','follow','count'));
+    }
+
+    public function inbox(){ 
+       
+        return view('user.inbox');
+    }
+
+
+
+
+
+    public function unfollow(Request $request) {
+
+        if(Auth::user())
+        {  
+            $unfollow = DB::table('vendor_followers')->where('user_id', Auth::id())->where('vendor_id', $request->input('v_id'))->update(array('email_subscriber' => 0)); 
+            if($unfollow){
+                return response()->json('Unfollow Successfully!');
+            }          
+        
+        }
+   }
+
+   /**
+    * @developer:Neha kumari
+    * Date: 7/02/2022
+    *Decsribtion: Get Items by People I Follow
+    */
+    public function followitems() {
+        $userid = Auth::user()->id;       
+        $v_ids = DB::table('vendor_followers')
+         ->select('vendor_followers.user_id','vendor_followers.vendor_id')
+         ->where('vendor_followers.user_id', $userid)
+         ->get();
+         foreach($v_ids as $ids) {
+             $vendors_id[] = $ids->vendor_id;
+         } 
+        $followitems = Product::with('user')->whereIn('user_id',$vendors_id)->take(6)->get();
+        $count = Product::with('user')->whereIn('user_id',$vendors_id)->count();  
+        return view('user.itemsprople_followed',compact('followitems','count'));
+    }
+
+
+
+
+    
+   
+
+
 }

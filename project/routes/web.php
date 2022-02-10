@@ -889,6 +889,8 @@ Route::prefix('user')->group(function () {
 
   // User Dashboard
   Route::get('/dashboard', 'User\UserController@index')->name('user-dashboard');
+  Route::get('/recent-viewed', 'User\UserController@recentViewed')->name('user-recent-viewed');
+  Route::get('/inbox', 'User\UserController@inbox')->name('user-inbox');
 
   // User Login
   Route::get('/login', 'User\LoginController@showLoginForm')->name('user.login');
@@ -1023,6 +1025,13 @@ Route::prefix('user')->group(function () {
   // User Logout
   Route::get('/logout', 'User\LoginController@logout')->name('user-logout');
   // User Logout Ends
+// user Followed
+  Route::get('/followed', 'User\UserController@peopleifollow')->name('user.followed_view');
+  Route::get('/followeditems', 'User\UserController@followitems')->name('user.itemsprople_followed');
+  
+  
+
+  
 
 });
 
@@ -1049,6 +1058,13 @@ Route::group(['middleware' => 'maintenance'], function () {
       Route::get('/edit', 'Vendor\DallController@edit')->name('vendor-product-edit');
       Route::get('/addproduct', 'Vendor\DallController@addproductview')->name('vendor-prod-add-view');
       Route::post('/storeproduct', 'Vendor\DallController@store')->name('vendor-prod-add');
+      Route::get('/edit-product', 'Vendor\DallController@edit')->name('vendor-product-edit');
+      Route::get('/inbox', 'Vendor\InboxController@index')->name('vendor-inbox');
+      Route::get('/subscription', 'Vendor\SubscriptionController@index')->name('vendor-renew');
+      Route::get('/followers', 'Vendor\VendorController@followers')->name('vendor-followers');
+      Route::get('/review', 'Vendor\VendorController@review')->name('vendor-review');
+      Route::get('/myaccount', 'Vendor\VendorController@myaccount')->name('vendor-myaccount');
+      Route::get('/faq', 'Vendor\VendorController@faq')->name('vendor-faq');
 
 
 
@@ -1375,27 +1391,51 @@ Route::group(['middleware' => 'maintenance'], function () {
   // CRONJOB ENDS nnn
   
   // Route::view('/signin', 'front.signin')->name('front.signin');
-  Route::get('/signin', 'User\RegisterController@index')->name('front.signin');
+  Route::get('/user/signin', 'User\RegisterController@index')->name('front.signin');
   Route::get('/create-nursery', 'User\RegisterController@vendorindex')->name('front.createnursery');
   Route::get('/search','Front\SearchController@index')->name('front.search');
   Route::get('/nurseries','Front\NurseryController@index')->name('front.nurseries');
   Route::get('/nurseries/{alp?}','Front\NurseryController@searchbyalphabet')->name('front.nurseriesalphabet');
+  Route::get('/nurseries/country/{id}','Front\NurseryController@searchbycountry')->name('front.nurseriescountry');
   Route::get('/nursery/{slug}','Front\NurseryController@details')->name('front.nuserydetails');
   Route::get('/featured','Front\ProductController@productfeatured')->name('front.productfeatured');
-  Route::post('/dalls','Front\FrontendController@allitems')->name('front.allitems');
+  Route::get('/reborndolls','Front\ProductController@allitems')->name('front.allitems');
+  Route::post('/reborndolls','Front\ProductController@allitems')->name('front.allitems');
   Route::post('/nurserysearch','Front\NurseryController@search')->name('front.nurserysearch');
 
   // PAGE SECTION terms Terms & Condition page
   Route::get('/{slug}', 'Front\FrontendController@page')->name('front.page');
   // PAGE SECTION ENDS
   /**about us */
-  Route::get('/{slug}', 'Front\FrontendController@about')->name('front.about');
+  Route::get('/cms/about', 'Front\FrontendController@about')->name('front.about');
   // **********product category and ***************
-  Route::get('/{slug}','Front\ProductController@productcategory')->name('front.productcategory');
+  Route::get('/cat/{catslug}','Front\ProductController@productcategory')->name('front.productcategory');
   /*****PRODUCT DETAILS**** */
   Route::get('/item/{slug}','Front\ProductController@productdetails')->name('front.productdetails');
   
-  /****Get Product featured List******************* */
+  /****Get Product featured List********************/
+  
+  Route::get('/favorite/addfavorite', 'Front\FrontendController@favorite')->name('front.submit');
+  
+
+  Route::get('/viewmore/featured-view-more','Front\ViewmoreController@featured_view_more');
+
+  Route::get('/viewmore/categorydoll-view-more/{slug}','Front\ViewmoreController@productCate_view_more')->name('viewmore');
+
+  Route::get('/viewmore/nursery-view-more','Front\ViewmoreController@nursery_view_more');
+
+  Route::get('/viewmore/search-view-more/{slug}','Front\ViewmoreController@search_view_more');
+
+  Route::get('/recent/addrecent', 'Front\FrontendController@recentviews')->name('recent.views');
+
+  Route::get('/viewmore/fevrt-view-more', 'Front\ViewmoreController@fevertview_more');
+  Route::get('/viewmore/recent-view-more', 'Front\ViewmoreController@recenttview_more');
+
+  Route::get('/follow/user', 'Front\NurseryController@follow')->name('front.following');
+
+  Route::get('/unfollow/vendor', 'User\UserController@unfollow');
+  
+  Route::get('viewmore/followed-view-more', 'Front\ViewmoreController@flloweditemview_more');
   
   // ************************************ FRONT SECTION ENDS**********************************************
 });

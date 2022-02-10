@@ -41,6 +41,10 @@ class Product extends Model
             }
         });
     }
+    public function categories()
+{
+    return $this->belongsToMany(Category::class);
+}
 
     public function subcategory()
     {
@@ -490,6 +494,25 @@ class Product extends Model
         }
         return explode(',', $value);
     }
+// @Developer:Neha kumari
+    public function favoriteItems()
+    {
+        return $this->hasMany('App\Models\FavoriteItem');
+    }
 
+
+  
+
+  
+   
+   
+
+    
+
+    
+    
+
+
+    
    
 }

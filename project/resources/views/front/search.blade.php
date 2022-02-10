@@ -6,37 +6,27 @@
     <img src="{{asset('assets/front/images/banner-about.jpg')}}" class="img-fluid w-100" > 
 </div>
 </section>
-
-<!-- <section class="filter">
-    <div class="container">
-        <div class="row d-flex">
-                <div class="col-sm-6">
+ <!-- Main Slider End -->
+ <section class="filter">
+        <div class="container">
+            <div class="row d-flex">
+                    <div class="col-sm-6">
+                        <h1 class="filter-titel text-center" id="flip">Filters</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <h1 class="side-menu-panel">
+                            Menu
+                        </h1>
+                    </div>
                 </div>
-                <div class="col-sm-6">
-                    <h1 class="side-menu-panel" id="about-menu">
-                        Menu
-                    </h1>
-                </div>
+  
             </div>
+            <div class="menu-panel">
+             <button type="button" class="btn-close" ></button>
+             @include('front.menu')
+     </div>
+    </section>  
 
-        </div>
-        <div class="menu-panel">
-         <button type="button" class="btn-close"></button>
-            <ul class="cat-list">
-                <li><a href="#"> Home </a></li>
-                <li><a href="#"> Featured </a></li>
-                <li><a href="#"> custom Made</a></li>
-                <li><a href="#"> Collector Resale</a></li>
-                <li><a href="#"> Alternative</a></li>
-                <li><a href="#"> Atlas Art Dolls </a></li>
-                <li><a href="#"> Accessories </a></li>
-                <li><a href="#"> Adopted </a></li>
-                <li><a href="#"> Nurseries</a></li>
-                <li><a href="#"> Doll Kits</a></li>
-                <li><a href="#" class="nursery-btn">Create Your Nursery</a></li>
-            </ul>
-        </div>
-</section> -->
 @php
         $attrPrice = 0;
         $sessionCur = session()->get('currency');
@@ -55,14 +45,14 @@
                 <h2 class="font-weight-bold mb-6">Search result for "{{$search_val}}"</h2>
 
                 <div class="col-sm-12">
-                        <div class="row">
-                           
+                        <div class="row search-product">                           
                             @foreach($data as $serache_list)
                             <div class="col-sm-3">
-                                <div class="artist-product">
+                                <div class="artist-product search-product-box">
                                 <img src="{{asset('assets/images/products/'.$serache_list->photo)}}">
                                      <h5 class="ec-fs-pro-title">
-                                         <a href="{{ route('front.productdetails', $serache_list->slug) }}">
+                                         <a href="{{ route('front.productdetails', $serache_list->slug) }}" 
+                                         onclick="addrecent('{{$serache_list->id}}')">
                                              {{$serache_list->name}}
                                          </a>
                                      </h5>
@@ -81,107 +71,36 @@
                                              $datetime1 = new DateTime($date);
                                              $datetime2 = new DateTime($dt);
                                              $interval = $datetime1->diff($datetime2);
-                                             //echo $interval->format('%h')." Hours ".$interval->format('%i')." Minutes";
-                                        // {{$products->created_at}}  ?>
+                                             ?>
                                             </p>  
                                          <p class="artist-p-size">{{ $serache_list->length_by_inch}} " ({{$serache_list->length_by_centimeters}} cm)</p>
                                      </div>
                                      <div class="w-100 d-flex justify-content-between">
                                      <p class="time">{{ $attrPrice != 0 ?  $gs->currency_format == 0 ? $curr->sign.$withSelectedAtrributePrice : $withSelectedAtrributePrice.$curr->sign :$serache_list->showPrice() }}</p>
-                                            <p class="fabarite">Add to Favorities</p>
+                                     @php
+                                    $favorities_count = DB::table('favorite_items')->where('product_id', $serache_list->id)->count();
+                                    @endphp
+                                    <p  onclick="addfev('{{$serache_list->id}}')"><a href="javascript:void(0)">Add to Favorities {{$favorities_count}}</a></p>
                                      </div>
-                                     
+                                     <p class="ec-fs-pro-desc" id="{{$serache_list->id}}_favorite_msg"></p>
                                  </div>
                                 
                             </div>
-                            @endforeach
-                            
-                            <!-- <div class="col-sm-3">
-                                <div class="artist-product">
-                                    <img src="{{asset('assets/front/images/product-image/6.jpg')}}">
-                                     <h5 class="ec-fs-pro-title">
-                                         <a href="#">
-                                             Alica
-                                         </a>
-                                     </h5>
-                                     <p class="ec-fs-pro-desc">
-                                         Listed by Reborn Love(Momma Mary)
-                                     </p>
-                                     <div class="w-100 d-flex justify-content-between">
-                                         <p class="ec-fs-pro-desc-time">2 Hours ago</p>  
-                                         <p class="artist-p-size">19 " (48.2 cm)</p>
-                                     </div>
-                                     <div class="w-100 d-flex justify-content-between">
-                                         <p class="time">21001.30 INR</p>  <p class="fabarite">Add to Favorities</p>
-                                     </div>
-                                 </div>
-                            </div> -->
-                            <!-- <div class="col-sm-3">
-                                <div class="artist-product">
-                                    <img src="{{asset('assets/front/images/product-image/6.jpg')}}">
-                                     <h5 class="ec-fs-pro-title">
-                                         <a href="#">
-                                             Alica
-                                         </a>
-                                     </h5>
-                                     <p class="ec-fs-pro-desc">
-                                         Listed by Reborn Love(Momma Mary)
-                                     </p>
-                                     <div class="w-100 d-flex justify-content-between">
-                                         <p class="ec-fs-pro-desc-time">2 Hours ago</p>  
-                                         <p class="artist-p-size">19 " (48.2 cm)</p>
-                                     </div>
-                                     <div class="w-100 d-flex justify-content-between">
-                                         <p class="time">21001.30 INR</p>  <p class="fabarite">Add to Favorities</p>
-                                     </div>
-                                 </div>
-                            </div> -->
-                            <!-- <div class="col-sm-3">
-                                <div class="artist-product">
-                                    <img src="{{asset('assets/front/images/product-image/6.jpg')}}">
-                                     <h5 class="ec-fs-pro-title">
-                                         <a href="#">
-                                             Alica
-                                         </a>
-                                     </h5>
-                                     <p class="ec-fs-pro-desc">
-                                         Listed by Reborn Love(Momma Mary)
-                                     </p>
-                                     <div class="w-100 d-flex justify-content-between">
-                                         <p class="ec-fs-pro-desc-time">2 Hours ago</p>  
-                                         <p class="artist-p-size">19 " (48.2 cm)</p>
-                                     </div>
-                                     <div class="w-100 d-flex justify-content-between">
-                                         <p class="time">21001.30 INR</p>  <p class="fabarite">Add to Favorities</p>
-                                     </div>
-                                 </div>
-                            </div>
-                        </div> -->
-                        <!-- <div class="col-sm-3">
-                                <div class="artist-product">
-                                    <img src="{{asset('assets/front/images/product-image/6.jpg')}}">
-                                     <h5 class="ec-fs-pro-title">
-                                         <a href="#">
-                                             Alica
-                                         </a>
-                                     </h5>
-                                     <p class="ec-fs-pro-desc">
-                                         Listed by Reborn Love(Momma Mary)
-                                     </p>
-                                     <div class="w-100 d-flex justify-content-between">
-                                         <p class="ec-fs-pro-desc-time">2 Hours ago</p>  
-                                         <p class="artist-p-size">19 " (48.2 cm)</p>
-                                     </div>
-                                     <div class="w-100 d-flex justify-content-between">
-                                         <p class="time">21001.30 INR</p>  <p class="fabarite">Add to Favorities</p>
-                                     </div>
-                                 </div>
-                            </div>
-                        </div> -->
-                    </div>               
-                <div class="view-more-btn ">
-                    <a href="javascript:void(0)" class="text-white">View More Result</a>
-                </div>
+                            @endforeach                          
+                    </div>
+                     <?php  
+                 
+                
+                    ?>                    
+                             
+                   @if($count_search>4)                   
+                   <div class="view-more-btn search-doll-btns" search-totalResult="{{ $count_search }}"> 
+                  <a href="javascript:void(0)">View More Dolls</a>
+                  </div>
+                  
+                  @endif
+                  </div>
+                
             </div>
         </div>
     </div>

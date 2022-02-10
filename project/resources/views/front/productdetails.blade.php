@@ -1,8 +1,7 @@
 @extends('layouts.front')
 @section('content')
 <!-- menu section start -->
-@include('front.menu')
-<!-- <section class="filter">
+ <section class="filter">
         <div class="container">
             <div class="row d-flex">
                     <div class="col-sm-6">
@@ -18,20 +17,9 @@
             </div>
             <div class="menu-panel">
              <button type="button" class="btn-close" ></button>
-                <ul class="cat-list">
-                    <li><a href="{{url('') }}"> Home </a></li>
-                    <li><a href="{{url('')}}/product/featured"> Featured </a></li>                   
-                    <li><a href="{{url('')}}/categories/custom-made"> custom Made</a></li>
-                    <li><a href="{{url('')}}/categories/collector-resale"> Collector Resale</a></li>
-                    <li><a href="{{url('')}}/categories/alternative"> Alternative</a></li>
-                    <li><a href="#"> Atlas Art Dolls </a></li>
-                    <li><a href="{{url('')}}/categories/accessories"> Accessories </a></li>
-                    <li><a href="{{url('')}}/categories/adopted"> Adopted </a></li>
-                    <li><a href="{{url('')}}/categories/nurseries"> Nurseries</a></li>
-                    <li><a href="{{url('')}}/categories/doll-kits"> Doll Kits</a></li>
-                </ul>
+                @include('front.menu')
             </div>
-    </section> -->
+    </section>
 <!-- menu section end -->
  <!-- feature -->
  @php
@@ -81,7 +69,7 @@
                                 @foreach($vendor_img as $value)
                                 <div class="col-md-3">
                                 <img src="{{asset('assets/images/products/'.$value->photo)}}">
-                                   <p class="mt-2">{{$value->name}}<br>
+                                   <p class="mt-2"><a href="{{ route('front.productdetails', $value->slug) }}">{{$value->name}}</a><br>
                                    <!-- ₨{{$value->price}} INR -->                                   
                                 {{ $attrPrice != 0 ?  $gs->currency_format == 0 ? $curr->sign.$withSelectedAtrributePrice : $withSelectedAtrributePrice.$curr->sign :$value->showPrice() }}
 
@@ -167,21 +155,27 @@
                                 <img src="../assets/images/doll-woman.png" alt="">
                             </div>
                             <div class="col-md-4 p-0">
-                                <h4>Ashley Schlafer</h4>
-                                <p>Forever In Bloom Nursery<br>La Crescent , Minnesota</p>
+                                <h4>{{$user->name}}</h4>
+                                <p>Forever In {{$user->shop_name}}</p>
                             </div>
                             <div class="col-md-4 p-0">
                                 <a href="#">follow</a>
                             </div>
                             <div class="col-md-6 dol-text p-0">
-                                <p>13.7 months on Reborns<br><br>14 verified orders sold</p>
+                                @php
+                                $datetime1 = new DateTime();
+                                $datetime2 = new DateTime($user->created_at);
+                                $interval = $datetime1->diff($datetime2);
+                                $interval_format = $interval->format('%y years %m months and %d days');
+                                @endphp
+                                <p>{{$interval_format}} on Reborns<br><br>14 verified orders sold</p>
                             </div>
                             <div class="col-md-6 dol-text p-0">
-                                <p>125 followers<br><br>28 babies</p>
+                                <p>125 followers<br><br>{{count($vendor_img)}} babies</p>
                             </div>
                         </div>
                             <div class="doll-ashely-btn">
-                                <a href="#" class="nus-btn">Visit Nursery</a>
+                                <a href="{{ route('front.nuserydetails', $user->id)}}" class="nus-btn">Visit Nursery</a>
                                 <a href="#" class="nus-btn">Contact</a>
                             </div>
                     </div>

@@ -6,33 +6,41 @@
         <h2>{{$data->name}}</h2>
     </div>
 </section>
-@include('front.menu')
+<section class="filter">
+    <div class="container">
+        <div class="row d-flex">
+                <div class="col-sm-6">
+                </div>
+                <div class="col-sm-6">
+                    <h1 class="side-menu-panel" id="about-menu">
+                        Menu
+                    </h1>
+                </div>
+            </div>
+
+        </div>
+        <div class="menu-panel">
+         <button type="button" class="btn-close"></button>
+         @include('front.menu')
+        </div>
+</section>
 
 <section class="about-img-bottom">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-6">
                             <img src="./assets/images/about-man.jpg" alt="">
-                            <!-- <img src="{{ asset('assets/images') }}/{{ $data->featured_image }}" alt=""> -->
                         </div>
                         <div class="col-md-6">
-                            <!-- sub title -->
-                          <?php  echo $data->subtitle; ?>
-                            <!-- <h3>Hello! I'm Naccy York, the creator and operator of Reborns.</h3> -->
-                            <!-- paragraph 1 p1 b1-->
-                            <?php echo $data->body1; ?>
-                            <!-- b2 -->
-                            <!-- <article>Integer sagittis lacus nec commodo semper. Etiam ac mi at ante molestie maximus eu id velit. Nullam neque odio, varius </article> -->
-                        <?php echo $data->body2; ?>
+                            <h3>{{$data->title}}</h3>
+                            <p>{{$data->subtitle}}</p>
+                            <article>{{$data->body1}}</article>
                         </div>
                         <div class="col-md-12">
-                            <!-- paragraph 1 p2 b2-->
-                            <!-- <p class="bt-txt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam dui enim, eleifend nec pharetra nec, tincidunt nec magna. Aliquam tellus orci, interdum non ipsum semper, commodo varius urna. Praesent in vulputate ipsum, vel rhoncus nunc. Fusce ipsum magna, sodales vel pharetra in, laoreet vitae lectus. Suspendisse finibus elementum aliquam. Integer sagittis lacus nec commodo semper. Etiam ac mi at ante molestie maximus eu id velit. Nullam neque odio, varius id ipsum pulvinar, posuere hendrerit ligula. Nunc mauris neque, rhoncus at ex sed, semper posuere arcu. Nulla eget magna magna.</p> -->
-                       <?php echo $data->body3; ?>
+                            <p class="bt-txt">{{$data->body2}}</p>
                         </div>
                     </div>
                 </div>
             </section>
-
 
 @endsection

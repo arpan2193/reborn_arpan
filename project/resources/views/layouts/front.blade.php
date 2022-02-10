@@ -10,10 +10,10 @@
     <meta name="keywords" content="apparel, catalog, clean, ecommerce, ecommerce HTML, electronics, fashion, html eCommerce, html store, minimal, multipurpose, multipurpose ecommerce, online store, responsive ecommerce template, shops" />
     <meta name="description" content="Best ecommerce html template for single and multi vendor store.">
     <meta name="author" content="ashishmaraviya">
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
-
+    <meta name="csrf_token" content="{{ csrf_token() }}" />
+   
     <!-- site Favicon -->
-    <link rel="icon" href="{{asset('assets/front/images/favicon/favicon.png')}}" sizes="32x32" />
+    <link rel="icon"  type="image/x-icon" href="{{asset('assets/images/'.$gs->favicon)}}"/>
     <link rel="apple-touch-icon" href="{{asset('assets/front/images/favicon/favicon.png')}}" />
     <meta name="msapplication-TileImage" content="{{asset('assets/front/images/favicon/favicon.png')}}" />
 
@@ -69,7 +69,21 @@
                             <!-- Currency Start -->
                             <div class="header-top-curr dropdown">
                                 @if(Auth::user())
-                                <a class="g-color" href="{{ route('user-logout') }}" style="background: brown;">Logout</a>
+                                <button class="dropdown-toggle text-upper g-color" data-bs-toggle="dropdown">
+                                <span>My Account</span>
+                                <i class="ecicon eci-caret-down" aria-hidden="true"></i>
+                                </button>
+                                <ul class="dropdown-menu" id="drop-one">
+                                    @php
+                                        $user_type=DB::table('users')->where('id','=',Auth::user()->id)->first()->is_vendor;
+                                    @endphp
+                                    @if($user_type==1)
+                                    <li><a class="dropdown-item" href="{{route('vendor-dashboard')}}">Dashboard</a></li>
+                                    @else
+                                    <li><a class="dropdown-item" href="{{route('user-dashboard')}}">Dashboard</a></li>
+                                    @endif
+                                    <li><a class="dropdown-item" href="{{ route('user-logout') }}">Logout</a></li>
+                                </ul>
                                 @else
                                 <a class="g-color" href="{{ route('front.signin') }}">{{ $langg->lang12 }}</a>
                                 @endif
@@ -280,7 +294,7 @@
                 <div class="w-100 text-center mt-4">
                     <ul class="footer-list">
                         <li><a href="{{ route('front.index') }}">Home</a></li>
-                        <li><a href="{{ url('about-us') }}">About us</a></li>                    
+                        <li><a href="{{ url('about') }}">About us</a></li>                    
                         <li><a href="{{ url('contact') }}">Contect us</a></li>
                         <li><a href="{{ url('privacy') }}">Privacy</a></li>
                         <li><a href="{{ url('terms') }}">Terms</a></li>
@@ -292,10 +306,6 @@
                         <li><a href="{{ route('front.productcategory', 'adopted') }}">Adopted</a></li>
                         <li><a href="{{ route('front.nurseries') }}">Nurseries</a></li>
                     </ul>
-                    <!-- <ul class="footer-list">
-                        <li><a href="{{ url('terms') }}">Terms & Condition</a></li>
-                        <li><a href="{{ url('privacy') }}">Privacy & Policy</a></li>
-                    </ul> -->
                 </div>
                 <!-- Footer social Start -->
                 <div class="col text-center footer-bottom-left mt-4">
@@ -345,119 +355,59 @@
     </div>
 <!-- nehaa -->
 @php
- $cids = session()->get('cat_name');
-         
+ $cids = session()->get('cat_name'); 
 @endphp 
-
     <div class="panel">
         <button type="button" class="btn-close"></button>
         <p class="samll-para">Show these kinds of items:</p>
         <div class="w-100 d-flex">
+            <?php $filtervals = Session::get('filters'); ?>
             <form class="w-100" action="{{route('front.allitems')}}" method="POST">
             @csrf()
-                <div class="form-group form-check-box pl-0">
-                    
-                    <input type="checkbox" class="form-check-input2" id="exampleCheck1" name="cat[]" value="Pre-Loved" <?php
-                    if(!empty($cids)){
-                        foreach($cids as $id)
-                        {
-                            
-                             if ($id == '10') {
-                                 echo "checked";
-                             }
-                        } 
-                    } 
-                    ?> >
-                    <label class="form-check-label" for="exampleCheck1">Pre-Loved</label>
-                </div>
-                <div class="form-group form-check-box pl-0">
-                    <input type="checkbox" class="form-check-input2" id="exampleCheck1" name="cat[]" value="Alternative" <?php
-                    if(!empty($cids)){
-                        foreach($cids as $id)
-                        {
-                            
-                             if ($id == '4') {
-                                 echo "checked";
-                             }
-                        } 
-                    } 
-                    ?> >
-                    <label class="form-check-label" for="exampleCheck1">Alternative</label>
-                </div>
-                
-                <div class="form-group form-check-box pl-0">
-                    <input type="checkbox" class="form-check-input2" id="exampleCheck1" name="cat[]" value="Custom Made"
-                    <?php
-                    if(!empty($cids)){
-                        foreach($cids as $id)
-                        {
-                            
-                             if ($id == '2') {
-                                 echo "checked";
-                             }
-                        } 
-                    } 
-                    ?>
-                   >
-                    <label class="form-check-label" for="exampleCheck1">Custom Made</label>
-                </div>
-                <div class="form-group form-check-box pl-0">
-                    <input type="checkbox" class="form-check-input2" id="exampleCheck1" name="cat[]" value="Accessories"
-                    <?php
-                    if(!empty($cids)){
-                        foreach($cids as $id)
-                        {
-                            
-                             if ($id == '5') {
-                                 echo "checked";
-                             }
-                        } 
-                    } 
-                    ?>
-                    >
-                    <label class="form-check-label" for="exampleCheck1">Accessories</label>
-                </div>
-                <div class="form-group form-check-box pl-0">
-                    <input type="checkbox" class="form-check-input2" id="exampleCheck1" name="cat[]" value="Adopted"
-                    <?php
-                    if(!empty($cids)){
-                        foreach($cids as $id)
-                        {
-                            
-                             if ($id == '6') {
-                                 echo "checked";
-                             }
-                        } 
-                    } 
-                    ?>
-                    >
-                    <label class="form-check-label" for="exampleCheck1">Adopted</label>
-                </div>
+                @foreach(DB::table('categories')->get() as $filtercat)
+                    <div class="form-group form-check-box pl-0">
+                        <input type="checkbox" class="form-check-input2" id="exampleCheck1" name="cat[]" value="{{$filtercat->id}}" 
+                        <?php
+                            if(Session::has('filters') && isset($filtervals["cats"])){
+                                if(in_array($filtercat->id, $filtervals["cats"])){
+                                    echo "checked";
+                                }
+                            }
+                        ?>
+                        >
+                        <label class="form-check-label" for="exampleCheck1">{{$filtercat->name}}</label>
+                    </div>
+				@endforeach
                 <div class="form-group form-check-box pl-0">
                     <input type="checkbox" class="form-check-input2" id="exampleCheck1" name="cat" value="">
                     <label class="form-check-label" for="exampleCheck1">Only with Layaway</label>
                 </div>
 
                 <div class="w-100 mob-bre">
-                    <select class="selectpicker">
-                        <option>All Prices</option>
-                        <option>Ketchup</option>
-                        <option>Relish</option>
+                    <select class="selectpicker" name="price_range" >
+                        <option selected value="">All Prices</option>
+                        <option value="50"<?php if(Session::has('filters') && isset($filtervals["price_range"])){ if($filtervals["price_range"]=="50"){ echo "selected"; } }?>>up to $50</option>
+                        <option value="150" <?php if(Session::has('filters') && isset($filtervals["price_range"])){ if($filtervals["price_range"]=="150"){ echo "selected"; } }?>>up to $150</option>
+                        <option value="200" <?php if(Session::has('filters') && isset($filtervals["price_range"])){ if($filtervals["price_range"]=="200"){ echo "selected"; } }?>>up to $200</option>
+                        <option value="300" <?php if(Session::has('filters') && isset($filtervals["price_range"])){ if($filtervals["price_range"]=="300"){ echo "selected"; } }?>>up to $300</option>
+                        <option value="400" <?php if(Session::has('filters') && isset($filtervals["price_range"])){ if($filtervals["price_range"]=="400"){ echo "selected"; } }?>>up to $400</option>
+                        <option value="500" <?php if(Session::has('filters') && isset($filtervals["price_range"])){ if($filtervals["price_range"]=="500"){ echo "selected"; } }?>>over $500</option>
+                        
                     </select>
-                    <select class="selectpicker">
+                    <select class="selectpicker" name="page">
                         <option>All Sizes</option>
-                        <option>Ketchup</option>
-                        <option>Relish</option>
+                        <option value="asc">Asc</option>
+                        <option value="desc">Desc</option>
                     </select>
                     <select class="selectpicker">
                         <option>All Locations</option>
                         <option>Ketchup</option>
                         <option>Relish</option>
                     </select>
-                    <select class="selectpicker">
-                        <option>Sort By</option>
-                        <option>Ketchup</option>
-                        <option>Relish</option>
+                    <select class="selectpicker" name="sort_by">
+                        <option value="">Sort By</option>
+                        <option value="asc" <?php if(Session::has('filters') && isset($filtervals["sort"])){ if($filtervals["sort"]=="asc"){ echo "selected"; } } ?>>Asc</option>
+                        <option value="desc" <?php if(Session::has('filters') && isset($filtervals["sort"])){ if($filtervals["sort"]=="desc"){ echo "selected"; } } ?>>Desc</option>
                     </select>
                     <input type="submit" class="submit-button" value="Submit" name="">
                 </div>

@@ -33,27 +33,37 @@
 
                             @include('includes.admin.form-both')
 
-                            {{-- <div class="row justify-content-center">
-                                    <div class="col-lg-3">
-                                        <div class="left-area">
-                                            <h4 class="heading">
-                                                {{ __('About Page') }}:
-                            </h4>
+                        
+            <input type="hidden" name="pageId" value="{{$data->id}}">
+            <div class="row justify-content-center">
+                <div class="col-lg-3">
+                    <div class="left-area">
+                        <h4 class="heading">
+                            {{ __('About Image') }}
+                        </h4>
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <div class="action-list">
-                        <select class="process select droplinks {{ $gs->is_contact == 1 ? 'drop-success' : 'drop-danger' }}">
-                            <option data-val="1" value="{{ route('admin-gs-iscontact', 1) }}" {{ $gs->is_contact == 1 ? 'selected' : '' }}>{{ __('Activated') }}
-                            </option>
-                            <option data-val="0" value="{{ route('admin-gs-iscontact', 0) }}" {{ $gs->is_contact == 0 ? 'selected' : '' }}>
-                                {{ __('Deactivated') }}
-                            </option>
-                        </select>
+                    <div class="tawk-area">
+                        <img src="{{ asset('assets/images') }}/{{ $data->featured_image }}" alt="">
+                        <input type="hidden" name="previous_image" value="{{ $data->featured_image }}">
                     </div>
                 </div>
-            </div> --}}
-            <input type="hidden" name="pageId" value="{{$data->id}}">
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-3">
+                    <div class="left-area">
+                        <h4 class="heading">
+                            {{ __('Upload Image') }}
+                        </h4>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="tawk-area">
+                        <input type="file" accept="image/png,image/jpeg,image/jpg,image/gif" name="featured_image">
+                    </div>
+                </div>
+            </div>
             <div class="row justify-content-center">
                 <div class="col-lg-3">
                     <div class="left-area">
@@ -65,7 +75,7 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="tawk-area">
-                        <textarea class="nic-edit" name="title"> {{ $data->title }} </textarea>
+                        <input type="text" class="input-field" name="title" placeholder="{{ __('Title') }}" value="{{ $data->title }}" required="">
                     </div>
                 </div>
             </div>
@@ -73,118 +83,36 @@
                 <div class="col-lg-3">
                     <div class="left-area">
                         <h4 class="heading">
-                            {{ __('About Sub Title') }} *
+                            {{ __('About Text') }} 
                             {{-- <p class="sub-heading">{{ __(' ') }}</p> --}}
                         </h4>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="tawk-area">
-                        <textarea class="nic-edit" name="subtitle"> {{ $data->subtitle }} </textarea>
+                        <textarea class="nic-edit-p" name="subtitle"> {{ $data->subtitle }} </textarea>
                     </div>
                 </div>
             </div>
 
 
-            {{-- <div class="row justify-content-center">
-                              <div class="col-lg-3">
-                                <div class="left-area">
-                                  <h4 class="heading">
-                                      {{ __('Contact Us Email Address') }} *
-            </h4>
-        </div>
-    </div>
-    <div class="col-lg-6">
-        <input type="text" class="input-field" placeholder="{{ __('Contact Us Email Address') }}" name="contact_email" value="{{ $data->contact_email }}">
-
-    </div>
-</div> --}}
-{{-- <div class="row justify-content-center">
-                              <div class="col-lg-3">
-                                <div class="left-area">
-                                  <h4 class="heading">
-                                      {{ __('Contact Form Success Text') }} *
-<p class="sub-heading">{{ __(' ') }}</p>
-</h4>
-</div>
-</div>
-<div class="col-lg-6">
-    <div class="tawk-area">
-        <textarea name="contact_success"> {{ $data->contact_success }} </textarea>
-    </div>
-</div>
-</div> --}}
-
-{{-- <div class="row justify-content-center">
-                          <div class="col-lg-3">
-                            <div class="left-area">
-                                <h4 class="heading">{{ __('Email') }} *
-</h4>
-</div>
-</div>
-<div class="col-lg-6">
-    <input type="email" class="input-field" placeholder="{{ __('Enter Email') }}" name="email" value="{{ $data->email }}">
-</div>
-</div> --}}
 
 
-{{-- <div class="row justify-content-center">
-                          <div class="col-lg-3">
-                            <div class="left-area">
-                                <h4 class="heading">{{ __('Website') }} *
-</h4>
-</div>
-</div>
-<div class="col-lg-6">
-    <input type="text" class="input-field" placeholder="{{ __('Enter Website') }}" name="site" value="{{ $data->site }}">
-</div>
-</div> --}}
-
-<div class="row justify-content-center">
-    <div class="col-lg-3">
-        <div class="left-area">
-            <h4 class="heading">
-                {{ __('Previous Image') }}
-            </h4>
+        <div class="row justify-content-center">
+            <div class="col-lg-3">
+                <div class="left-area">
+                    <h4 class="heading">
+                        {{ __('Body 1') }} *
+                        {{-- <p class="sub-heading">{{ __(' ') }}</p> --}}
+                    </h4>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="tawk-area">
+                    <textarea class="nic-edit-p" name="body1"> {{ $data->body1 }} </textarea>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="col-lg-6">
-        <div class="tawk-area">
-            <img src="{{ asset('assets/images') }}/{{ $data->featured_image }}" alt="">
-            <input type="hidden" name="previous_image" value="{{ $data->featured_image }}">
-        </div>
-    </div>
-</div>
-<div class="row justify-content-center">
-    <div class="col-lg-3">
-        <div class="left-area">
-            <h4 class="heading">
-                {{ __('Upload Image') }}
-            </h4>
-        </div>
-    </div>
-    <div class="col-lg-6">
-        <div class="tawk-area">
-            <input type="file" accept="image/png,image/jpeg,image/jpg,image/gif" name="featured_image">
-        </div>
-    </div>
-</div>
-
-<div class="row justify-content-center">
-    <div class="col-lg-3">
-        <div class="left-area">
-            <h4 class="heading">
-                {{ __('Body 1') }} *
-                {{-- <p class="sub-heading">{{ __(' ') }}</p> --}}
-            </h4>
-        </div>
-    </div>
-    <div class="col-lg-6">
-        <div class="tawk-area">
-            <textarea class="nic-edit" name="body1"> {{ $data->body1 }} </textarea>
-        </div>
-    </div>
-</div>
 <div class="row justify-content-center">
     <div class="col-lg-3">
         <div class="left-area">
@@ -196,7 +124,7 @@
     </div>
     <div class="col-lg-6">
         <div class="tawk-area">
-            <textarea class="nic-edit" name="body2"> {{ $data->body2 }} </textarea>
+            <textarea class="nic-edit-p" name="body2"> {{ $data->body2 }} </textarea>
         </div>
         <div class="checkbox-wrapper">
             <input type="checkbox" name="secheck" class="checkclick" id="allowProductSEO" {{ $data->meta_key != null || strip_tags($data->meta_description) != null ? 'checked' : '' }}>
@@ -204,52 +132,7 @@
         </div>
     </div>
 </div>
-{{-- <div class="row justify-content-center">
-                                    <div class="col-lg-3">
-                                        <div class="left-area">
-                                            <h4 class="heading">
-                                                {{ __('Body 3') }} *
-<p class="sub-heading">{{ __(' ') }}</p>
-</h4>
-</div>
-</div>
-<div class="col-lg-6">
-    <div class="tawk-area">
-        <textarea class="nic-edit" name="body3"> {{ $data->body3 }} </textarea>
-    </div>
-</div>
-</div>
-<div class="row justify-content-center">
-    <div class="col-lg-3">
-        <div class="left-area">
-            <h4 class="heading">
-                {{ __('Body 4') }} *
-                <p class="sub-heading">{{ __(' ') }}</p>
-            </h4>
-        </div>
-    </div>
-    <div class="col-lg-6">
-        <div class="tawk-area">
-            <textarea class="nic-edit" name="body4"> {{ $data->body4 }} </textarea>
-        </div>
-    </div>
-</div>
-<div class="row justify-content-center">
-    <div class="col-lg-3">
-        <div class="left-area">
-            <h4 class="heading">
-                {{ __('Body 5') }} *
-                <p class="sub-heading">{{ __(' ') }}</p>
-            </h4>
-        </div>
-    </div>
-    <div class="col-lg-6">
-        <div class="tawk-area">
-            <textarea class="nic-edit" name="body5"> {{ $data->body5 }} </textarea>
-        </div>
 
-    </div>
-</div> --}}
 <div class="{{ $data->meta_key == null && strip_tags($data->meta_description) == null ? 'showbox' : '' }}">
     <div class="row">
         <div class="col-lg-4">

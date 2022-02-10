@@ -8,7 +8,7 @@
                     </div>
                     <div class="col-sm-6">
                         <h1 class="side-menu-panel" id="about-menu">
-                            Menu
+                            Menu 
                         </h1>
                     </div>
                 </div>
@@ -16,19 +16,7 @@
             </div>
             <div class="menu-panel">
              <button type="button" class="btn-close"></button>
-                <ul class="cat-list">
-                    <li><a href="#"> Home </a></li>
-                    <li><a href="#"> Featured </a></li>
-                    <li><a href="#"> custom Made</a></li>
-                    <li><a href="#"> Collector Resale</a></li>
-                    <li><a href="#"> Alternative</a></li>
-                    <li><a href="#"> Atlas Art Dolls </a></li>
-                    <li><a href="#"> Accessories </a></li>
-                    <li><a href="#"> Adopted </a></li>
-                    <li><a href="#"> Nurseries</a></li>
-                    <li><a href="#"> Doll Kits</a></li>
-                    <li><a href="#" class="nursery-btn">Create Your Nursery</a></li>
-                </ul>
+             @include('front.menu')
             </div>
     </section> 
     <!-- @include('front.menu') -->
@@ -47,7 +35,7 @@
                     <div class="artist-lft-top">
                         <div class="artist-lft">
                            <div class="top-margin">
-                               <img alt="artist-photo" src="assets/images/artist-photo.jpg">
+                               <img alt="artist-photo" src="{{asset('assets/front/images/artist-photo.jpg')}}">
                            </div>
                            <div>
                                <h4 class="brenda">Brenda Contreras</h4>
@@ -60,11 +48,19 @@
                         </ul>
                         <p class="followers">3 followers</p>
                         <p class="followers">Infants, sleeping, painted hair, realborn, reese (3)</p>
+                        <p class="ec-fs-pro-desc" id="follow_msg"></p> 
+                        
                         <div class="d-flex w-100 pt-4">
-                            <a class="Follow-btn" href="#">Follow</a> 
+                        
+                            
+                        <?php $currentURL =  request()->segment(2); ?>           
+                           <div class="Follow-btn user-follow-btn" onclick="followbtn('{{$currentURL}}')">
+                           <a href="javascript:void(0)">Follow</a>
+                        </div>
                             <a class="Follow-btn" href="#">Contact</a>
                         </div>
                     </div>
+
 
                 </div>
                 <div class="col-sm-8">
@@ -77,7 +73,7 @@
 
     <section class="artist-bottom-part listed-product">
         <div class="container">
-            <div class="row">
+            <div class="row nursery-product">
                <h1 class="hello-titel">Hello,</h1>
                <p class="hello-para">
                    My name is Brenda. I have been reborning since 2019. I took a break from selling my babies for a while, but have finally decided it is time to get my nursery up and running again. I make sure to use only quality supplies to reborn my babies. Reborning is something I absolutely love doing. I am so excited to share my art and passion with all of you once again!
@@ -85,13 +81,13 @@
                
                @foreach($nurseries_product as $value)            
                <div class="col-sm-3" id="posts"> 
-                    <div class="ec-spe-products">                       
+                    <div class="ec-spe-products nursery-product-box">                       
                         <div class="artist-product-new">                        
                             <div class="ec-fs-pro-inner">
                                 <img src="{{asset('assets/images/products/'.$value->photo)}}">
                                 <h5 class="ec-fs-pro-title">
-                                    <a href="{{ route('front.productdetails', $value->slug) }}">
-                                       {{$value->name}}                                       
+                                    <a href="{{ route('front.productdetails', $value->slug) }}" onclick="addrecent('{{$value->id}}')">
+                                       {{$value->name}}  {{$value->user_id}}                                     
                                     </a>
                                 </h5>
                                 <p class="ec-fs-pro-desc">
@@ -114,8 +110,16 @@
                             </div>
                                 <div class="w-100 d-flex justify-content-between">
                                 <p class="time">{{ $attrPrice != 0 ?  $gs->currency_format == 0 ? $curr->sign.$withSelectedAtrributePrice : $withSelectedAtrributePrice.$curr->sign :$value->showPrice() }}</p>
-                                <p class="fabarite">Add to Favorities</p>
-                                </div>                                
+
+                               @php
+                                    $favorities_count = DB::table('favorite_items')->where('product_id', $value->id)->count();
+                                @endphp
+                                <p  onclick="addfev('{{$value->id}}')"><a href="javascript:void(0)">Add to Favorities
+                                     {{$favorities_count}}</a>
+                               </p>
+
+                                </div> 
+                                <p class="ec-fs-pro-desc" id="{{$value->id}}_favorite_msg"></p>                               
                             </div>                            
                         </div>                     
             </div>           
@@ -124,12 +128,18 @@
         <div id="grid"></div>           
     </section>
      
-    <div class="view-more-btn featrured-doll-btn" id="load_more_button" >        
-    <!-- <a href="{{ route ('front.nuserydetails', $value->user_id)}}/?page="> -->
-        View More Nursery Dolls</a>                    
-    </div> 
+                <?php  $currentURL =  request()->segment(1);
+                       ?>
+                                                            
+                 @if($nurseries_count>4)                
+                 <div class="view-more-btn nursery-doll-btns" nursery-totalResult="{{ $nurseries_count }}" 
+                 slugid="{{$value->user_id}}"> 
+                <a href="javascript:void(0)">View More Dolls</a>
+                </div>                
+                @endif
 @endsection
 <script type="text/javascript">
-			  var mainurl = "{{url('/')}}/nursery/{{$value->user_id}}";
-              </script>
+var mainurl = "{{url('/')}}/nursery/{{$value->user_id}}";
+</script>
+
 

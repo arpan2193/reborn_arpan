@@ -5,11 +5,37 @@
 <section class="about-text">
         <div class="about-img">
             <img src="{{asset('assets/images/bgfeatured.jpg')}}" class="img-fluid w-100">
-            <h2>Dalls</h2>
+            <h2>Dolls</h2>
         </div>
     </section>
     
-    @include('front.menu', ['ids' => $ids])
+      <!-- Main Slider End -->
+      <section class="filter">
+        <div class="container">
+            <div class="row d-flex">
+                    <div class="col-sm-6">
+                        <h1 class="filter-titel text-center" id="flip">Filters</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <h1 class="side-menu-panel">
+                            Menu
+                        </h1>
+                    </div>
+                </div>
+  
+            </div>
+            <div class="menu-panel">
+             <button type="button" class="btn-close" ></button>
+             @include('front.menu')
+     </div>
+    </section> 
+    @php
+        $attrPrice = 0;
+        $sessionCur = session()->get('currency');
+        $sessionCurr = DB::table('currencies')->where('id',$sessionCur)->first();
+        $databaseCurr = DB::table('currencies')->where('is_default',1)->first();
+        $curr = $sessionCurr ? $sessionCurr: $databaseCurr;
+    @endphp 
     
     <!-- menu section end -->
      <section class="listed-product featured-bg-lis mt-4">
@@ -37,7 +63,7 @@
                                             </a>
                                         </h5>
                                         <p class="ec-fs-pro-desc">
-                                            Listed by Reborn Love(Momma Mary)
+                                           Listed by {{ $products->user->shop_name}}({{$products->user->name}})
                                         </p>
                                         <div class="w-100 d-flex justify-content-between">
                                         <p class="ec-fs-pro-desc-time">
@@ -58,10 +84,14 @@
                                                echo $days =$diff->format("%a days"); 
                                             }
                                          ?>
-                                         
+                                          <p class="artist-p-size">{{ $products->length_by_inch}} " ({{$products->length_by_centimeters}} cm)</p>
                                     </div>
                                         <div class="w-100 d-flex justify-content-between">
-                                            <p class="time">{{$products->price}} INR</p>  <p class="fabarite">Add to Favorities</p>
+                                            <p class="time">
+                                            {{ $attrPrice != 0 ?  $gs->currency_format == 0 ? $curr->sign.$withSelectedAtrributePrice : $withSelectedAtrributePrice.$curr->sign :$products->showPrice() }}
+                                            
+                                           </p> 
+                                             <p class="fabarite">Add to Favorities</p>
                                         </div>
                                     </div>
                                 </div>

@@ -24,19 +24,7 @@
         </div>
         <div class="menu-panel">
             <button type="button" class="btn-close"></button>
-            <ul class="cat-list">
-                <li><a href="#"> Home </a></li>
-                <li><a href="#"> Featured </a></li>
-                <li><a href="#"> custom Made</a></li>
-                <li><a href="#"> Collector Resale</a></li>
-                <li><a href="#"> Alternative</a></li>
-                <li><a href="#"> Atlas Art Dolls </a></li>
-                <li><a href="#"> Accessories </a></li>
-                <li><a href="#"> Adopted </a></li>
-                <li><a href="#"> Nurseries</a></li>
-                <li><a href="#"> Doll Kits</a></li>
-                <li><a href="#" class="nursery-btn">Create Your Nursery</a></li>
-            </ul>
+            @include('front.menu')
         </div>
 </section>
 
@@ -49,43 +37,7 @@
             <div class="row">
             
             <div class="col-md-3">
-                <div class="ec-shop-leftside ec-vendor-sidebar ">
-                    <div class="ec-sidebar-wrap">
-                        <!-- Sidebar Category Block -->
-                        <div class="ec-sidebar-block">
-                            <div class="ec-vendor-block">
-                                
-                                <div class="ec-vendor-block-detail">
-                                    <img class="v-img" src="assets/images/avatar.webp" alt="vendor image">
-                                    <h5>Seller Name</h5>
-                                    <a href="edit-profile.html" class="edit-btn">Change Profile Photo</a>
-                                    <div class="seller">
-                                        <ul>
-                                            <li><a href="seller-review.html">Review</a></li>
-                                            <li><a href="#">Followers</a></li>
-                                        </ul>
-                                    </div>
-                                    
-                                </div>
-                                <div class="ec-vendor-block-items">
-                                    <ul>
-                                        <li><a href="#">Main</a></li>
-                                        <li><a href="#">Edit Dolls</a></li>
-                                        <li><a href="#">Add Doll/Accessory</a></li>
-                                        <li><a href="#">Inbox</a></li>
-                                        <li><a href="#">Orders</a></li>
-                                        <li><a href="#">Renew Membership</a></li>
-                                        <li><a href="#">View Nursery</a></li>
-                                        <li><a href="#">My Account</a></li>
-                                        <li><a href="#">FAQ</a></li>
-                                        <li><a href="#">Logout</a></li>
-                                    </ul>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @include('vendor.sidebar')
             </div>
             
             <div class="col-md-9">

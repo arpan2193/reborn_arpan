@@ -29,13 +29,15 @@ class SearchController extends Controller
 	
 
 	public function index(Request $request)
-	{	 
+	{	 //dd($request);
 		$search_val = $request->input('s');
 		$data = array();
-		//dd($search_val); 'like', "%{$categorie}%"
-		$data =  Product::with('user')->where('name','like', "{$search_val}%")->where('user_id','!=',0)->where('status','=',1)->orderBy('id','desc')->take(6)->get();
+		$count_search =  Product::with('user')->where('name','like', "{$search_val}%")->where('user_id','!=',0)->where('status','=',1)->orderBy('id','desc')->count();
+		$data =  Product::with('user')->
+		where('name','like', "{$search_val}%")->where('user_id','!=',0)
+		->where('status','=',1)->orderBy('id','desc')->take(4)->get();
        // dd($data);
-		return view('front.search', compact('data','search_val'));
+		return view('front.search', compact('data','search_val','count_search'));
 	}
 
 }

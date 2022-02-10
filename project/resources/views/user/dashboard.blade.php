@@ -39,6 +39,14 @@
        </div>
 </section>
 
+@php
+        $attrPrice = 0;
+        $sessionCur = session()->get('currency');
+        $sessionCurr = DB::table('currencies')->where('id',$sessionCur)->first();
+        $databaseCurr = DB::table('currencies')->where('is_default',1)->first();
+        $curr = $sessionCurr ? $sessionCurr: $databaseCurr;        
+    @endphp
+
 <!-- --------------------edit account------------- -->
 
 <div class="edit-account">
@@ -71,93 +79,56 @@
                     </div>
 
                     <div class="col-md-9">
-                        <div class="row">
+                        <div class="row fevrt-product">
                             <h4 class="mb-4 text-capitalize">My Favorites</h4>
+                            @foreach($fevrt_list as $list)
                             <div class="col-sm-4">
-                                <div class="ec-spe-products1">
-                                    <div class="artist-product-new">
-                                        <img src="{{asset('assets/images/products/12.jpg')}}">
+                                <div class="ec-spe-products1 fevrt-product-box">
+                                    <div class="artist-product-new fevrt-productss">
+                                    <img src="{{asset('assets/images/products/'.$list->product->photo)}}">
                                     </div>
+                                    @foreach($list->product->galleries as $gal)
                                     <div class="artist-product-new">
-                                        <img src="{{asset('assets/images/products/12.jpg')}}">
+                                    <img src="{{asset('assets/images/galleries/'.$gal->photo)}}">
                                     </div>
-                                </div>
+                                    @endforeach
+                                </div>                                
+                                
                                 <div class="ec-fs-pro-inner">
                                     <h5 class="ec-fs-pro-title">
-                                        <a href="#">
-                                            Alica
+                                    <a href="{{ route('front.productdetails', $list->product->slug) }}" onclick="addrecent('{{$list->product->id}}')">
+                                        {{$list->product->name}}
                                         </a>
                                     </h5>
                                     <p class="ec-fs-pro-desc">
-                                        Listed by Reborn Love(Momma Mary)
+                                    Listed by 
+                                    {{ $list->user->shop_name}}({{$list->user->name}})
                                     </p>
                                     <div class="w-100 d-flex justify-content-between">
-                                        <p class="ec-fs-pro-desc-time">2 Hours ago</p>
-                                        <p class="artist-p-size">19 " (48.2 cm)</p>
+                                        <p class="ec-fs-pro-desc-time">
+                                        <?php 
+                                           $dt = $list->product->created_at;
+                                           $date = date('m/d/Y h:i:s a', time());                                       
+                                            $date1=date_create($dt);
+                                            $date2=date_create($date);
+                                            $diff=date_diff($date1,$date2);
+                                            echo $days =$diff->format("%a days"); 
+                                             $datetime1 = new DateTime($date);
+                                             $datetime2 = new DateTime($dt);
+                                             $interval = $datetime1->diff($datetime2);
+                                        ?>
+                                        </p>
+                                        <p class="artist-p-size">{{ $list->product->length_by_inch}} " ({{$list->product->length_by_centimeters}} cm)</p>
                                     </div>
                                     <div class="w-100 d-flex justify-content-between">
-                                        <p class="time">21001.30 INR</p>
-                                        <p class="fabarite">Add to Favorities</p>
+                                        <p class="time">{{ $attrPrice != 0 ?  $gs->currency_format == 0 ? $curr->sign.$withSelectedAtrributePrice : $withSelectedAtrributePrice.$curr->sign :$list->product->showPrice() }}</p>
                                     </div>
                                 </div>
+                               
                             </div>
-                            <div class="col-sm-4">
-                                <div class="ec-spe-products1">
-                                    <div class="artist-product-new">
-                                        <img src="{{asset('assets/images/products/13.jpg')}}">
-                                    </div>
-                                    <div class="artist-product-new">
-                                        <img src="{{asset('assets/images/products/1.jpg')}}">
-                                    </div>
-                                </div>
-                                <div class="ec-fs-pro-inner">
-                                    <h5 class="ec-fs-pro-title">
-                                        <a href="#">
-                                            Alica
-                                        </a>
-                                    </h5>
-                                    <p class="ec-fs-pro-desc">
-                                        Listed by Reborn Love(Momma Mary)
-                                    </p>
-                                    <div class="w-100 d-flex justify-content-between">
-                                        <p class="ec-fs-pro-desc-time">2 Hours ago</p>
-                                        <p class="artist-p-size">19 " (48.2 cm)</p>
-                                    </div>
-                                    <div class="w-100 d-flex justify-content-between">
-                                        <p class="time">21001.30 INR</p>
-                                        <p class="fabarite">Add to Favorities</p>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
 
-                            <div class="col-sm-4">
-                                <div class="ec-spe-products1">
-                                    <div class="artist-product-new">
-                                        <img src="{{asset('assets/images/products/14.jpg')}}">
-                                    </div>
-                                    <div class="artist-product-new">
-                                        <img src="{{asset('assets/images/products/1.jpg')}}">
-                                    </div>
-                                </div>
-                                <div class="ec-fs-pro-inner">
-                                    <h5 class="ec-fs-pro-title">
-                                        <a href="#">
-                                            Alica
-                                        </a>
-                                    </h5>
-                                    <p class="ec-fs-pro-desc">
-                                        Listed by Reborn Love(Momma Mary)
-                                    </p>
-                                    <div class="w-100 d-flex justify-content-between">
-                                        <p class="ec-fs-pro-desc-time">2 Hours ago</p>
-                                        <p class="artist-p-size">19 " (48.2 cm)</p>
-                                    </div>
-                                    <div class="w-100 d-flex justify-content-between">
-                                        <p class="time">21001.30 INR</p>
-                                        <p class="fabarite">Add to Favorities</p>
-                                    </div>
-                                </div>
-                            </div>
+                            
                         </div>
 
                     </div>
@@ -170,6 +141,9 @@
     </div>
 </div>
 
-
-
+    @if($fevrt_count>6)
+   <div class="view-more-btn fevrt-doll-btns" fevrt-totalResult="{{$fevrt_count}}" > 
+    <a href="javascript:void(0)">View More Dolls</a>
+    </div>
+    @endif 
 @endsection

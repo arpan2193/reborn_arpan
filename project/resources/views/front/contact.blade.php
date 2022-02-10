@@ -8,37 +8,24 @@
         <h2>contact us</h2>
     </div>
 </section>
-@include('front.menu')
-<!-- <section class="filter">
-        <div class="container">
-            <div class="row d-flex">
-                    <div class="col-sm-6">
-                        <h1 class="filter-titel text-center" id="flip">Filters</h1>
-                    </div>
-                    <div class="col-sm-6">
-                        <h1 class="side-menu-panel">
-                            Menu
-                        </h1>
-                    </div>
+<section class="filter">
+    <div class="container">
+        <div class="row d-flex">
+                <div class="col-sm-6">
                 </div>
+                <div class="col-sm-6">
+                    <h1 class="side-menu-panel" id="about-menu">
+                        Menu
+                    </h1>
+                </div>
+            </div>
 
-            </div>
-            <div class="menu-panel">
-             <button type="button" class="btn-close" ></button>
-                <ul class="cat-list">
-                    <li><a href="{{url('') }}"> Home </a></li>
-                    <li><a href="{{url('')}}/product/featured"> Featured </a></li>                   
-                    <li><a href="{{url('')}}/categories/custom-made"> custom Made</a></li>
-                    <li><a href="{{url('')}}/categories/collector-resale"> Collector Resale</a></li>
-                    <li><a href="{{url('')}}/categories/alternative"> Alternative</a></li>
-                    <li><a href="#"> Atlas Art Dolls </a></li>
-                    <li><a href="{{url('')}}/categories/accessories"> Accessories </a></li>
-                    <li><a href="{{url('')}}/categories/adopted"> Adopted </a></li>
-                    <li><a href="{{url('')}}/categories/nurseries"> Nurseries</a></li>
-                    <li><a href="{{url('')}}/categories/doll-kits"> Doll Kits</a></li>
-                </ul>
-            </div>
-    </section> -->
+        </div>
+        <div class="menu-panel">
+         <button type="button" class="btn-close"></button>
+         @include('front.menu')
+        </div>
+</section>
 <!---------- About Bottom End --------->
 <!---------- Contact Img Bottom --------->
 <section class="contact-img-bottom">

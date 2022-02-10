@@ -9,10 +9,12 @@ use App\Models\Counter;
 use App\Models\Generalsetting;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Category;
 use App\Models\Slider;
 use App\Models\Subscriber;
 use App\Models\User;
 use App\Models\Gallery;
+use App\Models\FavoriteItem;
 use App\Models\Custom_page;
 use App\Models\Socialsetting;
 use Carbon\Carbon;
@@ -22,6 +24,7 @@ use Illuminate\Support\Facades\Session;
 use InvalidArgumentException;
 use Markury\MarkuryPost;
 use Validator;
+use Illuminate\Support\Facades\Auth;
 
 class FrontendController extends Controller
 {
@@ -45,7 +48,7 @@ class FrontendController extends Controller
 		$just_listed = Product::with('user')->where('user_id','!=',0)->where('status','=',1)->orderBy('id','desc')->take(8)->get();
 		$alternative_doll =  Product::with('user')->where('category_id','=',4)->where('user_id','!=',0)->where('status','=',1)->orderBy('id','desc')->take(6)->get();
 		$nurseries =  User::with('products')->where('is_vendor','=',1)->orderBy('id','desc')->get();	
-
+        // dd($adoption_doll);
 	return view('front.index', compact('sliders','data','prod_category','adoption_doll','reborn_doll','just_listed', 'alternative_doll', 'nurseries'));
 	}
 
@@ -83,12 +86,11 @@ class FrontendController extends Controller
 	 * Date: 27/12/2021
 	 * Description: About us page.
 	 */
-	public function about($slug) 
+	public function about() 
 	{
-		$data =  DB::table('custom_pages')->where('slug', $slug)->first();
-		if ($data == null) {
-			$data =  DB::table('custom_pages')->where('slug', $slug)->first();
-		}
+		
+		$data =  DB::table('custom_pages')->where('slug', 'about')->first();
+		
 		if (empty($data)) {
 			return response()->view('errors.404')->setStatusCode(404);
 		}
@@ -102,14 +104,6 @@ class FrontendController extends Controller
 	public function page($slug)
 	{
 		$page =  DB::table('pages')->where('slug', $slug)->first();
-		
-		if ($page == null) {
-			$page =  DB::table('custom_pages')->where('slug', $slug)->first();
-		}
-		if (empty($page)) {
-			return response()->view('errors.404')->setStatusCode(404);
-		}
-
 		return view('front.page', compact('page'));
 	}
 
@@ -155,36 +149,66 @@ class FrontendController extends Controller
 		return redirect()->back();
 	}
 
-	// LANGUAGE SECTION ENDS
 /**
- * Developer:Neha kumari ->creted
- * Date:13/01/2022
- * Description: Category Filter session added
+ * Name:Neha Kumari
+ * Date:20/01/2021
+ * Description: Add Fevret Product submit
  */
-	public function allitems(Request $request){
 
-		$search_val = $request->input('cat');
-		$dalls = array();
+public function favorite(Request $request)
+{
+ 	if(Auth::user())
+	 {  
+		$get_vendor = DB::table('users')->where('id', Auth::id())->where('is_vendor', 1)->get();
+		if(count($get_vendor)>0){
+			return response()->json('<span style="color:red">Error!</span>');
+		}else{
+			$added = DB::table('favorite_items')->where('product_id', $request->input('proid'))->where('user_id', Auth::id())->get();
+			if(count($added)>0){
+				return response()->json('Favorite already added!');
+			}else{
+				DB::table('favorite_items')->insert(['product_id' => $request->input('proid'), 'user_id' => Auth::id()]);
+				return response()->json('Favorite added successfully');
+			}
+		}
 		
-		$dalls = DB::table('products')
-			 ->join('categories', 'categories.id', '=', 'products.category_id')
-			 ->select('categories.id','products.*')
-			->whereIn('categories.name',$search_val)
-			->where('products.user_id','!=',0)
-			->where('products.status','=',1)
-			->groupBy('categories.id')
-			 ->orderBy('products.id','desc')
-			 ->get(); 
-			 
-			 $ids = array();
-			 foreach($dalls as $val) {
-				$ids[] = $val->category_id;
-			 }
-		 Session::put('cat_name',$ids);
-		return view('front.allitems', compact('dalls', 'ids'));
+	}else{
+		return response()->json('<span style="color:red">First signin then add favorite product!</span>');
+	}
+	
+}
+
+/**
+ * Name:Neha Kumari
+ * Date:27/01/2021
+ * Description: Recent View Products submit 
+ */
+public function Recentviews(Request $request)
+{
+	if(Auth::user())
+	{  
+	   $get_vendor = DB::table('users')->where('id', Auth::id())->where('is_vendor', 1)->get();
+	   if(count($get_vendor)>0){
+		   return response()->json('<span style="color:red">Error!</span>');
+	   }else{
+		   $adrecent_view = DB::table('recent_view_items')->where('product_id', $request->input('proid'))->where('user_id', Auth::id())->get();
+		  
+		   if(count($adrecent_view)>0){
+			   return response()->json();
+		   }else{
+			   DB::table('recent_view_items')->insert(['product_id' => $request->input('proid'), 'user_id' => Auth::id()]);
+			   return response()->json();
+		   }
 	   }
+	   
+   }else{
+	   return response()->json();
+   }	
 
 }
 
-// $dalls =  Product::with('user')->where('name','like', "{$search_val}%")->where('user_id','!=',0)->where('status','=',1)->orderBy('id','desc')->take(6)->get();
-		// $dalls = Product::with('user')->where('user_id','!=',0)->where('status','=',1)->orderBy('id','desc')->take(8)->get(); 
+
+	
+
+}
+

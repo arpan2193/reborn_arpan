@@ -92,7 +92,12 @@
 
                             <div class="ec-vendor-dashboard-card ">
                                 <div class="card-inr">
-
+                                    <div class="alert-danger">
+                                        <p></p>
+                                    </div>
+                                    <div class="alert-success">
+                                        <p></p>
+                                    </div>
                                     <h5>Posting Rules: </h5>
                                     <p class="m-0">Do not post contests or auctions.</p>
                                     <p class="m-0">Do not redirect people to other web sites for more information
@@ -135,6 +140,7 @@
 
                                                 <input type="text" class="form-control mt-2" placeholder="Type Here" name="kit_name">
                                             </div>
+                                            <input type="hidden" placeholder="{{ __('Enter Product Sku') }}" name="sku" value="{{ Str::random(3).substr(time(), 6,8).Str::random(3) }}">
                                             <div class="form-group mb-4">
                                                 <h5>Sculptor Name <span>(Leave blank if unknown or not
                                                         applicable)</span></h5>
@@ -1587,15 +1593,16 @@
 
                                             <div class="col-md-4">
                                                 <p>Worldwide Shipping</p>
+                                                <input type="hidden" name="shipping_charges[country_name][]" value="world_wide">
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control" name="shipping_charges[shipping_cost][]">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control" name="shipping_charges[shipping_notes][]">
                                                 </div>
                                             </div>
 
@@ -1605,17 +1612,17 @@
 
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control" name="shipping_charges[country_name][]">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control" name="shipping_charges[shipping_cost][]">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control" name="shipping_charges[shipping_notes][]">
                                                 </div>
                                             </div>
 
@@ -1624,73 +1631,77 @@
 
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control" name="shipping_charges[country_name][]">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control" name="shipping_charges[shipping_cost][]">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control" name="shipping_charges[shipping_notes][]">
                                                 </div>
                                             </div>
+
                                         </div>
                                         <div class="row mt-4">
 
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control" name="shipping_charges[country_name][]">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control" name="shipping_charges[shipping_cost][]">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control" name="shipping_charges[shipping_notes][]">
                                                 </div>
                                             </div>
+
                                         </div>
                                         <div class="row mt-4">
 
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control" name="shipping_charges[country_name][]">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control" name="shipping_charges[shipping_cost][]">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control" name="shipping_charges[shipping_notes][]">
                                                 </div>
                                             </div>
+
                                         </div>
                                         <div class="row mt-4">
 
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control" name="shipping_charges[country_name][]">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control" name="shipping_charges[shipping_cost][]">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control" name="shipping_charges[shipping_notes][]">
                                                 </div>
                                             </div>
+
                                         </div>
                                         <div class="row">
                                             {{-- <div class="col-md-5">

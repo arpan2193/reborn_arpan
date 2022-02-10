@@ -54,7 +54,7 @@ class RegisterController extends Controller
 			return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
 		}
 		//--- Validation Section Ends
-
+		
 		$user = new User;
 		$input = $request->all();
 		// dd($input);   
@@ -140,4 +140,5 @@ class RegisterController extends Controller
 			return redirect()->back();
 		}
 	}
+
 }

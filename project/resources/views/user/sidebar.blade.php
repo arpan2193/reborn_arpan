@@ -13,12 +13,12 @@
                 </div>
                 <div class="ec-vendor-block-items">
                     <ul>
-                        <li><a href="#">Favorites</a></li>
-                        <li><a href="#">Recent Viewed</a></li>
-                        <li><a href="#">Inbox</a></li>
+                        <li><a href="{{ route('user-dashboard') }}">Favorites</a></li>
+                        <li><a href="{{ route('user-recent-viewed') }}">Recent Viewed</a></li>
+                        <li><a href="{{ route('user-inbox') }}">Inbox</a></li>
                         <li><a href="#">Orders</a></li>
-                        <li><a href="#">Items by People I Follow</a></li>
-                        <li><a href="#">People I Follow</a></li>
+                        <li><a href="{{ route('user.itemsprople_followed')}}">Items by People I Follow</a></li>
+                        <li><a href="{{route('user.followed_view')}}">People I Follow</a></li>
                         <li><a href="{{ route('user-logout') }}">Logout</a></li>
                     </ul>
 

@@ -117,7 +117,7 @@ $(function ($) {
     //  SUBSCRIBE FORM SUBMIT SECTION ENDS
 
 
-    // LOGIN FORM
+    // LOGIN FORM nnnn
     $("#loginform").on('submit', function (e) {
       
       var $this = $(this).parent();
@@ -260,7 +260,7 @@ $(function ($) {
     // REGISTER FORM ENDS
 
 
-    // MODAL REGISTER FORM
+    // MODAL REGISTER FORM refer kk
     $(".mregisterform").on('submit', function (e) {
       e.preventDefault();
       var $this = $(this).parent();
@@ -1470,6 +1470,15 @@ $('#track-form').on('submit',function(e){
 });
 
 let originalurl = window.location.origin;
+
+//////Reborn code start
+
+
+//local
+const main_url = window.location.origin +"/reborn";
+//sis
+//const main_url = window.location.origin +"/storage/dev/reborn";
+
 // MODAL LOGIN FORM
       $(".mloginform").on('submit', function (e) {
       
@@ -1515,27 +1524,7 @@ let originalurl = window.location.origin;
 
     });
     // MODAL LOGIN FORM ENDS
-    var pageNumber = 2;
-     $('#load_more_button').click(function(){
-     
-// function loadMoreData(){
-//   alert(mainurl); 
-  $.ajax({
-      type : 'POST',
-      url: mainurl+"?page=" +pageNumber,
-      success : function(data){
-          pageNumber +=1;
-              if(data.length == 0){
-                  // :( no more articles
-              }else{
-                  $('#grid').append(data.html);
-              }
-      },error: function(data){
-
-      },
-  })  
-// }
-});
+    
 
 
 // MODAL REGISTER FORM
@@ -1612,7 +1601,7 @@ $(".addproductvendor").on('submit', function (e) {
         alert("Your Product Succcesfully Added! Thank You.");
 		    $('.selected-image .row').html('');
 		    $('.addproductvendor').find('.removegal').val(0);
-        // window.reload();
+        location.reload();
         // console.log(mainurl);
         // window.location = mainurl + '/user/dashboard';
       }else {
@@ -1702,3 +1691,303 @@ $('.remove-img').on('click', function () {
   $('#galval' + id).remove();
   $(this).parent().parent().remove();
 });
+
+
+//GALLERY PORTION OF ADD PRODUCT NURSERY end
+
+$(".featrured-doll-btn").on('click',function(){
+  var _totalCurrentResult=$(".featured-product-box").length;
+    $.ajax({
+      url:main_url+'/viewmore/featured-view-more',
+      type:'get',
+      dataType:'json',
+      data:{
+          skip:_totalCurrentResult
+      },
+      beforeSend:function(){
+          $(".featrured-doll-btn").html('Loading...');
+      },
+      success:function(response){
+        $(".featured-product").append(response);
+        $(".featrured-doll-btn").html('<a href="javascript:void(0)">View More Featured Dolls</a>');
+        var _totalCurrentResult=$(".featured-product-box").length;
+        var _totalResult=parseInt($(".featrured-doll-btn").attr('featured-totalResult'));
+        console.log(_totalCurrentResult);
+        console.log(_totalResult);
+        if(_totalCurrentResult==_totalResult){
+            $(".featrured-doll-btn").remove();
+        }
+      }
+  });
+  
+});
+
+ /**
+ * Name:Neha Kumari
+ * Date:20/01/2022
+ * Description: View more Product Cateory
+ */  
+$(".category-doll-btns").on('click',function(){
+  
+  var slug = $(".category-doll-btns").attr('slugid');
+  var _totalCurrentResult=$(".category-product-box").length;
+    $.ajax({
+      url:main_url+'/viewmore/categorydoll-view-more/'+slug,
+      type:'get',
+      dataType:'json',
+      data:{
+          skip:_totalCurrentResult
+         },
+      beforeSend:function(){
+          $(".category-doll-btns").html('Loading...');
+      },
+      success:function(response){
+        $(".category-product").append(response);
+        $(".category-doll-btns").html('<a href="javascript:void(0)">View More Dolls</a>');
+        var _totalCurrentResult=$(".category-product-box").length;
+        var _totalResult=parseInt($(".category-doll-btns").attr('category-totalResult'));
+        console.log(_totalCurrentResult);
+        console.log(_totalResult);
+        if(_totalCurrentResult==_totalResult){
+            $(".category-doll-btns").remove();
+        }
+      }
+  });  
+});
+/**
+ * Name:Neha Kumari
+ * Date:20/01/2022
+ * Description: View more Product nurseries
+ */ 
+ $(".nursery-doll-btns").on('click',function(){
+  
+   var slugid = $(".nursery-doll-btns").attr('slugid');
+  var _totalCurrentResult=$(".nursery-product-box").length;
+    $.ajax({
+      url:main_url+'/viewmore/nursery-view-more/',
+      type:'get',
+      dataType:'json',
+      data:{
+          skip:_totalCurrentResult,
+          nid:slugid
+         },
+      beforeSend:function(){
+          $(".nursery-doll-btns").html('Loading...');
+      },
+      success:function(response){
+        $(".nursery-product").append(response);
+        $(".nursery-doll-btns").html('<a href="javascript:void(0)">View More Dolls</a>');
+        var _totalCurrentResult=$(".nursery-product-box").length;
+        var _totalResult=parseInt($(".nursery-doll-btns").attr('nursery-totalResult'));
+        console.log(_totalCurrentResult);
+        console.log(_totalResult);
+        if(_totalCurrentResult==_totalResult){
+            $(".nursery-doll-btns").remove();
+        }
+      }
+  });  
+});
+/**
+ * Name:Neha Kumari
+ * Date:20/01/2022
+ * Description: View more Product Search
+ */ 
+ $(".search-doll-btns").on('click',function(){
+  
+   var inputsearch = $("#s").val();
+  var _totalCurrentResult=$(".search-product-box").length;
+    $.ajax({
+      url:main_url+'/viewmore/search-view-more/'+inputsearch,
+      type:'get',
+      dataType:'json',
+      data:{
+          skip:_totalCurrentResult
+         },
+      beforeSend:function(){
+          $(".search-doll-btns").html('Loading...');
+      },
+      success:function(response){
+        $(".search-product").append(response);
+        $(".search-doll-btns").html('<a href="javascript:void(0)">View More Dolls</a>');
+        var _totalCurrentResult=$(".search-product-box").length;
+        var _totalResult=parseInt($(".search-doll-btns").attr('search-totalResult'));
+        console.log(_totalCurrentResult);
+        console.log(_totalResult);
+        if(_totalCurrentResult==_totalResult){
+            $(".search-doll-btns").remove();
+        }
+      }
+  });  
+});
+
+/**
+ * Name:Neha Kumari
+ * Date:20/01/2022
+ * Description: User View more fevrt Product 
+ *  */ 
+ $(".fevrt-doll-btns").on('click',function(){
+ var _totalCurrentResult=$(".fevrt-product-box").length;
+   $.ajax({
+     url:main_url+'/viewmore/fevrt-view-more/',
+     type:'get',
+     dataType:'json',
+     data:{
+         skip:_totalCurrentResult
+        },
+     beforeSend:function(){
+         $(".fevrt-doll-btns").html('Loading...');
+     },
+     success:function(response){
+       $(".fevrt-product").append(response);
+       $(".fevrt-doll-btns").html('<a href="javascript:void(0)">View More Dolls</a>');
+       var _totalCurrentResult=$(".fevrt-product-box").length;
+       var _totalResult=parseInt($(".fevrt-doll-btns").attr('fevrt-totalResult'));
+       console.log(_totalCurrentResult);
+       console.log(_totalResult);
+       if(_totalCurrentResult==_totalResult){
+           $(".fevrt-doll-btns").remove();
+       }
+     }
+ });  
+});
+
+
+/**
+ * Name:Neha Kumari
+ * Date:20/01/2022
+ * Description: User View more Recent Product 
+ *  */ 
+ $(".recent-doll-btns").on('click',function(){
+  var _totalCurrentResult=$(".recent-product-box").length;
+    $.ajax({
+      url:main_url+'/viewmore/recent-view-more/',
+      type:'get',
+      dataType:'json',
+      data:{
+          skip:_totalCurrentResult
+         },
+      beforeSend:function(){
+          $(".recent-doll-btns").html('Loading...');
+      },
+      success:function(response){
+        $(".recent-product").append(response);
+        $(".recent-doll-btns").html('<a href="javascript:void(0)">View More Dolls</a>');
+        var _totalCurrentResult=$(".recent-product-box").length;
+        var _totalResult=parseInt($(".recent-doll-btns").attr('recent-totalResult'));
+        console.log(_totalCurrentResult);
+        console.log(_totalResult);
+        if(_totalCurrentResult==_totalResult){
+            $(".recent-doll-btns").remove();
+        }
+      }
+  });  
+ });
+
+ /**
+ * Name:Neha Kumari
+ * Date:20/01/2022
+ * Description: Add recent Product 
+ */
+  function addrecent(proid){
+    $.ajax({   
+      method: "get",
+      url: main_url+'/recent/addrecent',
+      data:{proid:proid},
+      dataType: 'JSON',
+      success: function (response) {
+        $("#"+proid+"_recent_msg").html(response);
+      }
+     });
+  }
+
+
+
+/**
+ * Name:Neha Kumari
+ * Date:20/01/2022
+ * Description: Add Fevret Product submit
+ */
+ function addfev(proid){
+  $.ajax({   
+    method: "get",
+    url: main_url+'/favorite/addfavorite',
+    data:{proid:proid},
+    dataType: 'JSON',
+    success: function (response) {
+      $("#"+proid+"_favorite_msg").html(response);
+    }
+   });
+}
+
+/**
+ * @developer:Neha Kumari
+ * Date:27/01/2022
+ * Description:user Follow vendor 
+ */
+ function followbtn(v_id){
+  $.ajax({   
+    method: "get",
+    url: main_url+'/follow/user',
+    data:{v_id:v_id},
+    dataType: 'JSON',
+    success: function (response) {
+     $("#"+"follow_msg").html(response);
+    }
+   });
+  }
+
+  /**
+ * @developer:Neha Kumari
+ * Date:27/01/2022
+ * Description:user UnFollow vendor 
+ */
+ function unfollow(v_id){
+  $.ajax({   
+    method: "get",
+    url: main_url+'/unfollow/vendor',
+    data:{v_id:v_id},
+    dataType: 'JSON',
+    success: function (response) {
+      alert(response);
+      window.location.reload();
+    }
+   });
+  }
+
+  /**
+ * Name:Neha Kumari
+ * Date:20/01/2022
+ * Description: User View more fevrt Product 
+ *  */ 
+ $(".followed-doll-btns").on('click',function(){
+  var _totalCurrentResult=$(".followed-product-box").length;
+    $.ajax({
+      url:main_url+'/viewmore/followed-view-more',
+      type:'get',
+      dataType:'json',
+      data:{
+          skip:_totalCurrentResult
+         },
+      beforeSend:function(){
+          $(".followed-doll-btns").html('Loading...');
+      },
+      success:function(response){
+        $(".followed-product").append(response);
+        $(".followed-doll-btns").html('<a href="javascript:void(0)">View More Dolls</a>');
+        var _totalCurrentResult=$(".followed-product-box").length;
+        var _totalResult=parseInt($(".followed-doll-btns").attr('followed-totalResult'));
+        console.log(_totalCurrentResult);
+        console.log(_totalResult);
+        if(_totalCurrentResult==_totalResult){
+            $(".followed-doll-btns").remove();
+        }
+      }
+  });  
+ });
+
+
+
+
+
+
+
