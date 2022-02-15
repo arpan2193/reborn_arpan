@@ -47,7 +47,45 @@
                     <div class="row">
 
                         <div class="col-md-3">
-                            @include('vendor.sidebar')
+                            <div class="ec-shop-leftside ec-vendor-sidebar ">
+                                <div class="ec-sidebar-wrap">
+                                    <!-- Sidebar Category Block -->
+                                    <div class="ec-sidebar-block">
+                                        <div class="ec-vendor-block">
+
+                                            <div class="ec-vendor-block-detail">
+                                                <img class="v-img" src="assets/images/avatar.webp"
+                                                    alt="vendor image">
+                                                <h5>{{ $user->name }}</h5>
+                                                <a href="edit-profile.html" class="edit-btn">Change Profile Photo</a>
+                                                <div class="seller">
+                                                    <ul>
+                                                        <li><a href="seller-review.html">Review</a></li>
+                                                        <li><a href="#">Followers</a></li>
+                                                    </ul>
+                                                </div>
+
+                                            </div>
+                                            <div class="ec-vendor-block-items">
+                                                <ul>
+                                                    <li><a href="{{ route('vendor-dashboard') }}">Main</a></li>
+                                                    <li><a href="{{ route('vendor-product-edit') }}">Edit Dolls</a></li>
+                                                    <li><a href="{{ route('vendor-prod-add-view') }}">Add
+                                                            Doll/Accessory</a></li>
+                                                    <li><a href="#">Inbox</a></li>
+                                                    <li><a href="#">Orders</a></li>
+                                                    <li><a href="#">Renew Membership</a></li>
+                                                    <li><a href="#">View Nursery</a></li>
+                                                    <li><a href="#">My Account</a></li>
+                                                    <li><a href="#">FAQ</a></li>
+                                                    <li><a href="#">Logout</a></li>
+                                                </ul>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="col-md-9">
@@ -173,7 +211,8 @@
                                                     {{-- <select class="form-select ">
                                                         <option>USD</option>
                                                         @foreach ($currencies as $currency)
-                                                            <option value={{ $currency->id }}>
+                                                            <option value={{ $currency->id }}
+                                                                <?= //$currency->is_default == 1 ? 'selected' : '' ?>>
                                                                 {{ $currency->name }}</option>
                                                         @endforeach
                                                         <option>AUD</option>

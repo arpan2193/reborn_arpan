@@ -52,11 +52,10 @@
                                            <img class="v-img" src="{{($user->photo) ? asset("assets/images/users/".$user->photo) : asset("images/products/avatar.webp") }}" alt="vendor image">
                                          </div>
                                          <div class="col-md-9">
-                                          <h3>Veronika Paints</h3>
-                                          <h4>VSartDolls</h4>
-                                          <h6>Followers :	275 </h6>
-                                          <h6>Email Subscribers :	260 </h6>
-                                         
+                                          <h3>{{$user->name}}</h3>
+                                          <h4>{{$user->shop_name}}</h4>
+                                          <h6>Followers : {{$ifollow_count}}</h6>
+                                          <h6>Email Subscribers : {{$email_subscribers}}</h6>                                         
                                          </div>
                                      </div>
                                  </div>
@@ -81,31 +80,18 @@
                                                </tr>
                                              </thead>
                                              <tbody>
+                                                 @foreach($ifollow_user as $user_list)
                                                <tr>
-                                                 <td>Adrena Donnelly</td>
-                                                 <td>United States</td>
-                                                 <td ><i class="ecicon eci-check text-success"></i></td>
-                                                 <td>Block</td>
+                                                 <td>{{$user_list->name}}</td>
+                                                 <td>{{$user_list->user_country}}</td>
+                                                 <td>
+                                                    <i class="ecicon eci-check {{$user_list->email_subscriber==1?"text-success":"text-danger"}} style="height:auto" id="test"></i>
+                                                   
+                                                </td>
+                                                 <td><a href="javascript:void(0)" onclick="blockfollow('{{$user_list->user_id}}')">Block</a>
+                                                </td>
                                                </tr>
-                                               <tr>
-                                                   <td>Aimee Wagner</td>
-                                                   <td>United States</td>
-                                                   <td ><i class="ecicon eci-check text-success"></i></td>
-                                                   <td>Block</td>
-                                                 </tr>
-                                                 <tr>
-                                                   <td>Aishah C</td>
-                                                   <td>United States</td>
-                                                   <td ><i class="ecicon eci-check text-success"></i></td>
-                                                   <td>Block</td>
-                                                 </tr>
-                                                 <tr>
-                                                   <td>Alicia Gillespie</td>
-                                                   <td>United States</td>
-                                                   <td ><i class="ecicon eci-check text-success"></i></td>
-                                                   <td>Block</td>
-                                                 </tr>
-                                              
+                                              @endforeach
                                              </tbody>
                                         </table>
                                    </div>

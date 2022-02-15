@@ -42,7 +42,7 @@
             
             <div class="col-md-9">
                 
-                    <div class="ec-vendor-dashboard-card ">
+                    {{-- <div class="ec-vendor-dashboard-card ">
                         <div class="card-inr">
                         
                                 <div class="seller-review">
@@ -107,33 +107,40 @@
                                 </div>
                             </div>
                             </div>
-                    </div>
+                    </div> --}}
+                    @if(!empty($products))
+                    @foreach($products as $product)
                     <div class="ec-vendor-dashboard-card mt-4">
                         <div class="card-inr">
                         
                                 <div class="seller-review">
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <img class="v-img" src="assets/images/avatar.webp" alt="vendor image">
-                                        <p>Reborn Baby
-                                        Ready for shipping
-                                        Layaway Available
-                                        Item is New</p>
+                                        <img class="v-img" src="{{asset('assets/images/thumbnails/'.$product->thumbnail.'')}}" alt="vendor image">
+                                        <p>Reborn Baby</p>
+                                        <p>Ready for shipping</p>
+                                        <p>{{($product->layaway_available == '1') ? 'Layaway Available' : 'No Layaway'}}</p>
+                                        <p>{{($product->neworold == 'new') ? 'Item is new' : 'Item is old'}}</p>
                                     </div>
                                     <div class="col-md-9">
-                                        <h3 class="text-dark"><a href="#" class="text-dark">Esmee </a></h3>
-                                        <h5>Price : 425 USD</h5>
-                                        <h5>Posted : 36 days Ago</h5>
+                                        <h3 class="text-dark"><a href="{{route('vendor-prod-edit-view',$product->id)}}" class="text-dark">{{$product->name}} </a></h3>
+                                        <h5>Price : {{$product->price}} USD</h5>
+                                        <h5>Posted : @php
+                                            $from = strtotime($product->created_at);
+                                            $today = time();
+                                            $difference = $today - $from;
+                                            echo floor($difference / 86400);
+                                        @endphp days Ago</h5>
                                         <p></p>
                                         <form>
                                             <div class="form-group row">
                                                 <h6 class="font-weight-bold text-dark col-md-3">Status</h6>
                                                 <select class="form-select col-md-6">
-                                                <option>For Adoption</option>
-                                                <option>Adopted</option>
-                                                <option>Nursery Only</option>
-                                                <option>Hidden</option>
-                                                <option>Reserved</option>
+                                                <option value="for_adoption" {{($product->itemstatus=='for_adoption') ? 'selected' : ''}}>For Adoption</option>
+                                                <option value="adopted" {{($product->itemstatus=='adopted') ? 'selected' : ''}}>Adopted</option>
+                                                <option value="nursery_only" {{($product->itemstatus=='nursery_only') ? 'selected' : ''}}>Nursery Only</option>
+                                                <option value="hidden" {{($product->itemstatus=='hidden') ? 'selected' : ''}}>Hidden</option>
+                                                <option value="reserved" {{($product->itemstatus=='reserved') ? 'selected' : ''}}>Reserved</option>
                                                 </select>
                                                 <div class="col md-3"></div>
                                             </div>
@@ -174,6 +181,10 @@
                             </div>
                             </div>
                     </div>
+                    @endforeach
+                    @else
+                    <div>No Products For this Seller</div>
+                    @endif
                     <div class="text-center mt-4">
                         <button class="btn edit-btn" style="height: 60px;">Set Order</button>
                     </div>

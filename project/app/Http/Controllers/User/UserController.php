@@ -57,7 +57,7 @@ class UserController extends Controller
     public function profileupdate(Request $request)
     {
         //--- Validation Section
-
+          
         $rules =
             [
                 'photo' => 'mimes:jpeg,jpg,png,svg',
@@ -221,8 +221,8 @@ class UserController extends Controller
 
     public function profile_update(Request $request)
     {
+        
         // --- Validation Section
-
         $rules =
             [
                 'full_name' => 'required',
@@ -331,7 +331,10 @@ class UserController extends Controller
 
         if(Auth::user())
         {  
-            $unfollow = DB::table('vendor_followers')->where('user_id', Auth::id())->where('vendor_id', $request->input('v_id'))->update(array('email_subscriber' => 0)); 
+            $unfollow = DB::table('vendor_followers')
+            ->where('user_id', Auth::id())
+            ->where('vendor_id', $request->input('v_id'))
+            ->update(array('email_subscriber' => 0)); 
             if($unfollow){
                 return response()->json('Unfollow Successfully!');
             }          

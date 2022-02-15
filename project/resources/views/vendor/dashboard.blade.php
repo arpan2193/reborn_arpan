@@ -36,58 +36,15 @@
             <div class="row">
                 <div class="col-md-10 mx-auto">
                     <div class="row">
-
                         <div class="col-md-3">
-                            <div class="ec-shop-leftside ec-vendor-sidebar ">
-                                <div class="ec-sidebar-wrap">
-                                    <!-- Sidebar Category Block -->
-                                    <div class="ec-sidebar-block">
-                                        <div class="ec-vendor-block">
-
-                                            <div class="ec-vendor-block-detail">
-                                                <img class="v-img" src="assets/images/avatar.webp"
-                                                    alt="vendor image">
-                                                <h5>{{$user->name}}</h5>
-                                                <a href="edit-profile.html" class="edit-btn">Change Profile Photo</a>
-                                                <div class="seller">
-                                                    <ul>
-                                                        <li><a href="seller-review.html">Review</a></li>
-                                                        <li><a href="#">Followers</a></li>
-                                                    </ul>
-                                                </div>
-
-                                            </div>
-                                            <div class="ec-vendor-block-items">
-                                                <ul>
-                                                    <li><a href="{{ route('vendor-dashboard') }}">Main</a></li>
-                                                    <li><a href="{{ route('vendor-product-edit') }}">Edit Dolls</a></li>
-                                                    <li><a href="{{route('vendor-prod-add-view')}}">Add Doll/Accessory</a></li>
-                                                    <li><a href="#">Inbox</a></li>
-                                                    <li><a href="#">Orders</a></li>
-                                                    <li><a href="#">Renew Membership</a></li>
-                                                    <li><a href="#">View Nursery</a></li>
-                                                    <li><a href="#">My Account</a></li>
-                                                    <li><a href="#">FAQ</a></li>
-                                                    <li><a href="#">Logout</a></li>
-                                                </ul>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                             @include('vendor.sidebar')
                         </div>
-
                         <div class="col-md-9">
                             <div class="ec-vendor-dashboard-card ">
-
                                 <div class="card-inr">
                                     <div class="ec-vendor-card-header p-0">
                                         <form class="row g-3">
-
                                             <div class="col-auto">
-
                                                 <input type="text" class="form-control" style="height: 31px !important;
                                                   min-height: 0;">
                                             </div>
@@ -95,77 +52,69 @@
                                                 <button type="submit" class="btn btn-primary mb-3">Search Forum</button>
                                             </div>
                                             <div class="col-auto">
-                                                <a class="btn btn-success" href="#">Post New Topic</a>
+                                                <a class="btn btn-success" href="{{route('vendor-createforum')}}">Post New Topic</a>
                                             </div>
                                         </form>
-
                                     </div>
-
-
-
+                                    @if(count($forums)>0)
+                                    @foreach($forums as $forum)
                                     <div class="message bg-light row ">
                                         <div class="col-md-2">
-                                            <img src="assets/images/avatar.webp" alt="Avatar">
+                                            <img src="{{($forum->photo) ? asset("assets/images/users/".$forum->photo) : asset("images/products/avatar.webp") }}" alt="Avatar">
                                         </div>
                                         <div class="col-md-10">
-                                            <h5>Andrea Wilson </h5>
+                                            <h5>{{$forum->name}}</h5>
                                             <h6>Andi Pandi Reborns</h6>
                                             <span> Ohio</span>
-                                            <p>Does anyone know if Joanna Kazmierczac is for sure cancelling the Lou Lou
-                                                Awake production in vinyl due to scam replications? I saw it was cancelled
-                                                but on her Insta, I see she’s working on the full body…silicone? Thanks.</p>
-                                            <span class="time-right pr-4">9 hours ago</span>
-                                            <i class="ecicon eci-thumbs-up"></i>
+                                            <p>{{$forum->blog}}</p>
+                                            <p><span class="time-right pr-4">9 hours ago</span>
+                                            <i class="ecicon eci-thumbs-up"></i> {{ $forum->likes}} </p>
+                                            @if(count($forum->comments)>0)
+                                            @foreach($forum->comments as $forumcomment)
                                             <div class="row message bg-darker">
                                                 <div class="col-md-2">
-                                                    <img src="assets/images/avatar.webp" alt="Avatar">
+                                                    <img src="{{($forumcomment->photo) ? asset("assets/images/users/".$forumcomment->photo) : asset("images/products/avatar.webp") }}" alt="Avatar">
                                                 </div>
                                                 <div class="col-md-10">
-                                                    <h5>Cynthia Jansik </h5>
+                                                    <h5>{{$forumcomment->name}}</h5>
                                                     <h6>Sweet Dreams Reborn Artistry</h6>
                                                     <span> Florida</span>
-                                                    <p>From what I understand she WILL NOT be releasing a VINYL version of
-                                                        Loulou awake because of a counterfeit that’s already started
-                                                        circling around. But she is working on a silicone one.</p>
-                                                    <span class="time-right pr-4">6 hours ago</span>
-                                                    <i class="ecicon eci-thumbs-up"></i>
+                                                    <p>{{$forumcomment->blog}}</p>
+                                                    <p><span class="time-right pr-4">6 hours ago</span>
+                                                    <i class="ecicon eci-thumbs-up"></i> {{$forumcomment->likes}} </p>
                                                 </div>
                                             </div>
+                                            @endforeach
+                                            @endif
                                             <div class="row message bg-darker">
                                                 <div class="col-md-2">
-                                                    <img src="assets/images/avatar.webp" alt="Avatar">
+                                                    <img src="{{($user->photo) ? asset("assets/images/users/".$user->photo) : asset("images/products/avatar.webp") }}" alt="Avatar">
                                                 </div>
                                                 <div class="col-md-10">
-                                                    <form action="">
+                                                    <form action="{{route('vendor-storenewreplyforum')}}" method="post">
+                                                        @csrf
+                                                        <input type="hidden" name="pid" value="{{$forum->id}}">
                                                         <textarea class="form-control mb-4"
-                                                            placeholder="Write a Comment"></textarea>
+                                                            placeholder="Write a Comment" name="forum" required=""></textarea>
                                                         <button class="btn btn-success" ">Submit</button>
-                                                        </form>
-                                                    </div>
-                                                 </div>
-                                            </div>
-                                            
-                                          </div>
-                                          <div class=" text-center">
-                                                            <button class="btn edit-btn" style="height: 50px;">View More
-                                                                Posting</button>
+                                                    </form>
                                                 </div>
-
-
-
-
                                             </div>
-
-                                        </div>
+                                        </div>  
                                     </div>
-
+                                    @endforeach
+                                    @endif
+                                    <div class=" text-center">
+                                        <button class="btn edit-btn" style="height: 50px;">View More Posting</button>
+                                    </div>
                                 </div>
-
                             </div>
-
                         </div>
                     </div>
                 </div>
-
+            </div>
+        </div>
+    </div>
+   
 
             @endsection

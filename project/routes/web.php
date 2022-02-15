@@ -158,7 +158,7 @@ Route::prefix('admin')->group(function () {
   //------------ ADMIN AFFILIATE PRODUCT SECTION ENDS ------------
 
 
-  //------------ ADMIN USER SECTION ------------
+  //------------ ADMIN USER SECTION ------neha1------
 
   Route::group(['middleware' => 'permissions:customers'], function () {
 
@@ -912,7 +912,7 @@ Route::prefix('user')->group(function () {
   Route::get('/profile', 'User\UserController@profile')->name('user-profile');
   Route::post('/profile', 'User\UserController@profileupdate')->name('user-profile-update');
 
-  // update profile
+  // update profile kkkkkkk
 
   Route::get('/profile-update', 'User\UserController@edit')->name('user-profile-edit');
   Route::post('/profile-update', 'User\UserController@profile_update')->name('profile-update');
@@ -1052,19 +1052,32 @@ Route::group(['middleware' => 'maintenance'], function () {
 
 
     Route::group(['middleware' => 'vendor'], function () {
-      // Vendor Dashboard
-
+    // Vendor Dashboard
       Route::get('/dashboard', 'Vendor\VendorController@index')->name('vendor-dashboard');
       Route::get('/edit', 'Vendor\DallController@edit')->name('vendor-product-edit');
       Route::get('/addproduct', 'Vendor\DallController@addproductview')->name('vendor-prod-add-view');
       Route::post('/storeproduct', 'Vendor\DallController@store')->name('vendor-prod-add');
       Route::get('/edit-product', 'Vendor\DallController@edit')->name('vendor-product-edit');
+      Route::get('/vendor-edit-prod/{id}','Vendor\DallController@editprodform')->name('vendor-prod-edit-view');
       Route::get('/inbox', 'Vendor\InboxController@index')->name('vendor-inbox');
+      Route::get('/createforum', 'Vendor\VendorController@createNewforum')->name('vendor-createforum');
+      Route::post('/createforum', 'Vendor\VendorController@storeNewforum')->name('vendor-storenewforum');
+      Route::post('/createreplyforum', 'Vendor\VendorController@storeNewReplyforum')->name('vendor-storenewreplyforum');
+      Route::get('/edit', 'Vendor\DollController@edit')->name('vendor-product-edit');
+      Route::get('/addproduct', 'Vendor\DollController@addproductview')->name('vendor-prod-add-view');
+      Route::post('/storeproduct', 'Vendor\DollController@store')->name('vendor-prod-add');
+      Route::get('/edit-product', 'Vendor\DollController@edit')->name('vendor-product-edit');
+      Route::get('/inbox', 'Vendor\MailboxController@index')->name('vendor-inbox');
+      Route::get('/sent', 'Vendor\MailboxController@sentmail')->name('vendor-sentmail');
+      Route::get('/blocked', 'Vendor\MailboxController@blockedmail')->name('vendor-blockedmail');
+      Route::get('/deleted', 'Vendor\MailboxController@deletedmail')->name('vendor-deletedmail');
       Route::get('/subscription', 'Vendor\SubscriptionController@index')->name('vendor-renew');
       Route::get('/followers', 'Vendor\VendorController@followers')->name('vendor-followers');
       Route::get('/review', 'Vendor\VendorController@review')->name('vendor-review');
       Route::get('/myaccount', 'Vendor\VendorController@myaccount')->name('vendor-myaccount');
+      Route::post('/myaccount', 'Vendor\VendorController@vendorupdate')->name('profile-edit');
       Route::get('/faq', 'Vendor\VendorController@faq')->name('vendor-faq');
+
 
 
 
@@ -1077,6 +1090,7 @@ Route::group(['middleware' => 'maintenance'], function () {
       Route::post('/products/import/store', 'Vendor\ImportController@store')->name('vendor-import-store');
       Route::post('/products/import/update/{id}', 'Vendor\ImportController@update')->name('vendor-import-update');
       Route::post('/products/import/csv/store', 'Vendor\ImportController@importStore')->name('vendor-import-csv-store');
+      Route::get('/update', 'Vendor\VendorController@myaccountUpdate')->name('myaccount-update');
       //IMPORT SECTION
 
 
@@ -1193,9 +1207,7 @@ Route::group(['middleware' => 'maintenance'], function () {
 
       //------------ VENDOR NOTIFICATION SECTION ENDS ------------
 
-      // Vendor Profile
-      Route::get('/profile', 'Vendor\VendorController@profile')->name('vendor-profile');
-      Route::post('/profile', 'Vendor\VendorController@profileupdate')->name('vendor-profile-update');
+     
       // Vendor Profile Ends
 
       // Vendor Shipping Cost
@@ -1434,6 +1446,7 @@ Route::group(['middleware' => 'maintenance'], function () {
   Route::get('/follow/user', 'Front\NurseryController@follow')->name('front.following');
 
   Route::get('/unfollow/vendor', 'User\UserController@unfollow');
+  Route::get('/blockfollow/user', 'Vendor\VendorController@blockfollow');
   
   Route::get('viewmore/followed-view-more', 'Front\ViewmoreController@flloweditemview_more');
   

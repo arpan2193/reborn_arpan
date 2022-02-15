@@ -10,7 +10,7 @@ use App\Models\Country;
 use App\Classes\GeniusMailer;
 use App\Models\Notification;
 use Auth;
-
+use Illuminate\Support\Facades\Date;
 use Validator;
 
 class RegisterController extends Controller
@@ -40,10 +40,7 @@ class RegisterController extends Controller
 				return response()->json(array('errors' => [0 => 'Please enter Correct Capcha Code.']));
 			}
 		}
-
-
 		//--- Validation Section
-
 		$rules = [
 			'email'   => 'required|email|unique:users',
 			'password' => 'required|confirmed'
@@ -53,16 +50,17 @@ class RegisterController extends Controller
 		if ($validator->fails()) {
 			return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
 		}
-		//--- Validation Section Ends
-		
+		//--- Validation Section Ends		
 		$user = new User;
 		$input = $request->all();
-		// dd($input);   
+		   
 		$input['password'] = bcrypt($request['password']);
 		$token = md5(time() . $request->name . $request->email);
 		$input['verification_link'] = $token;
 		$input['affilate_code'] = md5($request->name . $request->email);
-
+		$future_timestamp = strtotime("+1 month");
+       
+		
 		if (!empty($request->vendor)) {
 			//--- Validation Section
 			$rules = [
@@ -81,8 +79,13 @@ class RegisterController extends Controller
 			if (!empty($request->paypal) || !empty($request->venmo) || !empty($request->venmo) || !empty($request->square) || !empty($request->check) || !empty($request->certified_funds) || !empty($request->money_order) || !empty($request->cash) || !empty($request->bank_transfer) || !empty($request->custompayment1) || !empty($request->custompayment2) || !empty($request->custompayment3)) {
 				$input['payments_accepted'] = $request->paypal . "," . $request->venmo . "," . $request->square . "," . $request->check . "," . $request->certified_funds . "," . $request->money_order . "," . $request->cash . "," . $request->bank_transfer . "," . $request->custompayment1 . "," . $request->custompayment2 . "," . $request->custompayment3;
 				$input['is_vendor'] = 1;
+				$input['is_subscribe'] = 1;	
+						
 			}
+		$input['subscribe_expired'] = date('Y-m-d', $future_timestamp);
+
 		}
+
 		// dd($input);
 		// $user->insert($input);
 		$user->fill($input)->save();

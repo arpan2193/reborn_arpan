@@ -73,7 +73,7 @@
                                 <div class="ec-vendor-dashboard-card space-bottom-30">
                                     <div class="ec-vendor-card-header">
                                         <div class="row">
-                                        <div class="col-lg-8 col-md-8 col-sm-10">
+                                            <div class="col-lg-8 col-md-8 col-sm-10">
                                                 <a class="btn btn-primary" href="{{route('vendor-inbox')}}">Inbox ({{count($inboxs)}})</a>
                                                 <a class="btn btn-primary" href="{{route('vendor-sentmail')}}">Sent ({{count($sentmails)}})</a>
                                                 <a class="btn  btn-primary" href="{{route('vendor-blockedmail')}}">Blocked ({{count($blockedmails)}})</a>
@@ -114,18 +114,18 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach($inboxs as $inbox)
+                                                    @foreach($deletemails as $mail)
                                                     <tr>
                                                        
-                                                        <td><img class="prod-img" src="{{($inbox->photo) ? asset("assets/images/users/".$inbox->photo) : asset("images/products/avatar.webp") }}" alt="product image"></td>
-                                                        <td><span>{{$inbox->name}}</span></td>
-                                                        <td><span>{{$inbox->message}}</span></td>
+                                                        <td><img class="prod-img" src="{{($mail->photo) ? asset("assets/images/users/".$mail->photo) : asset("images/products/avatar.webp") }}" alt="product image"></td>
+                                                        <td><span>{{$mail->name}}</span></td>
+                                                        <td><span>{{$mail->message}}</span></td>
                                                         @php
-                                                            $date1=date_create(date("Y-m-d", strtotime($inbox->created)));
+                                                            $date1=date_create(date("Y-m-d", strtotime($mail->created)));
                                                             $date2=date_create(date("Y-m-d", strtotime("now")));
                                                             $diff=date_diff($date1,$date2);
                                                         @endphp
-                                                        <td><span>{{ ($diff->d<60) ? $diff->format("%a days ago") : date("Y-m-d", strtotime($inbox->created)) }}</span></td>
+                                                        <td><span>{{ ($diff->d<60) ? $diff->format("%a days ago") : date("Y-m-d", strtotime($mail->created)) }}</span></td>
                                                         <td><a href="inbox-details.html" class="btn btn-success btn-sm" >View</a></td>
                                                         <td><a href="#" class="btn btn-info btn-sm">Reply</a></td>
                                                         <td><a href="#" class="btn btn-danger btn-sm" style="background: red;">Delete</a></td>

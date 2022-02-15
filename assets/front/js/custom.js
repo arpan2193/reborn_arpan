@@ -1955,6 +1955,24 @@ $(".category-doll-btns").on('click',function(){
   }
 
   /**
+ * @developer:Neha Kumari=========================================
+ * Date:27/01/2022
+ * Description:user Block Follow User 
+ */
+ function blockfollow(user_id){
+  $.ajax({   
+    method: "get",
+    url: main_url+'/blockfollow/user',
+    data:{user_id:user_id},
+    dataType: 'JSON',
+    success: function (response) {
+      console.log(response);
+      location.reload();
+    }
+   });
+  }
+
+  /**
  * Name:Neha Kumari
  * Date:20/01/2022
  * Description: User View more fevrt Product 

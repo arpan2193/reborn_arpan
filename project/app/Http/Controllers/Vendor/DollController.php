@@ -21,14 +21,25 @@ use Session;
 use Validator;
 
 
-class DallController extends Controller
+class DollController extends Controller
 {
     public function edit()
     {
         $user = Auth::user();
-        return view('vendor.edit-dall', compact('user'));
+        $products = Product::where("user_id","=",$user->id)->get();
+        // dd($products);
+        return view('vendor.edit-dall', compact('user','products'));
     }
 
+    //edit form appears with this function
+    public function editprodform($prodid){
+        $user = Auth::user();
+        $product = Product::findOrFail($prodid);
+        // dd($product);
+        return view('vendor.edit-doll-form',compact('user','product'));
+    }
+
+    //add product form appears with this function
     public function addproductview()
     {
         $user = Auth::user();
@@ -36,7 +47,9 @@ class DallController extends Controller
         $categories = Category::where('status','=','1')->get();
         return view('vendor.addproduct', compact('user', 'currencies','categories'));
     }
+    //end of the function of add product form
 
+    //New product data stores through this function
     public function store(Request $request)
     {
         // dd($request);

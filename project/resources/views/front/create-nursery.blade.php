@@ -38,6 +38,7 @@
                            <form class="mregisterform" action="{{route('user-register-submit')}}" method="POST">
                             {{ csrf_field() }}
                             <input type="hidden" value="vendor" name="vendor">
+                            
                             <div class="form-group mb-4">
                                 <h5>Real Full Name </h5>
                                 <input type="text" class="form-control mt-2" name="name" >

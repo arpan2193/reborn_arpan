@@ -36,7 +36,8 @@ class FrontendController extends Controller
 
 	// -------- HOME PAGE SECTION -------------------------
 	public function index(Request $request)
-	{	 
+	{	
+		 
 		$prod_category  = array();	
 		$sliders = Slider::all();
 		$data = Socialsetting::findOrFail(1);
