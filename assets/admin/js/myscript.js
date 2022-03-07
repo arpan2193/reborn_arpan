@@ -799,34 +799,7 @@ var geniusform = $(this);
 });
 
 // NORMAL FORM ENDS
-//neha-----Suscribe--
-$(document).on('submit','#formSuscribe',function(e){
-  e.preventDefault();
-  var email = $('#email').val();
-  $('button.news-btn').prop('disabled',true);
-      $.ajax({
-        headers: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-       type:"POST",
-       url: $("#formSuscribe").attr('action'),
-       data:{'email':email},       
-       success:function(data)
-       {
-          if (data.error) {
-                $('#error').html(data.error);             
-          }
-          if (data.blankerror) {
-            $('#error').html(data.blankerror);       
-          }
-          if (data.success) {
-            $('#msg').html(data.success);             
-          }
-                    
-          $('button.news-btn').prop('disabled',false);
-         }
-        });
-    });
+
   
   
 

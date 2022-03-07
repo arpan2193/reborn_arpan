@@ -6,7 +6,6 @@ use Datatables;
 use App\Models\Slider;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
 use Validator;
 
 class SliderController extends Controller
@@ -52,29 +51,29 @@ class SliderController extends Controller
     //*** POST Request
     public function store(Request $request)
     {
+
         //--- Validation Section
         $rules = [
             'photo'      => 'required|mimes:jpeg,jpg,png,svg',
         ];
 
         $validator = Validator::make($request->all(), $rules);
-
+        // dd($request->title);
         if ($validator->fails()) {
             return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }
         //--- Validation Section Ends
-
+       
         //--- Logic Section
         $data = new Slider();
         $input = $request->all();
+              
         if ($file = $request->file('photo')) {
             $name = time() . str_replace(' ', '', $file->getClientOriginalName());
             $file->move('assets/images/sliders', $name);
             $input['photo'] = $name;
         }
-        $data->fill($input)->save();
-        //--- Logic Section Ends
-
+        $data->fill($input)->save();            
         //--- Redirect Section        
         $msg = 'New Data Added Successfully.';
         return response()->json($msg);

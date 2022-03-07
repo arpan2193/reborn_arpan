@@ -75,27 +75,33 @@
                                     <h2 class="subscription-title2">
                                             Choose the right for you
                                         </h2>
-
-                                        <div class="col-sm-6">
-                                            <div class="subscription-box">
-                                                <div class="subscription-circle pink-bg">
-                                                    Bronze
+                                        @php $i=1; @endphp
+                                        @foreach($subscriptions as $subscription)
+                                        @php
+                                        $stat = "";
+                                        if($i % 2 === 0){
+                                            $stat = "even";
+                                        }else{
+                                            $stat = "odd";
+                                        }
+                                        @endphp
+                                        <div class="col-sm-4">
+                                            <div class="subscription-box {{$stat == 'odd' ? "" : "deep-gra"}}">
+                                                <div class="subscription-circle pink-bg {{$stat == 'odd' ? "" : "silver white-text"}}">
+                                                    {{$subscription->title}}
                                                 </div>
-                                                <h3 class="subscription-price">
-                                                    $9.99
+                                                <h3 class="subscription-price {{$stat == 'odd' ? "" : "white-text"}}">
+                                                    {{ $attrPrice != 0 ?  $gs->currency_format == 0 ? $curr->sign.$withSelectedAtrributePrice : $withSelectedAtrributePrice.$curr->sign :$subscription->showPrice() }}
                                                 </h3>
-                                                <ul class="subscription-list">
-                                                    <li>Lorem ipsum dolor sit amet, consectetur
-                                                        adipiscing elit
-                                                    </li>
-                                                    <li>
-                                                        Praesent a molestie turpis. Nam fringilla
-                                                    </li>
+                                                <ul class="subscription-list {{$stat == 'odd' ? "" : "mid-gb"}}">
+                                                    @php echo htmlspecialchars_decode($subscription->details); @endphp
                                                 </ul>
-                                                <a class="purches-btn" href="#"> Purchase Now </a>
+                                                <a class="purches-btn {{$stat == 'odd' ? "" : "white"}}" href="{{route('vendor-subscription-purchase',$subscription->id)}}"> Purchase Now </a>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6">
+                                        @php ++$i; @endphp
+                                        @endforeach
+                                        {{-- <div class="col-sm-4">
                                             <div class="subscription-box deep-gra">
                                                 <div class="subscription-circle pink-bg silver white-text">
                                                     Silver
@@ -121,7 +127,7 @@
                                                 <a class="purches-btn white" href="#"> Purchase Now </a>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-4">
                                             <div class="subscription-box">
                                                 <div class="subscription-circle pink-bg">
                                                     Gold
@@ -148,7 +154,7 @@
                                                 </ul>
                                                 <a class="purches-btn" href="#"> Purchase Now </a>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                             </section>

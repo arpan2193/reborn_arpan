@@ -67,7 +67,8 @@ class ViewmoreController extends Controller
                                 }else{
                                     $html.=$days =$diff->format("%a days"); 
                                 }
-            $html.='<p class="artist-p-size">'.$featured->length_by_inch.' " ('.$featured->length_by_centimeters.' cm)</p>';
+                                
+            $html.='<p class="artist-p-size">'.getDollLength($featured->length, $featured->length_unit).'</p>';
                                 
             $html.='</div>';
             $html.='<div class="w-100 d-flex justify-content-between">';
@@ -137,7 +138,7 @@ class ViewmoreController extends Controller
                                 }else{
                                     $html.=$days =$diff->format("%a days"); 
                                 }
-            $html.='<p class="artist-p-size">'.$list->length_by_inch.' " ('.$list->length_by_centimeters.' cm)</p>';
+            $html.='<p class="artist-p-size">'.getDollLength($list->length, $list->length_unit).'</p>';
                                 
             $html.='</div>';
             $html.='<div class="w-100 d-flex justify-content-between">';
@@ -200,7 +201,7 @@ class ViewmoreController extends Controller
                                 }else{
                                     $html.=$days =$diff->format("%a days"); 
                                 }
-            $html.='<p class="artist-p-size">'.$list->length_by_inch.' " ('.$list->length_by_centimeters.' cm)</p>';
+            $html.='<p class="artist-p-size">'.getDollLength($list->length, $list->length_unit).'</p>';
                                 
             $html.='</div>';
             $html.='<div class="w-100 d-flex justify-content-between">';
@@ -261,7 +262,8 @@ class ViewmoreController extends Controller
                                 }else{
                                     $html.=$days =$diff->format("%a days"); 
                                 }
-            $html.='<p class="artist-p-size">'.$list->length_by_inch.' " ('.$list->length_by_centimeters.' cm)</p>';
+                
+            $html.='<p class="artist-p-size">'.getDollLength($list->length, $list->length_unit).'</p>';
                                 
             $html.='</div>';
             $html.='<div class="w-100 d-flex justify-content-between">';
@@ -333,7 +335,7 @@ class ViewmoreController extends Controller
                         $html.=$days =$diff->format("%a days"); 
                     }
             $html.='</p>';
-            $html.='<p class="artist-p-size">'.$list->product->length_by_inch.'" ('.$list->product->length_by_centimeters.' cm)</p>';
+            $html.='<p class="artist-p-size">'.getDollLength($list->length, $list->length_unit).'</p>';
             $html.='</div>';
             $html.='<div class="w-100 d-flex justify-content-between">';
             $html.='<p class="time">';
@@ -404,7 +406,7 @@ class ViewmoreController extends Controller
                         $html.=$days =$diff->format("%a days"); 
                     }
             $html.='</p>';
-            $html.='<p class="artist-p-size">'.$list->product->length_by_inch.'" ('.$list->product->length_by_centimeters.' cm)</p>';
+            $html.='<p class="artist-p-size">'.getDollLength($list->length, $list->length_unit).'</p>';
             $html.='</div>';
             $html.='<div class="w-100 d-flex justify-content-between">';
             $html.='<p class="time">';
@@ -429,7 +431,7 @@ class ViewmoreController extends Controller
      * Description: Get view more Nursery Product 
      */
     public function  flloweditemview_more(Request $request) {
-         $userid = Auth::user()->id;
+        $userid = Auth::user()->id;
         $skip=$request->input('skip');
         $v_ids = DB::table('vendor_followers')
         ->select('vendor_followers.user_id','vendor_followers.vendor_id')
@@ -447,8 +449,7 @@ class ViewmoreController extends Controller
             $html.='<div class="artist-product-new">';  
             $html.='<img src="'.asset('assets/images/products/'.$list->photo).'">';
             $html.='</div>';               
-            $html.='</div>';                             
-            
+            $html.='</div>';                          
             $html.='<div class="ec-fs-pro-inner">';
             $html.='<h5 class="ec-fs-pro-title">';
             $html.='<a href=" '.url('').'/item/'.$list->slug.'" onclick="addrecent('.$list->id.')">';
@@ -473,7 +474,7 @@ class ViewmoreController extends Controller
                         $html.=$days =$diff->format("%a days"); 
                     }
             $html.='</p>';
-            $html.='<p class="artist-p-size">'.$list->length_by_inch.'" ('.$list->length_by_centimeters.' cm)</p>';
+            $html.='<p class="artist-p-size">'.getDollLength($list->length, $list->length_unit).'</p>';
             $html.='</div>';
             $html.='<div class="w-100 d-flex justify-content-between">';
             $html.='<p class="time">';
@@ -491,13 +492,84 @@ class ViewmoreController extends Controller
         }       
         return response()->json($html);
     }
-            
 
+    public function comment_view_more(Request $request) {
+        $skip=$request->input('skip');
+        $user = Auth::user();        
+        $forums = DB::table('vendor_forums')
+		->join('users', 'vendor_forums.user_id', '=', 'users.id')
+        ->join('countries', 'users.country_id', '=', 'countries.id')
+		->where('vendor_forums.pid','=',0)
+        ->where('users.is_vendor','=',1)
+		->select('vendor_forums.*', 'users.name', 'users.photo', 'users.id AS userid','users.shop_name','countries.country_name')
+        ->orderBy('id', 'DESC')
+		->offset($skip)->limit(2)->get();
+         $html='';      
+        if(count($forums)>0){
+            for($i=0;$i<count($forums); $i++){
+                $child_forums = DB::table('vendor_forums')
+                ->join('users', 'vendor_forums.user_id', '=', 'users.id')
+                ->join('countries', 'users.country_id', '=', 'countries.id')
+                ->where('users.is_vendor','=',1)
+                ->where('vendor_forums.pid','=',$forums[$i]->id)
+                ->select('vendor_forums.*', 'users.name', 'users.photo', 'users.id as userid','users.shop_name','countries.country_name')	
+                ->get(); 
 
+                $forums[$i]->comments=$child_forums;               
+            }
+        }
+        foreach($forums as $forum){
+            if($forum->photo!=''){
+                $rootphoto = asset("assets/images/users/".$forum->photo);
+            }else{
+                $rootphoto = asset("images/products/avatar.webp");
+            }
+            $html.='<div class="post-comment-boxs">';            
+            $html.='<div class="message bg-light row forum-product-box">';            
+            $html.='<div class="col-md-2">';
+            $html.='<img src="'.$rootphoto.'" alt="Avatar">';
+            $html.='</div>';
+            $html.='<div class="col-md-10"><h5>'.$forum->name.'</h5><h6>'.$forum->shop_name.'</h6><span>'.$forum->country_name.'</span>';
+            $html.='<p>'.$forum->blog.'</p><p><span class="time-right pr-4">'.posted_time_calculation($forum->created).'</span>';
+            $html.='<a onclick="bloglike('.$forum->pid.')" class="ecicon eci-thumbs-up" ></a>'.$forum->likes.'</p>';   
+            if(count($forum->comments)>0) {
+            foreach($forum->comments as $forumcomment) {
+                if($forumcomment->photo!=''){
+                    $childphoto = asset("assets/images/users/".$forumcomment->photo);
+                }else{
+                    $childphoto = asset("images/products/avatar.webp");
+                }
+           $html.='<div class="row message bg-darker">';
+           $html.='<div class="col-md-2">';
+           $html.=' <img src="'.$childphoto.'" alt="Avatar"></div> <div class="col-md-10"><h5>dfgg</h5>';
+           $html.= '<h6>'.$forumcomment->name.'</h6> <span>'.$forumcomment->shop_name.'</span><p>'.$forumcomment->country_name.'</p>'.$forumcomment->blog.' <p>';
+           $html.= '<span class="time-right pr-4">'.posted_time_calculation($forumcomment->created).'</span>';
+           $html.= '<a  onclick="comentlike('.$forumcomment->id.')" class="ecicon eci-thumbs-up" ></a>'.$forumcomment->likes.'</p></div></div>';
+            }
+        }
+        // <!-- =================chlide COMMENT=============================================== -->
+        $html.='<div class="row message bg-darker">';
+        $html.='<div class="col-md-2">';
+        if($user->photo!=''){
+            $user_photo = asset("assets/images/users/".$user->photo);
+        }else{
+            $user_photo = asset("images/products/avatar.webp");
+        }
+        $html.=' <img src="'.$user_photo.'" alt="vendor"> </div>';
+        $html.= '<div class="col-md-10">';
+        $html.= '<form action="'.route('vendor-storenewreplyforum').'" method="post">';   
+        $html.= csrf_field();                                     
+        $html.='<input type="hidden" name="pid" value="'.$forum->id.'">';                                   
+        $html.= '<textarea class="form-control mb-4" placeholder="Write a Comment" name="forum" required=""></textarea>';                                      
+        $html.='<button class="btn btn-success">Submit</button>';
+        $html.='</form></div></div></div></div>';                                          
+                                                       
+    }
+    
+    return response()->json($html);
+}       
 
-
-
-
+      
 
 
 }

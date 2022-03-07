@@ -36,6 +36,7 @@ class ComposerStaticInit97b852b9061d19cde091ae6172daccf7
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         '1b8b16d5e16612118084bfbc3cca2fc5' => __DIR__ . '/..' . '/mollie/laravel-mollie/src/helpers.php',
         '0b47d6d4a00ca9112ba3953b49e7c9a4' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/helper.php',
+        'b4e3f29b106af37a2bb239f73cdf68c7' => __DIR__ . '/../..' . '/app/helpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -176,6 +177,8 @@ class ComposerStaticInit97b852b9061d19cde091ae6172daccf7
             'Doctrine\\Inflector\\' => 19,
             'Doctrine\\Common\\Lexer\\' => 22,
             'DeepCopy\\' => 9,
+            'Database\\Seeders\\' => 17,
+            'Database\\Factories\\' => 19,
         ),
         'C' => 
         array (
@@ -536,6 +539,14 @@ class ComposerStaticInit97b852b9061d19cde091ae6172daccf7
         array (
             0 => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy',
         ),
+        'Database\\Seeders\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/database/seeders',
+        ),
+        'Database\\Factories\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/database/factories',
+        ),
         'Cron\\' => 
         array (
             0 => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron',
@@ -663,9 +674,10 @@ class ComposerStaticInit97b852b9061d19cde091ae6172daccf7
         'App\\Http\\Controllers\\User\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/User/UserController.php',
         'App\\Http\\Controllers\\User\\WishlistController' => __DIR__ . '/../..' . '/app/Http/Controllers/User/WishlistController.php',
         'App\\Http\\Controllers\\User\\WithdrawController' => __DIR__ . '/../..' . '/app/Http/Controllers/User/WithdrawController.php',
-        'App\\Http\\Controllers\\Vendor\\DallController' => __DIR__ . '/../..' . '/app/Http/Controllers/Vendor/DallController.php',
+        'App\\Http\\Controllers\\Vendor\\DollController' => __DIR__ . '/../..' . '/app/Http/Controllers/Vendor/DollController.php',
+        'App\\Http\\Controllers\\Vendor\\MailboxController' => __DIR__ . '/../..' . '/app/Http/Controllers/Vendor/MailboxController.php',
         'App\\Http\\Controllers\\Vendor\\OrderController' => __DIR__ . '/../..' . '/app/Http/Controllers/Vendor/OrderController.php',
-        'App\\Http\\Controllers\\Vendor\\SubscribeController' => __DIR__ . '/../..' . '/app/Http/Controllers/Vendor/SubscribeController.php',
+        'App\\Http\\Controllers\\Vendor\\SubscriptionController' => __DIR__ . '/../..' . '/app/Http/Controllers/Vendor/SubscriptionController.php',
         'App\\Http\\Controllers\\Vendor\\VendorController' => __DIR__ . '/../..' . '/app/Http/Controllers/Vendor/VendorController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',

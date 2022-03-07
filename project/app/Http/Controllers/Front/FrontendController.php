@@ -34,12 +34,13 @@ class FrontendController extends Controller
     }
 
 
-	// -------- HOME PAGE SECTION -------------------------
+	// -------- HOME PAGE SECTION -----------nk--------------
 	public function index(Request $request)
 	{	
 		 
-		$prod_category  = array();	
-		$sliders = Slider::all();
+		$prod_category  = array();
+
+		$sliders =  DB::table('sliders')->where('lang_id', (Session::get('language')) ? Session::get('language') : 1)->get();   
 		$data = Socialsetting::findOrFail(1);
 		$prod_category =  DB::table('products')->get(); 
 		$services = DB::table('services')->where('user_id','=',0)->get();
@@ -49,7 +50,7 @@ class FrontendController extends Controller
 		$just_listed = Product::with('user')->where('user_id','!=',0)->where('status','=',1)->orderBy('id','desc')->take(8)->get();
 		$alternative_doll =  Product::with('user')->where('category_id','=',4)->where('user_id','!=',0)->where('status','=',1)->orderBy('id','desc')->take(6)->get();
 		$nurseries =  User::with('products')->where('is_vendor','=',1)->orderBy('id','desc')->get();	
-        // dd($adoption_doll);
+        
 	return view('front.index', compact('sliders','data','prod_category','adoption_doll','reborn_doll','just_listed', 'alternative_doll', 'nurseries'));
 	}
 
@@ -66,7 +67,6 @@ class FrontendController extends Controller
 	}
 
 
-
 	/**
 	 * @developer: Neha thakur ->@modifide
 	 * Date: 27/12/2021
@@ -81,6 +81,72 @@ class FrontendController extends Controller
 		$ps =  DB::table('pagesettings')->where('id','=',1)->first();
 		return view('front.contact',compact('ps'));
 	}
+	/** Add Email functionality-------------------------------------
+	 * @developer: Neha thakur ->@created
+	 * Date: 27/12/2021
+	 * Description:Contact us page email.
+	 */
+	public function contactemail(Request $request)
+	{
+		if ($request->email == null) {
+			return response()->json(array('blankerror' => 'Please Insert your Email id'));
+		} 
+
+		// $subs = Subscriber::where('email', '=', $request->email)->first();
+		// if (isset($subs)) {
+		// 	return response()->json(array('error' => 'You have Already Subscribed.'));
+		// }
+		// $subscribe = new Subscriber;
+		// $subscribe->fill($request->all());
+		// $subscribe->save();
+		//$msg = 'You Have Subscribed Successfully.';
+        return response()->json(array('success' => 'You Have Send Email Successfully.'));
+	}
+
+
+	// Refresh Capcha Code (Arpan)
+    public function refresh_code(){
+        $this->code_image();
+        return "done";
+    }
+
+	// Capcha Code Image (Arpan)
+    private function  code_image()
+    {
+        $actual_path = str_replace('project','',base_path());
+        $image = imagecreatetruecolor(200, 50);
+        $background_color = imagecolorallocate($image, 255, 255, 255);
+        imagefilledrectangle($image,0,0,200,50,$background_color);
+
+        $pixel = imagecolorallocate($image, 0,0,255);
+        for($i=0;$i<500;$i++)
+        {
+            imagesetpixel($image,rand()%200,rand()%50,$pixel);
+        }
+
+        $font = $actual_path.'assets/front/fonts/NotoSans-Bold.ttf';
+        $allowed_letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        $length = strlen($allowed_letters);
+        $letter = $allowed_letters[rand(0, $length-1)];
+        $word='';
+        //$text_color = imagecolorallocate($image, 8, 186, 239);
+        $text_color = imagecolorallocate($image, 0, 0, 0);
+        $cap_length=6;// No. of character in image
+        for ($i = 0; $i< $cap_length;$i++)
+        {
+            $letter = $allowed_letters[rand(0, $length-1)];
+            imagettftext($image, 25, 1, 35+($i*25), 35, $text_color, $font, $letter);
+            $word.=$letter;
+        }
+        $pixels = imagecolorallocate($image, 8, 186, 239);
+        for($i=0;$i<500;$i++)
+        {
+            imagesetpixel($image,rand()%200,rand()%50,$pixels);
+        }
+        session(['captcha_string' => $word]);
+        imagepng($image, $actual_path."assets/images/capcha_code.png");
+    }
+
 
 /**
 	 * @developer: Neha thakur ->@created
@@ -105,6 +171,10 @@ class FrontendController extends Controller
 	public function page($slug)
 	{
 		$page =  DB::table('pages')->where('slug', $slug)->first();
+		if(empty($page))
+        {
+            return response()->view('errors.404')->setStatusCode(404);
+        }
 		return view('front.page', compact('page'));
 	}
 
@@ -144,9 +214,9 @@ class FrontendController extends Controller
 
 	public function language($id)
 	{
-		//dd($id);
 		Session::put('language', $id);
 		cache()->forget('session_language');
+        
 		return redirect()->back();
 	}
 
@@ -162,7 +232,7 @@ public function favorite(Request $request)
 	 {  
 		$get_vendor = DB::table('users')->where('id', Auth::id())->where('is_vendor', 1)->get();
 		if(count($get_vendor)>0){
-			return response()->json('<span style="color:red">Error!</span>');
+			return response()->json('<span style="color:red">You are artist!</span>');
 		}else{
 			$added = DB::table('favorite_items')->where('product_id', $request->input('proid'))->where('user_id', Auth::id())->get();
 			if(count($added)>0){
@@ -188,23 +258,30 @@ public function Recentviews(Request $request)
 {
 	if(Auth::user())
 	{  
-	   $get_vendor = DB::table('users')->where('id', Auth::id())->where('is_vendor', 1)->get();
-	   if(count($get_vendor)>0){
-		   return response()->json('<span style="color:red">Error!</span>');
-	   }else{
-		   $adrecent_view = DB::table('recent_view_items')->where('product_id', $request->input('proid'))->where('user_id', Auth::id())->get();
-		  
-		   if(count($adrecent_view)>0){
-			   return response()->json();
-		   }else{
-			   DB::table('recent_view_items')->insert(['product_id' => $request->input('proid'), 'user_id' => Auth::id()]);
-			   return response()->json();
-		   }
-	   }
-	   
-   }else{
-	   return response()->json();
-   }	
+		$count_dlt = DB::table('recent_view_items')
+			->where('user_id', Auth::id())
+			->orderBy('id','asc')
+			->get();
+		$addrecent = DB::table('recent_view_items')
+			->where('user_id', Auth::id())
+			->where('product_id', $request->input('proid'))
+			->get();
+			
+			if(count($addrecent)>0) {
+				return response()->json();
+			}else{
+				DB::table('recent_view_items')->insert(['product_id' => $request->input('proid'), 'user_id' => Auth::id()]);
+				if(count($count_dlt) >= 8) {
+					DB::table('recent_view_items')
+						->where('user_id', Auth::id())
+						->orderBy('id','asc')
+						->limit(3)->delete();			
+				}
+			} 
+
+	}else{
+		return response()->json();
+		}
 
 }
 

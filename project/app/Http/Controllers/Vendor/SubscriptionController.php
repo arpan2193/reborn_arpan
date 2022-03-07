@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Generalsetting;
 use App\Models\Subcategory;
 use App\Models\VendorOrder;
+use App\Models\Subscription;
 use App\Models\Verification;
 use Auth;
 use Illuminate\Http\Request;
@@ -19,7 +20,8 @@ class SubscriptionController extends Controller
 {
     public function index()
     {
-        $user = Auth::user();   
-        return view('vendor.renew',compact('user'));
+        $user = Auth::user();
+        $subscriptions = Subscription::get();
+        return view('vendor.renew',compact('user','subscriptions'));
     }
 }

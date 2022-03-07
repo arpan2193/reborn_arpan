@@ -38,75 +38,14 @@
                                 enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 @include('includes.admin.form-both')
-
-                                {{-- Sub Title Section --}}
-
-                                {{-- <div class="panel panel-default slider-panel">
-                                    <div class="panel-heading text-center">
-                                        <h3>{{ __('Sub Title') }}</h3>
-                                    </div>
-                                    <div class="panel-body">
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                <label class="control-label"
-                                                    for="subtitle_text">{{ __('Text') }}*</label>
-
-                                                <textarea class="form-control" name="subtitle_text" id="subtitle_text"
-                                                    rows="5" placeholder="{{ __('Enter Title Text') }}"></textarea>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                <div class="row">
-                                                    <div class="col-sm-4">
-                                                        <label class="control-label"
-                                                            for="subtitle_size">{{ __('Font Size') }} *<span>
-                                                                {{ __('(px)') }}</span></label>
-                                                        <input class="form-control" type="number" name="subtitle_size"
-                                                            value="" min="1">
-                                                    </div>
-                                                    <div class="col-sm-4">
-                                                        <label class="control-label"
-                                                            for="subtitle_color">{{ __('Font Color') }} *</label>
-                                                        <div class="input-group colorpicker-component cp">
-                                                            <input type="text" name="subtitle_color" value="#000000"
-                                                                class="form-control cp" />
-                                                            <span class="input-group-addon"><i></i></span>
-                                                        </div>
-
-                                                    </div>
-                                                    <div class="col-sm-4">
-                                                        <label class="control-label"
-                                                            for="subtitle_anime">{{ __('Animation') }} *</label>
-                                                        <select class="form-control" id="subtitle_anime"
-                                                            name="subtitle_anime">
-                                                            <option value="fadeIn">fadeIn</option>
-                                                            <option value="fadeInDown">fadeInDown</option>
-                                                            <option value="fadeInLeft">fadeInLeft</option>
-                                                            <option value="fadeInRight">fadeInRight</option>
-                                                            <option value="fadeInUp">fadeInUp</option>
-                                                            <option value="flip">flip</option>
-                                                            <option value="flipInX">flipInX</option>
-                                                            <option value="flipInY">flipInY</option>
-                                                            <option value="slideInUp">slideInUp</option>
-                                                            <option value="slideInDown">slideInDown</option>
-                                                            <option value="slideInLeft">slideInLeft</option>
-                                                            <option value="slideInRight">slideInRight</option>
-                                                            <option value="rollIn">rollIn</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> --}}
-
-                                {{-- Sub Title Section Ends --}}
-
-
+                                
+                                @php $all_lang = DB::table('languages')->get(); @endphp
+                                <select name="lang_id" id="languages">
+                                    <option selected>Select Language</option>
+                                    @foreach($all_lang as $lang)
+                                    <option value="{{$lang->id}}">{{$lang->language}}</option>
+                                    @endforeach
+                                  </select>                            
                                 {{-- Title Section --}}
 
                                 <div class="panel panel-default slider-panel">
@@ -122,51 +61,6 @@
                                                     placeholder="{{ __('Enter Title Text') }}"></textarea>
                                             </div>
                                         </div>
-
-
-                                        {{-- <div class="form-group">
-                                            <div class="col-sm-12">
-                                                <div class="row">
-                                                    <div class="col-sm-4">
-                                                        <label class="control-label"
-                                                            for="title_size">{{ __('Font Size') }} *<span>
-                                                                {{ __('(px)') }}</span></label>
-                                                        <input class="form-control" type="number" name="title_size"
-                                                            value="" min="1">
-                                                    </div>
-                                                    <div class="col-sm-4">
-                                                        <label class="control-label"
-                                                            for="title_color">{{ __('Font Color') }} *</label>
-                                                        <div class="input-group colorpicker-component cp">
-                                                            <input type="text" name="title_color" value="#000000"
-                                                                class="form-control cp" />
-                                                            <span class="input-group-addon"><i></i></span>
-                                                        </div>
-
-                                                    </div>
-                                                    <div class="col-sm-4">
-                                                        <label class="control-label"
-                                                            for="title_anime">{{ __('Animation') }} *</label>
-                                                        <select class="form-control" id="title_anime" name="title_anime">
-                                                            <option value="fadeIn">fadeIn</option>
-                                                            <option value="fadeInDown">fadeInDown</option>
-                                                            <option value="fadeInLeft">fadeInLeft</option>
-                                                            <option value="fadeInRight">fadeInRight</option>
-                                                            <option value="fadeInUp">fadeInUp</option>
-                                                            <option value="flip">flip</option>
-                                                            <option value="flipInX">flipInX</option>
-                                                            <option value="flipInY">flipInY</option>
-                                                            <option value="slideInUp">slideInUp</option>
-                                                            <option value="slideInDown">slideInDown</option>
-                                                            <option value="slideInLeft">slideInLeft</option>
-                                                            <option value="slideInRight">slideInRight</option>
-                                                            <option value="rollIn">rollIn</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div> --}}
                                     </div>
                                 </div>
 
@@ -189,52 +83,6 @@
                                                     rows="5" placeholder="{{ __('Enter Title Text') }}"></textarea>
                                             </div>
                                         </div>
-
-
-                                        {{-- <div class="form-group">
-                                            <div class="col-sm-12">
-                                                <div class="row">
-                                                    <div class="col-sm-4">
-                                                        <label class="control-label"
-                                                            for="details_size">{{ __('Font Size') }} *<span>
-                                                                {{ __('(px)') }}</span></label>
-                                                        <input class="form-control" type="number" name="details_size"
-                                                            value="" min="1">
-                                                    </div>
-                                                    <div class="col-sm-4">
-                                                        <label class="control-label"
-                                                            for="details_color">{{ __('Font Color') }} *</label>
-                                                        <div class="input-group colorpicker-component cp">
-                                                            <input type="text" name="details_color" value="#000000"
-                                                                class="form-control cp" />
-                                                            <span class="input-group-addon"><i></i></span>
-                                                        </div>
-
-                                                    </div>
-                                                    <div class="col-sm-4">
-                                                        <label class="control-label"
-                                                            for="details_anime">{{ __('Animation') }} *</label>
-                                                        <select class="form-control" id="details_anime"
-                                                            name="details_anime">
-                                                            <option value="fadeIn">fadeIn</option>
-                                                            <option value="fadeInDown">fadeInDown</option>
-                                                            <option value="fadeInLeft">fadeInLeft</option>
-                                                            <option value="fadeInRight">fadeInRight</option>
-                                                            <option value="fadeInUp">fadeInUp</option>
-                                                            <option value="flip">flip</option>
-                                                            <option value="flipInX">flipInX</option>
-                                                            <option value="flipInY">flipInY</option>
-                                                            <option value="slideInUp">slideInUp</option>
-                                                            <option value="slideInDown">slideInDown</option>
-                                                            <option value="slideInLeft">slideInLeft</option>
-                                                            <option value="slideInRight">slideInRight</option>
-                                                            <option value="rollIn">rollIn</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div> --}}
                                     </div>
                                 </div>
 
@@ -274,23 +122,6 @@
                                             placeholder="{{ __('Link') }}" required="" value="">
                                     </div>
                                 </div>
-
-                                {{-- <div class="row">
-                                    <div class="col-lg-4">
-                                        <div class="left-area">
-                                            <h4 class="heading">{{ __('Text Position') }}*</h4>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-7">
-                                        <select name="position" required="">
-                                            <option value="">{{ __('Select Position') }}</option>
-                                            <option value="slide-one">{{ __('Left') }}</option>
-                                            <option value="slide-two">{{ __('Center') }}</option>
-                                            <option value="slide-three">{{ __('Right') }}</option>
-                                        </select>
-                                    </div>
-                                </div> --}}
-
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="left-area">

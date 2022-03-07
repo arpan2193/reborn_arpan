@@ -74,8 +74,10 @@ class ProductController extends Controller
          ->get();
          $vendor_id = $products_dtls->user_id;
          $user =  DB::table('users')->where('id', $vendor_id)->first(); 
+         $follower_count = DB::table('vendor_followers')->where('vendor_id',$vendor_id)->count();
+        
          $vendor_img =  Product::with('user')->where('user_id','=',$vendor_id)->where('status','=',1)->orderBy('id','desc')->get();
-		return view('front.productdetails', compact('products_dtls','gallery_img','vendor_img','user'));
+		return view('front.productdetails', compact('products_dtls','gallery_img','vendor_img','user','follower_count'));
 
     }
 

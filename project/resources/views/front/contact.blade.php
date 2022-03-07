@@ -30,11 +30,10 @@
 <!---------- Contact Img Bottom --------->
 <section class="contact-img-bottom">
     <div class="box">
+        
     <?php  $val_title = $ps->contact_title; ?>
         <?php echo $val_title; ?> 
        
-        <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam dui enim, eleifend nec pharetra
-        nec, tincidunt nec magna. </p> -->
      <p> <?php $val_text   = $ps->contact_text;
                           echo $val_text; ?></p>
     </div>
@@ -45,13 +44,15 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <form action="" class="mainWrap">
-                    <input placeholder="Full Name" type="text" class="name" />
-                    <input placeholder="Email" type="email" class="email" />
-                    <input placeholder="Country" type="email" class="email" />
-                    <input placeholder="Phone" type="number" class="name" />
-                    <textarea placeholder="Tell us your enquiry" class="mainArea"></textarea>
-                    <button class="bigBtn">Submit Now</button>
+                <span id="msg" style="color:green;"></span>
+                <span id="error" style="color:red;"></span>
+                <form id="formcontactus" action="{{route('front.contactemail')}}" method="POST" class="mainWrap">
+                    <input placeholder="Full Name" type="text" class="name" id="name" name="name" />
+                    <input placeholder="Email" type="email" class="email" id="email" name="email" />
+                    <input placeholder="Country" type="text" class="email" name="country" id="country"/>
+                    <input placeholder="Phone" type="number" class="name" id="phone" name="phone" />
+                    <textarea placeholder="Tell us your enquiry" class="mainArea" name="msg" id="contact_msg"></textarea>
+                    <button class="bigBtn" type="submit">Submit Now</button>
                 </form>
             </div>
         </div>
@@ -71,7 +72,7 @@
                     <li><span>phone:</span> {{$ps->phone}}</li>
                     <li><span>Address:</span>{{$ps->street}}</li>
                     <li><span>Email Id:</span> {{$ps->email}}</li>
-                    <li><span>Website:</span>{{$ps->site}}</li>
+                    <li><span>Website:</span><a href="{{$ps->site}}" target="_blank">{{$ps->site}}</a></li>
                 </ul>
             </div>
         </div>

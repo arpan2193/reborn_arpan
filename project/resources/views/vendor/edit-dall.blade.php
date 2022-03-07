@@ -129,10 +129,12 @@
                                             $from = strtotime($product->created_at);
                                             $today = time();
                                             $difference = $today - $from;
-                                            echo floor($difference / 86400);
-                                        @endphp days Ago</h5>
+                                            $days = floor($difference / 86400);
+                                            echo $days;
+                                        @endphp {{($days == 1 || $days == 0) ? "day" : "days"}} ago</h5>
                                         <p></p>
                                         <form>
+                                            {{csrf_field()}}
                                             <div class="form-group row">
                                                 <h6 class="font-weight-bold text-dark col-md-3">Status</h6>
                                                 <select class="form-select col-md-6">
@@ -162,11 +164,10 @@
                                             <h6 class="font-weight-bold text-dark col-md-3">Order</h6>
                                         </div>
                                         <div class="col-md-6">
-                                            <form action="">
-                                                <div class="form-group">
-                                                    <input type="text" value="2" class="form-control" style="height:30px;">
-                                                </div>
-                                            </form>
+                                            <div class="form-group">
+                                                <input type="hidden" value="{{route('vendor-prod-order-change')}}" id="changeorderroute">
+                                                <input type="text" value="{{$product->prod_order}}" class="form-control" style="height:30px;" onchange="changeorder(this.value,{{$product->prod_order}},{{$product->id}})">
+                                            </div>
                                         </div>
                                         <div class="col-md-3">
                                             <button class="Btn btn-danger btn-lg" style="background: red;">DELETE</button>
@@ -185,9 +186,9 @@
                     @else
                     <div>No Products For this Seller</div>
                     @endif
-                    <div class="text-center mt-4">
+                    {{-- <div class="text-center mt-4">
                         <button class="btn edit-btn" style="height: 60px;">Set Order</button>
-                    </div>
+                    </div> --}}
             </div>
             
             </div>
@@ -197,4 +198,22 @@
     </div>
 </div>
 </div>
+
+<!-- Modal -->
+<div class="show-modal" id="errorModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   
+      <div class="modal-content">
+        
+        <div class="modal-body">
+            <button type="button" class="close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            <h3>There is no enough records for ordering.</h3>
+        </div>
+        
+      </div>
+    
+  </div>
+    
 @endsection
+

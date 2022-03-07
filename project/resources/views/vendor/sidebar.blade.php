@@ -7,8 +7,8 @@
                         
                         <div class="ec-vendor-block-detail">
                             <img class="v-img" src="{{($user->photo) ? asset("assets/images/users/".$user->photo) : asset("images/products/avatar.webp") }}" alt="Profile">
-                            <h5>Seller Name</h5>
-                            <a href="edit-profile.html" class="edit-btn">Change Profile Photo</a>
+                            <h5>{{$user->name}}</h5>
+                            <a href="{{ route('vendor-changeprofilephoto')}}" class="edit-btn">Change Profile Photo</a>
                             <div class="seller">
                                 <ul>
                                     <li><a href="{{ route('vendor-review')}}">Review</a></li>
@@ -23,7 +23,7 @@
                                 <li><a href="{{ route('vendor-product-edit') }}">Edit Dolls</a></li>
                                 <li><a href="{{ route('vendor-prod-add-view')}}">Add Doll/Accessory</a></li>
                                 <li><a href="{{ route('vendor-inbox') }}">Inbox</a></li>
-                                <li><a href="#">Orders</a></li>
+                                <li><a href="{{ route('vendor-orders') }}">Orders</a></li>
                                 <li><a href="{{ route('vendor-renew',)}}">Renew Membership</a></li>
                                 <li><a href="{{ route('front.nuserydetails', auth()->id())}}" target="_blank">View Nursery</a></li>
                                 <li><a href="{{ route('vendor-myaccount')}}">My Account</a></li>

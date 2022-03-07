@@ -119,7 +119,7 @@
                             <div class="form-group">
                                 <h5 class="mb-2">Payments Accepted </h5>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="paypal">
+                                    <input class="form-check-input" type="checkbox" value="paypal" id="flexCheckDefault" name="payment_mode[paypal]">
                                     <label class="form-check-label" for="flexCheckDefault" >
                                         PayPal Instant Payment at Checkout (recommended to ONLY use this option to avoid fake buyers)
                                     </label>
@@ -129,31 +129,31 @@
                             <div class="form-group">
                                 <label class="form-check-label">If you allow for other payments types be prepared for many orders from people who will never pay you or respond back.</label>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="venmo" value="venmo">
+                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="payment_mode[venmo]" value="venmo">
                                     <label class="form-check-label" for="inlineCheckbox1">Venmo</label>
                                   </div>
                                   <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="square" value="square">
+                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="payment_mode[square]" value="square">
                                     <label class="form-check-label" for="inlineCheckbox2">Square</label>
                                   </div>
                                   <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox3" name="check" value="check" >
-                                    <label class="form-check-label" for="inlineCheckbox3">Check</label>
+                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox3" name="payment_mode[cheque]" value="cheque" >
+                                    <label class="form-check-label" for="inlineCheckbox3">Cheque</label>
                                   </div>
                                   <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox4" name="certified_funds" value="certified_funds" >
+                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox4" name="payment_mode[certified_funds]" value="certified_funds" >
                                     <label class="form-check-label" for="inlineCheckbox4">Certified Funds</label>
                                   </div>
                                   <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox5" name="money_order" value="money_order" >
+                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox5" name="payment_mode[money_order]" value="money_order" >
                                     <label class="form-check-label" for="inlineCheckbox5">Money Order</label>
                                   </div>
                                   <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox6" name="cash" value="cash" >
+                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox6" name="payment_mode[cash]" value="cash" >
                                     <label class="form-check-label" for="inlineCheckbox6">Cash</label>
                                   </div>
                                   <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox7" name="bank_transfer" value="bank_transfer" >
+                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox7" name="payment_mode[bank_transfer]" value="bank_transfer" >
                                     <label class="form-check-label" for="inlineCheckbox7">Bank Transfer </label>
                                   </div>
                             </div>
@@ -161,17 +161,17 @@
                             <div class="row mb-4">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                   <input type="text" class="form-control" placeholder="custom" name="custompayment1">
+                                   <input type="text" class="form-control" placeholder="custom" name="payment_mode[custom1]">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="custom" name="custompayment2">
+                                        <input type="text" class="form-control" placeholder="custom" name="payment_mode[custom2]">
                                          </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="custom" name="custompayment3">
+                                        <input type="text" class="form-control" placeholder="custom" name="payment_mode[custom3]">
                                          </div>
                                 </div>
                             </div>
@@ -187,18 +187,17 @@
                             <div class="form-group mb-4">
                                 <h5>Order Locations</h5>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="order_location" id="exampleRadios1" value="Only allow orders" checked>
+                                    <input class="form-check-input" type="radio" name="order_location" id="exampleRadios1" value="only_allow_orders" checked>
                                     <label class="form-check-label" for="exampleRadios1">
                                         Only allow orders from locations where you have explicitly listed shipping costs. People from other locations will be told you don't ship to their location.
                                     </label>
                                   </div>
                                   <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="order_location" id="exampleRadios2" value="Allow orders">
+                                    <input class="form-check-input" type="radio" name="order_location" id="exampleRadios2" value="allow_orders">
                                     <label class="form-check-label" for="exampleRadios2">
                                         Allow orders from locations where you haven't explicitly listed shipping costs. Buyers will be told you will contact them with shipping costs.
                                     </label>
                                   </div>
-                                  
                             </div> 
                             <div class="form-group mb-4">
                                 <h5>Contact</h5>
@@ -214,7 +213,6 @@
                                         Do not allow anyone to contact you / ask questions
                                     </label>
                                   </div>
-                                  
                             </div> 
 
                             <div class="form-group mb-4">
@@ -241,7 +239,22 @@
                             <div class="form-group mb-4">
                                 <h5>General Ordering Information <span>Users will be able to see this information on each listing.</span></h5>
                                 <textarea class="form-control" name="general_ordering_information" ></textarea>
-                            </div> 
+                            </div>
+                            @if($gs->is_capcha == 1)
+
+                            <ul class="captcha-area">
+                                <li>
+                                    <p><img class="codeimg1 nursery-captcha" src="{{asset("assets/images/capcha_code.png")}}" alt=""><i class="fa fa-refresh pointer refresh_code"></i></p>
+                                    <div class="form-group nursery-captcha-form mb-4">
+                                        <input type="text" class="Password form-control" name="codes" placeholder="{{ $langg->lang51 }}" required="">
+                                        <i class="icofont-refresh"></i>
+                                    </div>
+                                </li>
+                            </ul>
+
+                            
+
+                            @endif
                             <div class="text-center">
                                 <button type="submit" class="btn edit-btn" style="height: 60px;">Submit</button>
                             </div>

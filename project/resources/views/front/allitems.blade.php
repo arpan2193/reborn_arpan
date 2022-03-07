@@ -100,9 +100,6 @@
                         @endforeach        
                  </div>
                 
-                 <div class="view-more-btn featrured-doll-btn">
-                    <a href="#">View More Featured Dolls</a>
-                </div>
             </div>
         </div>
     </section>  

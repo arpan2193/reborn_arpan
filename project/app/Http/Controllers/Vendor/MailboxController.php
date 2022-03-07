@@ -7,6 +7,7 @@ use App\Models\Generalsetting;
 use App\Models\Subcategory;
 use App\Models\VendorOrder;
 use App\Models\Verification;
+use App\Models\User;
 use Auth;
 use Illuminate\Http\Request;
 use DB;
@@ -27,6 +28,8 @@ class MailboxController extends Controller
         ->where('mailbox.blocked','=',0)
         ->where('mailbox.deleted','=',0)
         ->where('mailbox.sent_to','=',auth()->id())
+        ->groupBy('mailbox.sent_from')
+        ->orderBy('mailbox.id','desc')
 		->select('mailbox.*', 'users.name','users.photo')
 		->get();
         $sentmails = DB::table('mailbox')
@@ -143,5 +146,37 @@ class MailboxController extends Controller
         return view('vendor.deletedmail',compact('user','inboxs','users','sentmails','deletemails','blockedmails'));
         
 
+    }
+
+    public function sentMessage($id){
+        $user = Auth::user();  
+        $sendtouser = DB::table('users')->where('id', '=', $id)->first();
+        return view('vendor.sentmessage', compact('user','sendtouser')); 
+    }
+
+    public function replyMessage($id){
+        $user = Auth::user();  
+        $messagedetails =  DB::table('mailbox')
+		->join('users', 'mailbox.sent_from', '=', 'users.id')
+        ->where('mailbox.id','=',$id)
+		->select('mailbox.*', 'users.name','users.photo')
+		->get();
+
+
+        return view('vendor.replymessage', compact('user','messagedetails')); 
+    }
+
+    public function viewMessages($id){
+        $user = Auth::user();  
+        $customer = User::where('id', '=', $id)->first();
+        $messagedetails =  DB::table('mailbox')
+        ->whereIn('sent_to',[$id,auth()->id()])
+        ->whereIn('sent_from',[$id,auth()->id()])
+        ->where('blocked','=',0)
+        ->where('deleted','=',0)
+        ->orderBy('id','ASC')
+		->get();
+
+        return view('vendor.viewmessages', compact('user','messagedetails','customer')); 
     }
 }

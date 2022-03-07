@@ -90,6 +90,20 @@
                                         <div class="form-group">
                                             <input type="password" name="password_confirmation" placeholder="{{ $langg->lang187 }}" required="" class="input-text form-control">
                                         </div>
+                                        @if($gs->is_capcha == 1)
+
+                                        <ul class="captcha-area">
+                                            <li>
+                                            <p><img class="codeimg1" src="{{asset("assets/images/capcha_code.png")}}" alt=""><i class="fa fa-refresh pointer refresh_code"></i> </p>
+                                            </li>
+                                        </ul>
+
+                                        <div class="form-input">
+                                            <input type="text" class="Password" name="codes" placeholder="{{ $langg->lang51 }}" required="">
+                                            <i class="icofont-refresh"></i>
+                                        </div>
+
+                                        @endif
                                         <div class="form-group">
                                             <button type="submit" class="btn">{{ $langg->lang189 }}</button>
                                         </div>

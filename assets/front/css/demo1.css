@@ -18058,9 +18058,9 @@ h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
 .header-top-lan-curr .dropdown .dropdown-menu {
   margin: 0;
   top: 34px !important;
-  left: auto !important;
+  left: 122px !important;
   right: 0 !important;
-  min-width: 130px;
+  min-width: 105px;
   overflow: hidden;
   padding: 0 10px;
   background: #ffffff;
@@ -19135,7 +19135,7 @@ body.ec-open:before {
 
 .ec-slide-1 {
   width: 100%;
-  background-image: url("../images/main-slider-banner/1.jpg");
+  /* background-image: url("../images/main-slider-banner/1.jpg"); */
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -22781,8 +22781,8 @@ transition: all 1000ms ease-in-out;
   z-index: 9;
   top: 34px !important;
   left: auto !important;
-  right: 36px !important;
-  min-width: 130px;
+  right: 16px !important;
+  min-width: 115px;
   overflow: hidden;
   padding: 0 10px;
   background: #ffffff;
@@ -22921,7 +22921,7 @@ border: none;}
   border: 2px solid #000;
   border-radius: 39px;
   margin-bottom: 15px;
-  height:35px;
+  /* height:35px; */
 }
   .form-v8-content .form-right select{
     border: 2px solid #000;
@@ -23134,4 +23134,60 @@ span.remove-img {
 }
 .gallery-images {
   margin-top: 20px;
+}
+.hiderow1.show,.hiderow2.show,.hiderow3.show,.hiderow4.show{
+  display:block
+}
+.show-modal {
+  display: none;
+  position: fixed;
+  top: 25vh;
+  left: 0;
+  right: 0;
+  margin: auto;
+  text-align: center;
+  width: 50%;
+  /* transform: translateY(-50%); */
+}
+.show-modal h3 {
+  font-size: 22px;
+  margin: 11px 0; 
+  color: #fff;
+}
+.show-modal button.close {
+  position: absolute;
+  right: 9px;
+  top: -3px;
+  font-size: 22px;
+  color: #fff;
+}
+.show-modal .modal-body {
+  background: #e51313;
+}
+.show-modal .pro-success{
+  background: green;
+}
+.codeimg1 {
+  margin: 3px 18px 15px 65px;
+}
+.pointer {
+  font-size: 27px;
+  color: #000;
+  cursor : pointer;
+}
+.nursery-captcha {
+  margin: 13px 17px 15px 0px !important;
+  width: 152px !important;
+}
+.refresh_code {
+  font-size: 20px !important;
+    color: #000;
+    cursor: pointer;
+    margin: 0px 17px 0 0px !important;
+}
+.nursery-captcha-form {
+  display:inline-block !important;
+}
+.captcha-area li p {
+  display:inline-block;
 }

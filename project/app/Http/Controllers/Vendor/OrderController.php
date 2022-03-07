@@ -19,6 +19,8 @@ class OrderController extends Controller
 {
     public function index()
     {
-        
+        $user = Auth::guard('web')->user();
+        $orders = array();
+        return view('vendor.orders',compact('user','orders'));
     }
 }

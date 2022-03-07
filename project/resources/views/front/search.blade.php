@@ -73,7 +73,7 @@
                                              $interval = $datetime1->diff($datetime2);
                                              ?>
                                             </p>  
-                                         <p class="artist-p-size">{{ $serache_list->length_by_inch}} " ({{$serache_list->length_by_centimeters}} cm)</p>
+                                         <p class="artist-p-size">{{ getDollLength($serache_list->length, $serache_list->length_unit) }}</p>
                                      </div>
                                      <div class="w-100 d-flex justify-content-between">
                                      <p class="time">{{ $attrPrice != 0 ?  $gs->currency_format == 0 ? $curr->sign.$withSelectedAtrributePrice : $withSelectedAtrributePrice.$curr->sign :$serache_list->showPrice() }}</p>

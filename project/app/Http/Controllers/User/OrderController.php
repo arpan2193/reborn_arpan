@@ -17,6 +17,12 @@ class OrderController extends Controller
         $this->middleware('auth');
     }
 
+    public function index(){
+        $user = Auth::guard('web')->user();
+        $orders = array();
+        return view('user.orders',compact('user','orders'));
+    }
+
     public function orders()
     {
         $user = Auth::guard('web')->user();

@@ -82,10 +82,10 @@
                                             <div class="col-lg-4 col-md-4 col-sm-2">
                                                 <div class="ec-header-btn">
                                                    
-                                                    <select class="form-select " aria-label="Default select example" >
-                                                        <option selected>Contact List</option>
+                                                    <select onChange="window.document.location.href=this.options[this.selectedIndex].value;" class="form-select " aria-label="Default select example" >
+                                                        <option selected value="{{ route('vendor-inbox')}}">Contact List</option>
                                                         @foreach($users as $customer)
-                                                        <option value="{{$customer->id}}">{{$customer->name}}</option>
+                                                        <option value="{{ route('vendor-sentmessage', $customer->id)}}">{{$customer->name}}</option>
                                                         @endforeach
                                                       </select>
                                                 </div>
@@ -126,8 +126,8 @@
                                                             $diff=date_diff($date1,$date2);
                                                         @endphp
                                                         <td><span>{{ ($diff->d<60) ? $diff->format("%a days ago") : date("Y-m-d", strtotime($inbox->created)) }}</span></td>
-                                                        <td><a href="inbox-details.html" class="btn btn-success btn-sm" >View</a></td>
-                                                        <td><a href="#" class="btn btn-info btn-sm">Reply</a></td>
+                                                        <td><a href="{{route('vendor-viewmessages', $inbox->sent_from)}}" class="btn btn-success btn-sm" >View</a></td>
+                                                        <td><a href="{{ route('vendor-replymessage', $inbox->id)}}" class="btn btn-info btn-sm">Reply</a></td>
                                                         <td><a href="#" class="btn btn-danger btn-sm" style="background: red;">Delete</a></td>
                                                     </tr>
                                                    @endforeach

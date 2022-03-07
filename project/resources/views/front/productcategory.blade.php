@@ -87,7 +87,7 @@
                                              $interval = $datetime1->diff($datetime2);
                                              //echo $interval->format('%h')." Hours ".$interval->format('%i')." Minutes";
                                         // {{$products->created_at}}  ?>
-                                        <p class="artist-p-size">{{ $products->length_by_inch}} " ({{$products->length_by_centimeters}} cm)</p>
+                                        <p class="artist-p-size">{{ getDollLength($products->length, $products->length_unit) }}</p>
 
                                     </div>
                                         <div class="w-100 d-flex justify-content-between">

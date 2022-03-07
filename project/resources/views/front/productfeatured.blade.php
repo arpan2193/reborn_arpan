@@ -86,7 +86,7 @@
                                                echo $days =$diff->format("%a days"); 
                                             }
                                          ?>
-                                        <p class="artist-p-size">{{ $products->length_by_inch}} " ({{$products->length_by_centimeters}} cm)</p>
+                                        <p class="artist-p-size">{{ getDollLength($products->length, $products->length_unit) }}</p>
                                          
                                     </div>
                                         <div class="w-100 d-flex justify-content-between">

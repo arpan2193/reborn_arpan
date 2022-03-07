@@ -35,25 +35,28 @@
                     <div class="artist-lft-top">
                         <div class="artist-lft">
                            <div class="top-margin">
-                               <img alt="artist-photo" src="{{asset('assets/front/images/artist-photo.jpg')}}">
+                            <img alt="artist-photo" src="{{asset('assets/front/images/'.$vendor_details->photo)}}">
                            </div>
                            <div>
-                               <h4 class="brenda">Brenda Contreras</h4>
-                               <p>Babies by Brenda Oregon</p>
+                           
+                            {{-- artist-photo.jpg --}}
+                               <h4 class="brenda">{{$vendor_details->name}}</h4>
+                               <p>{{$vendor_details->shop_name}}</p>
                            </div>
                         </div>
+                        <?php $currentURL =  request()->segment(2); ?>    
                         <ul class="artist-lising">
-                            <li>2.5 years on Reborns</li>
+                            <li>{{$onreborn}} years on Reborns</li>
                             <li>1 verified order sold</li>
                         </ul>
-                        <p class="followers">3 followers</p>
+                        <p class="followers">{{$follower_count}} followers</p>
                         <p class="followers">Infants, sleeping, painted hair, realborn, reese (3)</p>
-                        <p class="ec-fs-pro-desc" id="follow_msg"></p> 
+                        <p class="ec-fs-pro-desc" id="follow_msg{{$currentURL}}"></p> 
                         
                         <div class="d-flex w-100 pt-4">
                         
                             
-                        <?php $currentURL =  request()->segment(2); ?>           
+                              
                            <div class="Follow-btn user-follow-btn" onclick="followbtn('{{$currentURL}}')">
                            <a href="javascript:void(0)">Follow</a>
                         </div>
@@ -76,7 +79,8 @@
             <div class="row nursery-product">
                <h1 class="hello-titel">Hello,</h1>
                <p class="hello-para">
-                   My name is Brenda. I have been reborning since 2019. I took a break from selling my babies for a while, but have finally decided it is time to get my nursery up and running again. I make sure to use only quality supplies to reborn my babies. Reborning is something I absolutely love doing. I am so excited to share my art and passion with all of you once again!
+               
+                   My name is {{$vendor_details->name}}. I have been reborning since {{$vendor_details->created_at->format('Y')}}. I took a break from selling my babies for a while, but have finally decided it is time to get my nursery up and running again. I make sure to use only quality supplies to reborn my babies. Reborning is something I absolutely love doing. I am so excited to share my art and passion with all of you once again!
                </p> 
                
                @foreach($nurseries_product as $value)            
@@ -106,7 +110,7 @@
                                              $datetime2 = new DateTime($dt);
                                              $interval = $datetime1->diff($datetime2); ?>                                              
                                 </p>  
-                                <p class="artist-p-size">{{ $value->length_by_inch}} " ({{$value->length_by_centimeters}} cm)</p>
+                                <p class="artist-p-size">{{getDollLength($value->length, $value->length_unit)}}</p>
                             </div>
                                 <div class="w-100 d-flex justify-content-between">
                                 <p class="time">{{ $attrPrice != 0 ?  $gs->currency_format == 0 ? $curr->sign.$withSelectedAtrributePrice : $withSelectedAtrributePrice.$curr->sign :$value->showPrice() }}</p>

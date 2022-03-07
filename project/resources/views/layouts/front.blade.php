@@ -10,7 +10,7 @@
     <meta name="keywords" content="apparel, catalog, clean, ecommerce, ecommerce HTML, electronics, fashion, html eCommerce, html store, minimal, multipurpose, multipurpose ecommerce, online store, responsive ecommerce template, shops" />
     <meta name="description" content="Best ecommerce html template for single and multi vendor store.">
     <meta name="author" content="ashishmaraviya">
-    <meta name="csrf_token" content="{{ csrf_token() }}" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
    
     <!-- site Favicon -->
     <link rel="icon"  type="image/x-icon" href="{{asset('assets/images/'.$gs->favicon)}}"/>
@@ -99,6 +99,7 @@
                                     <!-- <li class="active"><a class="dropdown-item" href="#">USD $</a></li>
                                     <li><a class="dropdown-item" href="#">EUR €</a></li> -->
                                 </ul>
+                                {{-- nkk --}}
                                 <button class="dropdown-toggle1 text-upper g-color" data-bs-toggle="dropdown">
                                 {{ Session::has('language') ?   DB::table('languages')->where('id','=',Session::get('language'))->first()->language : DB::table('languages')->where('is_default','=',1)->first()->language }}
                                     <i class="ecicon eci-caret-down" aria-hidden="true"></i></button>
@@ -192,7 +193,6 @@
     </header>
 
 
-
     <div class="ec-side-cart-overlay"></div>
     <div id="ec-side-cart" class="ec-side-cart">
         <div class="ec-cart-inner">
@@ -282,12 +282,11 @@
 
                     <!-- neha insert-suscribe-->
                     <form id="formSuscribe" class="form-horizontal" action="{{route('front.subscribe')}}" method="POST">
-                        {{ csrf_field() }}
-                        <input type="text" placeholder="Enter your email" class="email-box" id="email" name="email">
+                      
+                        <input type="text" placeholder="Enter your email" class="email-box" id="emailid" name="email">
                         <input class="news-btn" value="Subscribe" type="submit" name=""><br>
-                        <span id="msg" style="color:green;"></span>
-                        <span id="error" style="color:red;"></span>
-
+                        <span id="msgs" style="color:green;"></span>
+                        <span id="errors" style="color:red;"></span>
                     </form>
                 </div>
                 <div class="col-sm-3"></div>
@@ -295,7 +294,7 @@
                     <ul class="footer-list">
                         <li><a href="{{ route('front.index') }}">Home</a></li>
                         <li><a href="{{ url('about') }}">About us</a></li>                    
-                        <li><a href="{{ url('contact') }}">Contect us</a></li>
+                        <li><a href="{{ url('contact') }}">Contact us</a></li>
                         <li><a href="{{ url('privacy') }}">Privacy</a></li>
                         <li><a href="{{ url('terms') }}">Terms</a></li>
                         <li><a href="{{ route('front.productfeatured') }}">Featured</a></li>
@@ -311,7 +310,7 @@
                 <div class="col text-center footer-bottom-left mt-4">
                     <div class="footer-bottom-social">
                         <span class="social-text text-upper">Follow us on:</span>
-                        <ul class="mb-0">
+                        {{-- <ul class="mb-0">
                             @if($socialsetting->f_status == 1)
                             <li class="list-inline-item"><a class="hdr-facebook" href="{{ $socialsetting->facebook }}" target="_blank"><i class="ecicon eci-facebook"></i></a></li>
                             @endif
@@ -324,7 +323,7 @@
                             @if($socialsetting->l_status == 1)
                             <li class="list-inline-item"><a class="hdr-linkedin" href="{{ $socialsetting->linkedin }}" target="_blank"><i class="ecicon eci-linkedin"></i></a></li>
                             @endif
-                        </ul>
+                        </ul> --}}
                     </div>
                 </div>
                 <div class="col-sm-12 text-center mt-4">

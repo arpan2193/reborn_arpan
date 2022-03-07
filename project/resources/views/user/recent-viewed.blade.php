@@ -118,7 +118,7 @@
                                              $interval = $datetime1->diff($datetime2);
                                         ?>
                                         </p>
-                                        <p class="artist-p-size">{{ $list->product->length_by_inch}} " ({{$list->product->length_by_centimeters}} cm)</p>
+                                        <p class="artist-p-size">{{ getDollLength($list->length, $list->length_unit) }}</p>
                                     </div>
                                     <div class="w-100 d-flex justify-content-between">
                                         <p class="time">{{ $attrPrice != 0 ?  $gs->currency_format == 0 ? $curr->sign.$withSelectedAtrributePrice : $withSelectedAtrributePrice.$curr->sign :$list->product->showPrice() }}</p>

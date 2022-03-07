@@ -35,4 +35,5 @@ return array(
     'b6b991a57620e2fb6b2f66f03fe9ddc2' => $vendorDir . '/symfony/string/Resources/functions.php',
     '1b8b16d5e16612118084bfbc3cca2fc5' => $vendorDir . '/mollie/laravel-mollie/src/helpers.php',
     '0b47d6d4a00ca9112ba3953b49e7c9a4' => $vendorDir . '/yajra/laravel-datatables-oracle/src/helper.php',
+    'b4e3f29b106af37a2bb239f73cdf68c7' => $baseDir . '/app/helpers.php',
 );

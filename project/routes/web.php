@@ -891,6 +891,7 @@ Route::prefix('user')->group(function () {
   Route::get('/dashboard', 'User\UserController@index')->name('user-dashboard');
   Route::get('/recent-viewed', 'User\UserController@recentViewed')->name('user-recent-viewed');
   Route::get('/inbox', 'User\UserController@inbox')->name('user-inbox');
+  Route::get('/orders', 'User\OrderController@index')->name('user-orders');
 
   // User Login
   Route::get('/login', 'User\LoginController@showLoginForm')->name('user.login');
@@ -937,13 +938,13 @@ Route::prefix('user')->group(function () {
 
   // User Orders
 
-  Route::get('/orders', 'User\OrderController@orders')->name('user-orders');
-  Route::get('/order/tracking', 'User\OrderController@ordertrack')->name('user-order-track');
-  Route::get('/order/trackings/{id}', 'User\OrderController@trackload')->name('user-order-track-search');
-  Route::get('/order/{id}', 'User\OrderController@order')->name('user-order');
-  Route::get('/download/order/{slug}/{id}', 'User\OrderController@orderdownload')->name('user-order-download');
-  Route::get('print/order/print/{id}', 'User\OrderController@orderprint')->name('user-order-print');
-  Route::get('/json/trans', 'User\OrderController@trans');
+  // Route::get('/orders', 'User\OrderController@orders')->name('user-orders');
+  // Route::get('/order/tracking', 'User\OrderController@ordertrack')->name('user-order-track');
+  // Route::get('/order/trackings/{id}', 'User\OrderController@trackload')->name('user-order-track-search');
+  // Route::get('/order/{id}', 'User\OrderController@order')->name('user-order');
+  // Route::get('/download/order/{slug}/{id}', 'User\OrderController@orderdownload')->name('user-order-download');
+  // Route::get('print/order/print/{id}', 'User\OrderController@orderprint')->name('user-order-print');
+  // Route::get('/json/trans', 'User\OrderController@trans');
 
   // User Orders Ends
 
@@ -1054,11 +1055,20 @@ Route::group(['middleware' => 'maintenance'], function () {
     Route::group(['middleware' => 'vendor'], function () {
     // Vendor Dashboard
       Route::get('/dashboard', 'Vendor\VendorController@index')->name('vendor-dashboard');
-      Route::get('/edit', 'Vendor\DallController@edit')->name('vendor-product-edit');
-      Route::get('/addproduct', 'Vendor\DallController@addproductview')->name('vendor-prod-add-view');
-      Route::post('/storeproduct', 'Vendor\DallController@store')->name('vendor-prod-add');
-      Route::get('/edit-product', 'Vendor\DallController@edit')->name('vendor-product-edit');
-      Route::get('/vendor-edit-prod/{id}','Vendor\DallController@editprodform')->name('vendor-prod-edit-view');
+      Route::get('/edit', 'Vendor\DollController@edit')->name('vendor-product-edit');
+      Route::get('/change-profile-photo', 'Vendor\VendorController@changeprofilephoto')->name('vendor-changeprofilephoto');
+      Route::get('/addproduct', 'Vendor\DollController@addproductview')->name('vendor-prod-add-view');
+      Route::post('/storeproduct', 'Vendor\DollController@store')->name('vendor-prod-add');
+      Route::post('/deleteimg', 'Vendor\DollController@deleteimg')->name('delete-img');
+      Route::get('/edit-product', 'Vendor\DollController@edit')->name('vendor-product-edit');
+      Route::get('/vendor-edit-prod/{id}','Vendor\DollController@editprodform')->name('vendor-prod-edit-view');
+      Route::get('/edit', 'Vendor\DollController@edit')->name('vendor-product-edit');
+      Route::get('/addproduct', 'Vendor\DollController@addproductview')->name('vendor-prod-add-view');
+      Route::post('/storeproduct', 'Vendor\DollController@store')->name('vendor-prod-add');
+      Route::get('/edit-product', 'Vendor\DollController@edit')->name('vendor-product-edit');
+      Route::get('/vendor-edit-prod/{id}','Vendor\DollController@editprodform')->name('vendor-prod-edit-view');
+      Route::post('/vendor-edit-prod/{id}','Vendor\DollController@store')->name('vendor-prod-update');
+      Route::post('/vendor-prod-sequence','Vendor\DollController@changeorder')->name('vendor-prod-order-change');
       Route::get('/inbox', 'Vendor\InboxController@index')->name('vendor-inbox');
       Route::get('/createforum', 'Vendor\VendorController@createNewforum')->name('vendor-createforum');
       Route::post('/createforum', 'Vendor\VendorController@storeNewforum')->name('vendor-storenewforum');
@@ -1069,39 +1079,45 @@ Route::group(['middleware' => 'maintenance'], function () {
       Route::get('/edit-product', 'Vendor\DollController@edit')->name('vendor-product-edit');
       Route::get('/inbox', 'Vendor\MailboxController@index')->name('vendor-inbox');
       Route::get('/sent', 'Vendor\MailboxController@sentmail')->name('vendor-sentmail');
+      Route::get('/sent-message/{id}', 'Vendor\MailboxController@sentMessage')->name('vendor-sentmessage');
+      Route::get('/reply-message/{id}', 'Vendor\MailboxController@replyMessage')->name('vendor-replymessage');
+      Route::get('/view-messages/{id}', 'Vendor\MailboxController@viewMessages')->name('vendor-viewmessages');
       Route::get('/blocked', 'Vendor\MailboxController@blockedmail')->name('vendor-blockedmail');
       Route::get('/deleted', 'Vendor\MailboxController@deletedmail')->name('vendor-deletedmail');
       Route::get('/subscription', 'Vendor\SubscriptionController@index')->name('vendor-renew');
+      Route::get('/subscription/{id}', 'Vendor\SubscriptionController@purchasenowpage')->name('vendor-subscription-purchase');
       Route::get('/followers', 'Vendor\VendorController@followers')->name('vendor-followers');
       Route::get('/review', 'Vendor\VendorController@review')->name('vendor-review');
       Route::get('/myaccount', 'Vendor\VendorController@myaccount')->name('vendor-myaccount');
       Route::post('/myaccount', 'Vendor\VendorController@vendorupdate')->name('profile-edit');
       Route::get('/faq', 'Vendor\VendorController@faq')->name('vendor-faq');
+      Route::get('/orders', 'Vendor\OrderController@index')->name('vendor-orders');
+      Route::post('/changepass/{id}', 'Vendor\VendorController@changepass')->name('vendor-change-pass');
 
 
 
 
-      //IMPORT SECTION
-      Route::get('/products/import/create', 'Vendor\ImportController@createImport')->name('vendor-import-create');
-      Route::get('/products/import/edit/{id}', 'Vendor\ImportController@edit')->name('vendor-import-edit');
-      Route::get('/products/import/csv', 'Vendor\ImportController@importCSV')->name('vendor-import-csv');
-      Route::get('/products/import/datatables', 'Vendor\ImportController@datatables')->name('vendor-import-datatables');
-      Route::get('/products/import/index', 'Vendor\ImportController@index')->name('vendor-import-index');
-      Route::post('/products/import/store', 'Vendor\ImportController@store')->name('vendor-import-store');
-      Route::post('/products/import/update/{id}', 'Vendor\ImportController@update')->name('vendor-import-update');
-      Route::post('/products/import/csv/store', 'Vendor\ImportController@importStore')->name('vendor-import-csv-store');
-      Route::get('/update', 'Vendor\VendorController@myaccountUpdate')->name('myaccount-update');
-      //IMPORT SECTION
+      // //IMPORT SECTION
+      // Route::get('/products/import/create', 'Vendor\ImportController@createImport')->name('vendor-import-create');
+      // Route::get('/products/import/edit/{id}', 'Vendor\ImportController@edit')->name('vendor-import-edit');
+      // Route::get('/products/import/csv', 'Vendor\ImportController@importCSV')->name('vendor-import-csv');
+      // Route::get('/products/import/datatables', 'Vendor\ImportController@datatables')->name('vendor-import-datatables');
+      // Route::get('/products/import/index', 'Vendor\ImportController@index')->name('vendor-import-index');
+      // Route::post('/products/import/store', 'Vendor\ImportController@store')->name('vendor-import-store');
+      // Route::post('/products/import/update/{id}', 'Vendor\ImportController@update')->name('vendor-import-update');
+      // Route::post('/products/import/csv/store', 'Vendor\ImportController@importStore')->name('vendor-import-csv-store');
+      // Route::get('/update', 'Vendor\VendorController@myaccountUpdate')->name('myaccount-update');
+      // //IMPORT SECTION
 
 
-      //------------ ADMIN ORDER SECTION ------------
-      Route::get('/orders', 'Vendor\OrderController@index')->name('vendor-order-index');
-      Route::get('/order/{id}/show', 'Vendor\OrderController@show')->name('vendor-order-show');
-      Route::get('/order/{id}/invoice', 'Vendor\OrderController@invoice')->name('vendor-order-invoice');
-      Route::get('/order/{id}/print', 'Vendor\OrderController@printpage')->name('vendor-order-print');
-      Route::get('/order/{id1}/status/{status}', 'Vendor\OrderController@status')->name('vendor-order-status');
-      Route::post('/order/email/', 'Vendor\OrderController@emailsub')->name('vendor-order-emailsub');
-      Route::post('/order/{slug}/license', 'Vendor\OrderController@license')->name('vendor-order-license');
+      // //------------ ADMIN ORDER SECTION ------------
+      // Route::get('/orders', 'Vendor\OrderController@index')->name('vendor-order-index');
+      // Route::get('/order/{id}/show', 'Vendor\OrderController@show')->name('vendor-order-show');
+      // Route::get('/order/{id}/invoice', 'Vendor\OrderController@invoice')->name('vendor-order-invoice');
+      // Route::get('/order/{id}/print', 'Vendor\OrderController@printpage')->name('vendor-order-print');
+      // Route::get('/order/{id1}/status/{status}', 'Vendor\OrderController@status')->name('vendor-order-status');
+      // Route::post('/order/email/', 'Vendor\OrderController@emailsub')->name('vendor-order-emailsub');
+      // Route::post('/order/{slug}/license', 'Vendor\OrderController@license')->name('vendor-order-license');
 
       //------------ ADMIN CATEGORY SECTION ENDS------------
 
@@ -1142,7 +1158,7 @@ Route::group(['middleware' => 'maintenance'], function () {
 
       // EDIT SECTION
       Route::get('/products/edit/{id}', 'Vendor\ProductController@edit')->name('vendor-prod-edit');
-      Route::post('/products/edit/{id}', 'Vendor\ProductController@update')->name('vendor-prod-update');
+      // Route::post('/products/edit/{id}', 'Vendor\ProductController@update')->name('vendor-prod-update');
 
       Route::get('/products/catalog/{id}', 'Vendor\ProductController@catalogedit')->name('vendor-prod-catalog-edit');
       Route::post('/products/catalog/{id}', 'Vendor\ProductController@catalogupdate')->name('vendor-prod-catalog-update');
@@ -1389,8 +1405,9 @@ Route::group(['middleware' => 'maintenance'], function () {
   // SUBSCRIBE SECTION nnn
 
   Route::post('/subscriber/store', 'Front\FrontendController@subscribe')->name('front.subscribe');
-
   // SUBSCRIBE SECTION ENDS
+  // ----contact us send email
+  Route::post('/contactus/send', 'Front\FrontendController@contactemail')->name('front.contactemail');
 
 
   // LOGIN WITH FACEBOOK OR GOOGLE SECTION
@@ -1411,12 +1428,12 @@ Route::group(['middleware' => 'maintenance'], function () {
   Route::get('/nurseries/country/{id}','Front\NurseryController@searchbycountry')->name('front.nurseriescountry');
   Route::get('/nursery/{slug}','Front\NurseryController@details')->name('front.nuserydetails');
   Route::get('/featured','Front\ProductController@productfeatured')->name('front.productfeatured');
-  Route::get('/reborndolls','Front\ProductController@allitems')->name('front.allitems');
-  Route::post('/reborndolls','Front\ProductController@allitems')->name('front.allitems');
+  Route::get('/rebornDolls','Front\ProductController@allitems')->name('front.allitems');
+  Route::post('/rebornDolls','Front\ProductController@allitems')->name('front.allitems');
   Route::post('/nurserysearch','Front\NurseryController@search')->name('front.nurserysearch');
 
-  // PAGE SECTION terms Terms & Condition page
-  Route::get('/{slug}', 'Front\FrontendController@page')->name('front.page');
+
+
   // PAGE SECTION ENDS
   /**about us */
   Route::get('/cms/about', 'Front\FrontendController@about')->name('front.about');
@@ -1428,11 +1445,12 @@ Route::group(['middleware' => 'maintenance'], function () {
   /****Get Product featured List********************/
   
   Route::get('/favorite/addfavorite', 'Front\FrontendController@favorite')->name('front.submit');
-  
+  // neha vendor forum serach
+  Route::get('/viewmore/post-view-more','Front\ViewmoreController@comment_view_more');
 
   Route::get('/viewmore/featured-view-more','Front\ViewmoreController@featured_view_more');
 
-  Route::get('/viewmore/categorydoll-view-more/{slug}','Front\ViewmoreController@productCate_view_more')->name('viewmore');
+  Route::get('/viewmore/categoryDoll-view-more/{slug}','Front\ViewmoreController@productCate_view_more')->name('viewmore');
 
   Route::get('/viewmore/nursery-view-more','Front\ViewmoreController@nursery_view_more');
 
@@ -1446,9 +1464,18 @@ Route::group(['middleware' => 'maintenance'], function () {
   Route::get('/follow/user', 'Front\NurseryController@follow')->name('front.following');
 
   Route::get('/unfollow/vendor', 'User\UserController@unfollow');
+  
   Route::get('/blockfollow/user', 'Vendor\VendorController@blockfollow');
+
+  Route::get('/bloglike/vendor', 'Vendor\VendorController@bloglike');
+  Route::get('/commentlike/vendor', 'Vendor\VendorController@commentlike');
+  
   
   Route::get('viewmore/followed-view-more', 'Front\ViewmoreController@flloweditemview_more');
+
+  // PAGE SECTION terms Terms & Condition page
+  Route::get('/{slug}', 'Front\FrontendController@page')->name('front.page');
+
   
   // ************************************ FRONT SECTION ENDS**********************************************
 });

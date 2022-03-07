@@ -43,7 +43,7 @@
                         <!-- <li>Weight is: 9lbs 10oz</li> -->
                         <li>Weight is: {{$products_dtls->weight}} </li>
                     </ul>
-                    <p><?php echo $products_dtls->details; ?></p>
+                    <p><?php //echo $products_dtls->details; ?></p>
                     <!-- <p>This sweet boy is hard to part with! He has been created with love using GHS paints in multiple layers, and sealed with matte varnish. His hair is nicely rooted with hp baby locks mohair, sealed from the inside so it is secure.His eyebrows and eyelashes are also rooted with premium mohair. Eyes are full round German glass in the shade natural blue<br>
                     Cloth doe suede body</p>
                     <p>He has fine details throughout his painting and is very realistic. This reborn baby wears size 0/3 & 3 month clothing.<br>Li will come home with his limited edition COA, 3 outfits, baby scent, socks, and a hat and blanket.</p>
@@ -97,7 +97,7 @@
                                     <li>Legs: {{$products_dtls->legs}}</li>
                                     <li>Edition: {{$products_dtls->edition}}</li>
                                     <li>Eyes: {{$products_dtls->eyes}}</li>
-                                    <li>Eye Material: {{$products_dtls->eyes_material}}</li>
+                                    <li>Eye Material: {{--{{$products_dtls->eyes_material}} --}}</li>
                                     <li>Lashes: {{$products_dtls->lashes}}</li>
                                     <li>Hair: {{$products_dtls->hair}}</li>
                                     <li>Paint: {{$products_dtls->paint}}</li>
@@ -152,14 +152,20 @@
                     <div class="col-md-12 doll-we">
                         <div class="row no-gutters">
                             <div class="col-md-4">
-                                <img src="../assets/images/doll-woman.png" alt="">
+                                @if ($user->photo)
+                                <img src="{{asset('assets/front/images/'.$user->photo)}}" alt="" >
+                                @else
+                                <img src="{{asset('assets/front/images/defultimg.png')}}" alt="" >
+                                @endif 
                             </div>
                             <div class="col-md-4 p-0">
                                 <h4>{{$user->name}}</h4>
                                 <p>Forever In {{$user->shop_name}}</p>
                             </div>
-                            <div class="col-md-4 p-0">
-                                <a href="#">follow</a>
+                           
+                            <div class="col-md-4 p-0" onclick="followbtn('{{$user->id}}')">
+                                <a href="javascript:void(0)">follow</a>
+                                <p class="ec-fs-pro-desc" id="follow_msg{{$user->id}}"></p> 
                             </div>
                             <div class="col-md-6 dol-text p-0">
                                 @php
@@ -171,7 +177,7 @@
                                 <p>{{$interval_format}} on Reborns<br><br>14 verified orders sold</p>
                             </div>
                             <div class="col-md-6 dol-text p-0">
-                                <p>125 followers<br><br>{{count($vendor_img)}} babies</p>
+                                <p>{{$follower_count}} followers<br><br>{{count($vendor_img)}} babies</p>
                             </div>
                         </div>
                             <div class="doll-ashely-btn">

@@ -39,12 +39,16 @@ class UserController extends Controller
     public function index()
     {
     $userid = Auth::user()->id;
-    $fevrt_count = favoriteItem::with('Product','user')->where('user_id',$userid)->orderBy('id','desc')->count();
-    $fevrt_list = favoriteItem::with('Product','user')
+    $fevrt_count = FavoriteItem::with('Product')
+    ->where('user_id',$userid)
+    ->orderBy('id','desc')
+    ->count();
+    $fevrt_list = FavoriteItem::with('Product')
     ->where('user_id',$userid)
     ->orderBy('id','desc')
     ->take(6)    
     ->get();
+    //dd($fevrt_list);
     return view('user.dashboard', compact('fevrt_list','fevrt_count'));
     }
 

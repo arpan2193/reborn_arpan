@@ -86,6 +86,7 @@
                                     <div class="add-form">
                                         <form class="addproductvendor" action="{{ route('vendor-prod-add') }}">
                                             {{csrf_field()}}
+                                            <input type="hidden" name="prod_order" value="1">
                                             <div class="form-group mb-4">
                                                 <h5>Doll or Item Name <span>(Sales or discounts are not allowed. If you
                                                         want to discount your item just lower the price.
@@ -423,7 +424,7 @@
                                                         </div>
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="radio" name="sub_item_type"
-                                                                id="exampleRadios2" value="option2">
+                                                                id="exampleRadios2" value="Skunk">
                                                             <label class="form-check-label" for="exampleRadios2">
                                                                 Skunk
                                                             </label>
@@ -450,7 +451,7 @@
                                                     <h5>Select Type</h5>
                                                     <div class="col-md-4">
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="radio" name="sub_item_type" value="Doll Kit">
+                                                            <input class="form-check-input" type="radio" name="sub_item_type" value="Doll_Kit">
                                                             <label class="form-check-label" for="exampleRadios1">
                                                                 Doll Kit or Part
                                                             </label>
@@ -636,8 +637,7 @@
                                             </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="madeornot"
-                                                id="exampleRadios2" value="notmade">
+                                            <input class="form-check-input" type="radio" name="madeornot" value="notmade">
                                             <label class="form-check-label" for="exampleRadios2">
                                                 Item is custom or not yet ready to be shipped - I want to take a
                                                 pre-order or will customize the item
@@ -684,15 +684,13 @@
                                         <h5>Posted Before
                                         </h5>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="postedbefore"
-                                                id="exampleRadios1" value="never posted">
+                                            <input class="form-check-input" type="radio" name="postedbefore" value="never_posted">
                                             <label class="form-check-label" for="exampleRadios1">
                                                 I've never posted this item on Reborns.com before
                                             </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="postedbefore"
-                                                id="exampleRadios2" value="posted before">
+                                            <input class="form-check-input" type="radio" name="postedbefore" value="posted_before">
                                             <label class="form-check-label" for="exampleRadios2">
                                                 I've posted this item before - Includes items that have been on the front page, adoptions that fell through, changes you have made.
                                             </label>
@@ -738,19 +736,19 @@
                                         <h5>After Adopted
                                         </h5>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="afteradopted" value="Show adopted price to everyone">
+                                            <input class="form-check-input" type="radio" name="afteradopted" value="show_price_all">
                                             <label class="form-check-label" for="exampleRadios1">
                                                 Show adopted price to everyone 
                                             </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="afteradopted" value="Show adopted price only to paid Reborn sellers">
+                                            <input class="form-check-input" type="radio" name="afteradopted" value="show_price_only">
                                             <label class="form-check-label" for="exampleRadios1">
                                                 Show adopted price only to paid Reborn sellers 
                                             </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="afteradopted" value="Don't show adopted price" checked>
+                                            <input class="form-check-input" type="radio" name="afteradopted" value="dont_show" checked>
                                             <label class="form-check-label" for="exampleRadios1">
                                                 Don't show adopted price 
                                             </label>
@@ -809,7 +807,7 @@
                                                 </div>
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="radio" name="head_material"
-                                                        id="inlineRadio3" value="n.a">
+                                                        id="inlineRadio3" value="other">
                                                     <label class="form-check-label" for="inlineRadio3">Other/Not Applicable</label>
                                                 </div>
                                             </div>
@@ -821,23 +819,19 @@
                                             </div>
                                             <div class="col-md-9">
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="body_material"
-                                                        id="inlineRadio1" value="vinyl">
+                                                    <input class="form-check-input" type="radio" name="body_material" value="vinyl">
                                                     <label class="form-check-label" for="inlineRadio1">Vinyl</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="body_material"
-                                                        id="inlineRadio2" value="silicone">
+                                                    <input class="form-check-input" type="radio" name="body_material" value="silicone">
                                                     <label class="form-check-label" for="inlineRadio2">Silicone</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="body_material"
-                                                        id="inlineRadio3" value="cloth">
+                                                    <input class="form-check-input" type="radio" name="body_material" value="cloth">
                                                     <label class="form-check-label" for="inlineRadio3">Cloth</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="body_material"
-                                                        id="inlineRadio3" value="n.a">
+                                                    <input class="form-check-input" type="radio" name="body_material" value="other">
                                                     <label class="form-check-label" for="inlineRadio3">Other/Not Applicable</label>
                                                 </div>
                                             </div>
@@ -849,23 +843,19 @@
                                             </div>
                                             <div class="col-md-9">
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="limb_material"
-                                                        id="inlineRadio1" value="vinyl">
+                                                    <input class="form-check-input" type="radio" name="limb_material" value="vinyl">
                                                     <label class="form-check-label" for="inlineRadio1">Vinyl</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="limb_material"
-                                                        id="inlineRadio2" value="silicone">
+                                                    <input class="form-check-input" type="radio" name="limb_material" value="silicone">
                                                     <label class="form-check-label" for="inlineRadio2">Silicone</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="limb_material"
-                                                        id="inlineRadio3" value="cloth">
+                                                    <input class="form-check-input" type="radio" name="limb_material" value="cloth">
                                                     <label class="form-check-label" for="inlineRadio3">Cloth</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="limb_material"
-                                                        id="inlineRadio4" value="n.a">
+                                                    <input class="form-check-input" type="radio" name="limb_material" value="other">
                                                     <label class="form-check-label" for="inlineRadio3">Other/Not Applicable</label>
                                                 </div>
                                             </div>
@@ -877,28 +867,23 @@
                                             </div>
                                             <div class="col-md-9">
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="age"
-                                                        id="inlineRadio1" value="mini">
+                                                    <input class="form-check-input" type="radio" name="age" value="mini">
                                                     <label class="form-check-label" for="inlineRadio1">Mini</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="age"
-                                                        id="inlineRadio2" value="preemie">
+                                                    <input class="form-check-input" type="radio" name="age" value="preemie">
                                                     <label class="form-check-label" for="inlineRadio2">Preemie</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="age"
-                                                        id="inlineRadio3" value="newborn">
+                                                    <input class="form-check-input" type="radio" name="age" value="newborn">
                                                     <label class="form-check-label" for="inlineRadio3">Newborn</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="age"
-                                                        id="inlineRadio4" value="older_baby">
+                                                    <input class="form-check-input" type="radio" name="age" value="older_baby">
                                                     <label class="form-check-label" for="inlineRadio3">Older Baby</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="age"
-                                                        id="inlineRadio4" value="toddler">
+                                                    <input class="form-check-input" type="radio" name="age" value="toddler">
                                                     <label class="form-check-label" for="inlineRadio3">Toddler</label>
                                                 </div>
                                             </div>
@@ -910,18 +895,15 @@
                                             </div>
                                             <div class="col-md-9">
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="gender"
-                                                        id="inlineRadio1" value="boy">
+                                                    <input class="form-check-input" type="radio" name="gender" value="boy">
                                                     <label class="form-check-label" for="inlineRadio1">Boy</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="gender"
-                                                        id="inlineRadio2" value="girl">
+                                                    <input class="form-check-input" type="radio" name="gender" value="girl">
                                                     <label class="form-check-label" for="inlineRadio2">Girl</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="gender"
-                                                        id="inlineRadio3" value="yourchoice">
+                                                    <input class="form-check-input" type="radio" name="gender" value="yourchoice">
                                                     <label class="form-check-label" for="inlineRadio3">Your Choice</label>
                                                 </div>
                                             </div>
@@ -933,31 +915,31 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="Full Front Plate - Boy" name="torso[]">
+                                                    <input class="form-check-input" type="checkbox" value="full_front_plate_boy" name="torso[]" >
                                                     <label class="form-check-label" for="flexCheckDefault">
                                                         Full Front Plate - Boy
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="Full Front Plate - Girl" name="torso[]">
+                                                    <input class="form-check-input" type="checkbox" value="full_front_plate_girl" name="torso[]">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Full Front Plate - Girl
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="Full Front Plate - Non Gendered" name="torso[]">
+                                                    <input class="form-check-input" type="checkbox" value="full_front_plate_non_gendered" name="torso[]">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Full Front Plate - Non Gendered
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="Full Back Plate (with baby butt)" name="torso[]">
+                                                    <input class="form-check-input" type="checkbox" value="full_back_plate_with_baby_butt" name="torso[]">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Full Back Plate (with baby butt)
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="Belly Plate [no chest or genitals]" name="torso[]">
+                                                    <input class="form-check-input" type="checkbox" value="belly_plate_no_chest" name="torso[]">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Belly Plate [no chest or genitals]
                                                     </label>
@@ -965,31 +947,31 @@
                                             </div>
                                             <div class="col-md-5">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="Full Vinyl Torso - Girl" name="torso[]">
+                                                    <input class="form-check-input" type="checkbox" value="full_vinyl_torso_girl" name="torso[]">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Full Vinyl Torso - Girl
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="Full Vinyl Torso - Boy" name="torso[]">
+                                                    <input class="form-check-input" type="checkbox" value="full_vinyl_torso_boy" name="torso[]">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Full Vinyl Torso - Boy
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="Half Upper Vinyl Torso - Non Gendered" name="torso[]">
+                                                    <input class="form-check-input" type="checkbox" value="half_upper_vinyl_torso_non_gendered" name="torso[]">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Half Upper Vinyl Torso - Non Gendered
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="Half Lower Vinyl Torso - Girl" name="torso[]">
+                                                    <input class="form-check-input" type="checkbox" value="half_lower_vinyl_torso_girl" name="torso[]">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Half Lower Vinyl Torso - Girl
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="Half Lower Vinyl Torso - Boy" name="torso[]">
+                                                    <input class="form-check-input" type="checkbox" value="half_lower_vinyl_torso_boy" name="torso[]">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Half Lower Vinyl Torso - Boy
                                                     </label>
@@ -1003,18 +985,17 @@
                                             </div>
                                             <div class="col-md-9">
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="arms"
-                                                        id="inlineRadio1" value="Full Length">
+                                                    <input class="form-check-input" type="radio" name="arms" value="full_length">
                                                     <label class="form-check-label" for="inlineRadio1">Full Length</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="radio" name="arms"
-                                                        id="inlineRadio2" value="3/4 Length">
+                                                        id="inlineRadio2" value="3by4_length">
                                                     <label class="form-check-label" for="inlineRadio2">3/4 Length</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="radio" name="arms"
-                                                        id="inlineRadio3" value="1/4 Length">
+                                                        id="inlineRadio3" value="1by4_length">
                                                     <label class="form-check-label" for="inlineRadio3">1/4 Length	</label>
                                                 </div>
                                             </div>
@@ -1027,17 +1008,17 @@
                                             <div class="col-md-9">
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="radio" name="legs"
-                                                        id="inlineRadio1" value="Full Length">
+                                                        id="inlineRadio1" value="full_length">
                                                     <label class="form-check-label" for="inlineRadio1">Full Length</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="radio" name="legs"
-                                                        id="inlineRadio2" value="3/4 Length">
+                                                        id="inlineRadio2" value="3by4_length">
                                                     <label class="form-check-label" for="inlineRadio2">3/4 Length</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="radio" name="legs"
-                                                        id="inlineRadio3" value="1/4 Length">
+                                                        id="inlineRadio3" value="1by4_length">
                                                     <label class="form-check-label" for="inlineRadio3">1/4 Length	</label>
                                                 </div>
                                             </div>
@@ -1057,7 +1038,7 @@
                                                     <label class="form-check-label" for="inlineRadio2">No</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="certificate_of_auth_coa" value="n.a">
+                                                    <input class="form-check-input" type="radio" name="certificate_of_auth_coa" value="n_a">
                                                     <label class="form-check-label" for="inlineRadio3">Not Applicable</label>
                                                 </div>
                                             </div>
@@ -1069,19 +1050,19 @@
                                             </div>
                                             <div class="col-md-9">
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="edition" value="Open Edition">
+                                                    <input class="form-check-input" type="radio" name="edition" value="open_edition">
                                                     <label class="form-check-label" for="inlineRadio1">Open Edition</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="edition" value="Limited Edition">
+                                                    <input class="form-check-input" type="radio" name="edition" value="limited_edition">
                                                     <label class="form-check-label" for="inlineRadio2">Limited Edition (LE)</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="edition" value="Sold Out Limited Edition">
+                                                    <input class="form-check-input" type="radio" name="edition" value="sold_out_limited_edition">
                                                     <label class="form-check-label" for="inlineRadio3">Sold Out Limited Edition (SOLE)</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="edition" value="Unknown Edition">
+                                                    <input class="form-check-input" type="radio" name="edition" value="unknown_edition">
                                                     <label class="form-check-label" for="inlineRadio3">Unknown Edition</label>
                                                 </div>
                                             </div>
@@ -1093,11 +1074,11 @@
                                             </div>
                                             <div class="col-md-9">
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="eyes" value="Awake">
+                                                    <input class="form-check-input" type="radio" name="eyes" value="awake">
                                                     <label class="form-check-label" for="inlineRadio1">Awake</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="eyes" value="Asleep">
+                                                    <input class="form-check-input" type="radio" name="eyes" value="asleep">
                                                     <label class="form-check-label" for="inlineRadio2">Asleep</label>
                                                 </div>
                                             </div>
@@ -1109,19 +1090,19 @@
                                             </div>
                                             <div class="col-md-9">
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="lashes" value="Rooted Lashes">
+                                                    <input class="form-check-input" type="radio" name="lashes" value="rooted_lashes">
                                                     <label class="form-check-label" for="inlineRadio1">Rooted Lashes</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="lashes" value="Applied Lashes (glued)">
+                                                    <input class="form-check-input" type="radio" name="lashes" value="applied_lashes">
                                                     <label class="form-check-label" for="inlineRadio2">Applied Lashes (glued)</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="lashes" value="Painted Lashes">
+                                                    <input class="form-check-input" type="radio" name="lashes" value="painted_lashes">
                                                     <label class="form-check-label" for="inlineRadio2">Painted Lashes</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="lashes" value="No Lashes">
+                                                    <input class="form-check-input" type="radio" name="lashes" value="no_lashes">
                                                     <label class="form-check-label" for="inlineRadio2">No Lashes</label>
                                                 </div>
                                             </div>
@@ -1133,23 +1114,23 @@
                                             </div>
                                             <div class="col-md-9">
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="hair" value="Painted">
+                                                    <input class="form-check-input" type="radio" name="hair" value="painted">
                                                     <label class="form-check-label" for="inlineRadio1">Painted</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="hair" value="Bald">
+                                                    <input class="form-check-input" type="radio" name="hair" value="bald">
                                                     <label class="form-check-label" for="inlineRadio2">Bald</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="hair" value="Wig">
+                                                    <input class="form-check-input" type="radio" name="hair" value="wig">
                                                     <label class="form-check-label" for="inlineRadio2">Wig</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="hair" value="Rooted">
+                                                    <input class="form-check-input" type="radio" name="hair" value="rooted">
                                                     <label class="form-check-label" for="inlineRadio2">Rooted</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="hair" value="Painted & Rooted (Combi)">
+                                                    <input class="form-check-input" type="radio" name="hair" value="painted_and_rooted">
                                                     <label class="form-check-label" for="inlineRadio2">Painted & Rooted (Combi)</label>
                                                 </div>
                                             </div>
@@ -1161,15 +1142,15 @@
                                             </div>
                                             <div class="col-md-9">
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="paint" value="Genesis Heat Set Paint">
+                                                    <input class="form-check-input" type="radio" name="paint" value="genesis_heat_set_paint">
                                                     <label class="form-check-label" for="inlineRadio1">Genesis Heat Set Paint (GHSP)</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="paint" value="Air Dry Paint">
+                                                    <input class="form-check-input" type="radio" name="paint" value="air_dry_paint">
                                                     <label class="form-check-label" for="inlineRadio2">Air Dry Paint</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="paint" value="Other Paint Type">
+                                                    <input class="form-check-input" type="radio" name="paint" value="other_paint_type">
                                                     <label class="form-check-label" for="inlineRadio2">Other Paint Type</label>
                                                 </div>
                                             </div>
@@ -1181,31 +1162,31 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="Fine Glass Beads" name="weighting[]">
+                                                    <input class="form-check-input" type="checkbox" value="fine_glass_beads" name="weighting[]">
                                                     <label class="form-check-label" for="flexCheckDefault">
                                                         Fine Glass Beads
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="Sand Blasted Glass" name="weighting[]">
+                                                    <input class="form-check-input" type="checkbox" value="sand_blasted_glass" name="weighting[]">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Sand Blasted Glass
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="Polyfil" name="weighting[]">
+                                                    <input class="form-check-input" type="checkbox" value="polyfil" name="weighting[]">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Polyfil
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="Luxury Fiberfill" name="weighting[]">
+                                                    <input class="form-check-input" type="checkbox" value="luxury_fiberfill" name="weighting[]">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Luxury Fiberfill
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="Silicone Baby Fat Inserts" name="weighting[]">
+                                                    <input class="form-check-input" type="checkbox" value="silicone_baby_fat_inserts" name="weighting[]">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Silicone Baby Fat Inserts
                                                     </label>
@@ -1213,31 +1194,31 @@
                                             </div>
                                             <div class="col-md-5">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="Silicone Baby Fat Pellets" name="weighting[]">
+                                                    <input class="form-check-input" type="checkbox" value="silicone_baby_fat_pellets" name="weighting[]">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Silicone Baby Fat Pellets
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="Poly-Pellets" name="weighting[]">
+                                                    <input class="form-check-input" type="checkbox" value="poly_pellets" name="weighting[]">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Poly-Pellets
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="Steel Shots/BBs" name="weighting[]">
+                                                    <input class="form-check-input" type="checkbox" value="steel_shots_BBs" name="weighting[]">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Steel Shots/BBs
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="Sand" name="weighting[]">
+                                                    <input class="form-check-input" type="checkbox" value="sand" name="weighting[]">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Sand
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="Other Weighting Material" name="weighting[]">
+                                                    <input class="form-check-input" type="checkbox" value="other_weighting_material" name="weighting[]">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Other Weighting Material
                                                     </label>
@@ -1250,19 +1231,19 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" value="Caramel" name="skin_color">
+                                                    <input class="form-check-input" type="radio" value="caramel" name="skin_color">
                                                     <label class="form-check-label" for="flexCheckDefault">
                                                         Caramel
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" value="Mottled" name="skin_color">
+                                                    <input class="form-check-input" type="radio" value="mottled" name="skin_color">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Mottled
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" value="Strawberries & Cream" name="skin_color">
+                                                    <input class="form-check-input" type="radio" value="strawberries_and_cream" name="skin_color">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Strawberries & Cream
                                                     </label>
@@ -1270,19 +1251,19 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" value="Dark" name="skin_color">
+                                                    <input class="form-check-input" type="radio" value="dark" name="skin_color">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Dark
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" value="Olive" name="skin_color">
+                                                    <input class="form-check-input" type="radio" value="olive" name="skin_color">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Olive
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" value="Tan" name="skin_color">
+                                                    <input class="form-check-input" type="radio" value="tan" name="skin_color">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Tan
                                                     </label>
@@ -1290,19 +1271,19 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" value="Fair" name="skin_color">
+                                                    <input class="form-check-input" type="radio" value="fair" name="skin_color">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Fair
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" value="Peaches & Cream" name="skin_color">
+                                                    <input class="form-check-input" type="radio" value="peaches_and_cream" name="skin_color">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Peaches & Cream
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" value="Other Complexion" name="skin_color">
+                                                    <input class="form-check-input" type="radio" value="other_complexion" name="skin_color">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Other Complexion
                                                     </label>
@@ -1315,37 +1296,37 @@
                                             </div>
                                             <div class="col-md-5">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" value="Aboriginal" name="race">
+                                                    <input class="form-check-input" type="radio" value="aboriginal" name="race">
                                                     <label class="form-check-label" for="flexCheckDefault">
                                                         Aboriginal
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" value="Black/African American" name="race">
+                                                    <input class="form-check-input" type="radio" value="black_african_american" name="race">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Black / African American
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" value="Hispanic/Latino" name="race">
+                                                    <input class="form-check-input" type="radio" value="hispanic_latino" name="race">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Hispanic / Latino
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" value="Asian/Pacific Islander" name="race">
+                                                    <input class="form-check-input" type="radio" value="asian_pacific_slander" name="race">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Asian / Pacific Islander
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" value="	Fantasy/Make Believe" name="race">
+                                                    <input class="form-check-input" type="radio" value="	fantasy_make_believe" name="race">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Fantasy / Make Believe
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" value="Other Race" name="race">
+                                                    <input class="form-check-input" type="radio" value="other_race" name="race">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Other Race
                                                     </label>
@@ -1353,31 +1334,31 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" value="Biracial/Multiracial" name="race">
+                                                    <input class="form-check-input" type="radio" value="biracial_multiracial" name="race">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Biracial / Multiracial
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" value="White/Caucasian" name="race">
+                                                    <input class="form-check-input" type="radio" value="white_caucasian" name="race">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         White / Caucasian
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" value="Middle Eastern/Indian	" name="race">
+                                                    <input class="form-check-input" type="radio" value="middle_eastern_india" name="race">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Middle Eastern / Indian	
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" value="Native American Indian" name="race">
+                                                    <input class="form-check-input" type="radio" value="native_american_indian" name="race">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Native American Indian
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" value="Animal" name="race">
+                                                    <input class="form-check-input" type="radio" value="animal" name="race">
                                                     <label class="form-check-label" for="flexCheckChecked">
                                                         Animal
                                                     </label>
@@ -1391,15 +1372,15 @@
                                             </div>
                                             <div class="col-md-9">
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="twin" value="Not a Twin">
+                                                    <input class="form-check-input" type="radio" name="twin" value="not_a_twin">
                                                     <label class="form-check-label" for="inlineRadio1">Not a Twin</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="twin" value="Twins, Will Sell Separately">
+                                                    <input class="form-check-input" type="radio" name="twin" value="twin_sell_separately">
                                                     <label class="form-check-label" for="inlineRadio2">Twins, Will Sell Separately</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="twin" value="Twins, Will Not Sell Separately">
+                                                    <input class="form-check-input" type="radio" name="twin" value="twin_not_sell_separately">
                                                     <label class="form-check-label" for="inlineRadio2">Twins, Will Not Sell Separately</label>
                                                 </div>
                                             </div>
@@ -1427,19 +1408,19 @@
                                             </div>
                                             <div class="col-md-9">
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="pacifier_type" value="Regular Pacifier">
+                                                    <input class="form-check-input" type="radio" name="pacifier_type" value="regular_pacifier">
                                                     <label class="form-check-label" for="inlineRadio1">Regular Pacifier</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="pacifier_type" value="Magnetic Pacifier">
+                                                    <input class="form-check-input" type="radio" name="pacifier_type" value="magnetic_pacifier">
                                                     <label class="form-check-label" for="inlineRadio2">Magnetic Pacifier</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="pacifier_type" value="Modified Pacifier">
+                                                    <input class="form-check-input" type="radio" name="pacifier_type" value="modified_pacifier">
                                                     <label class="form-check-label" for="inlineRadio2">Modified Pacifier</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="pacifier_type" value="Can't Take a Pacifier">
+                                                    <input class="form-check-input" type="radio" name="pacifier_type" value="cant_take_pacifier">
                                                     <label class="form-check-label" for="inlineRadio2">Can't Take a Pacifier</label>
                                                 </div>
                                             </div>
@@ -1451,11 +1432,11 @@
                                             </div>
                                             <div class="col-md-9">
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="pacifier" value="Included">
+                                                    <input class="form-check-input" type="radio" name="pacifier" value="included">
                                                     <label class="form-check-label" for="inlineRadio1">Included</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="pacifier" value="Not Included">
+                                                    <input class="form-check-input" type="radio" name="pacifier" value="not_included">
                                                     <label class="form-check-label" for="inlineRadio2">Not Included</label>
                                                 </div>
                                             </div>

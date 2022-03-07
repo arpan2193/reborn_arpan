@@ -25,15 +25,17 @@ use InvalidArgumentException;
 use Markury\MarkuryPost;
 use Illuminate\Support\Facades\Auth;
 use Validator;
+use DateTime;
+
 
 class NurseryController extends Controller
 {
 	public $amount = 4;
-
+// nnn
 	public function index(Request $request)
 	{	 
 		$nursery_search_val = $request->input('search');
-		// dd($nursery_search_val);
+	
 		$datas = array();
 		$datas = User::with('products')->Where('is_vendor','=',1)->orderBy('shop_name','asc')->take(10)->get();
 
@@ -63,7 +65,8 @@ class NurseryController extends Controller
 		->select('countries.*', DB::raw('count(*) as total_users'),)
 		->groupBy('users.country_id')
 		->get();
-		return view('front.nursery', compact('datas', 'countries'));
+		$alp = $alp;
+		return view('front.nursery', compact('datas', 'countries', 'alp'));
 	}
 
 	public function searchbycountry($id){
@@ -77,22 +80,27 @@ class NurseryController extends Controller
 		->select('countries.*', DB::raw('count(*) as total_users'),)
 		->groupBy('users.country_id')
 		->get();
-		return view('front.nursery', compact('datas', 'countries'));
+		$countryname = DB::table('countries')->where('id','=',$id)->select('country_name')->first();
+		return view('front.nursery', compact('datas', 'countries','countryname'));
 
 	}
 
 	public function details(Request $request, $id)
 	{	
-		
 		$nurseries_count =  Product::with('user')->where('user_id',$id)->where('status','=',1)->orderBy('id','desc')->count();
+		$follower_count = DB::table('vendor_followers')->where('vendor_id',$id)->count();
 		$nurseries_product =  Product::with('user')		
 		->where('user_id',$id)
 		->where('status','=',1)
 		->orderBy('id','desc')
 		->take(4)		
 		->get();
-			
-		return view('front.nursery-details', compact('nurseries_product','nurseries_count'));
+		$vendor_details = User::with('products')->Where('is_vendor','=',1)->where('id','=',$id)->first();		
+		$datetime1 = new DateTime($vendor_details->created_at);
+		$datetime2 = new DateTime();		
+		$difference = $datetime1->diff($datetime2);
+		$onreborn = $difference->y.'.'.$difference->m;					
+		return view('front.nursery-details', compact('nurseries_product','nurseries_count','vendor_details','onreborn','follower_count'));
 		}
 // user_id, vendor_id,user_country,user_email
 	public function follow(Request $request)
@@ -103,7 +111,7 @@ class NurseryController extends Controller
 		$get_vendor = DB::table('users')->where('id', Auth::id())->where('is_vendor', 1)->get();
 		
 		if(count($get_vendor)>0){
-			return response()->json('<span style="color:red">Error!</span>');
+			return response()->json('<span style="color:red">You are artist!</span>');
 		}else {
 			$followed = DB::table('vendor_followers')
 			->where('user_id', Auth::id())

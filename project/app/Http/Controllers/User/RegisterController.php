@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Generalsetting;
+use App\Models\Subscription;
 use App\Models\User;
 use App\Models\Country;
 use App\Classes\GeniusMailer;
@@ -17,6 +18,7 @@ class RegisterController extends Controller
 {
 	public function index()
 	{
+		$this->code_image();
 		$countries = Country::orderBy('country_name', 'asc')->get();
 		// dd($countries);
 		return view('front.signin', compact('countries'));
@@ -24,6 +26,7 @@ class RegisterController extends Controller
 
 	public function vendorindex()
 	{
+		$this->code_image();
 		$countries = Country::orderBy('country_name', 'asc')->get();
 		// dd($countries);
 		return view('front.create-nursery', compact('countries'));
@@ -33,7 +36,8 @@ class RegisterController extends Controller
 	{
 
 		$gs = Generalsetting::findOrFail(1);
-
+		$subscription_data = Subscription::where("title","=","Basic")->first();
+		// dd($subscription_data);
 		if ($gs->is_capcha == 1) {
 			$value = session('captcha_string');
 			if ($request->codes != $value) {
@@ -43,7 +47,9 @@ class RegisterController extends Controller
 		//--- Validation Section
 		$rules = [
 			'email'   => 'required|email|unique:users',
-			'password' => 'required|confirmed'
+			'password' => 'required|confirmed',
+			'password_confirmation' => 'required|same:password',
+			'name' => 'required'
 		];
 		$validator = Validator::make($request->all(), $rules);
 
@@ -58,7 +64,7 @@ class RegisterController extends Controller
 		$token = md5(time() . $request->name . $request->email);
 		$input['verification_link'] = $token;
 		$input['affilate_code'] = md5($request->name . $request->email);
-		$future_timestamp = strtotime("+1 month");
+		$future_timestamp = strtotime("+".$subscription_data['days']." month");
        
 		
 		if (!empty($request->vendor)) {
@@ -76,13 +82,21 @@ class RegisterController extends Controller
 			if ($validator->fails()) {
 				return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
 			}
-			if (!empty($request->paypal) || !empty($request->venmo) || !empty($request->venmo) || !empty($request->square) || !empty($request->check) || !empty($request->certified_funds) || !empty($request->money_order) || !empty($request->cash) || !empty($request->bank_transfer) || !empty($request->custompayment1) || !empty($request->custompayment2) || !empty($request->custompayment3)) {
-				$input['payments_accepted'] = $request->paypal . "," . $request->venmo . "," . $request->square . "," . $request->check . "," . $request->certified_funds . "," . $request->money_order . "," . $request->cash . "," . $request->bank_transfer . "," . $request->custompayment1 . "," . $request->custompayment2 . "," . $request->custompayment3;
-				$input['is_vendor'] = 1;
-				$input['is_subscribe'] = 1;	
-						
+			$payment_mode_arr = array();
+			foreach($request->payment_mode as $key => $val){
+				$payment_mode_arr2 = array("$key" => "$val");
+				$payment_mode_arr= array_merge($payment_mode_arr, $payment_mode_arr2);
 			}
-		$input['subscribe_expired'] = date('Y-m-d', $future_timestamp);
+			$input['payments_accepted'] = json_encode($payment_mode_arr);
+			$input['is_vendor'] = 1;
+			$input['is_subscribe'] = 1;	
+			// if (!empty($request->paypal) || !empty($request->venmo) || !empty($request->venmo) || !empty($request->square) || !empty($request->check) || !empty($request->certified_funds) || !empty($request->money_order) || !empty($request->cash) || !empty($request->bank_transfer) || !empty($request->custompayment1) || !empty($request->custompayment2) || !empty($request->custompayment3)) {
+			// 	$input['payments_accepted'] = $request->paypal . "," . $request->venmo . "," . $request->square . "," . $request->check . "," . $request->certified_funds . "," . $request->money_order . "," . $request->cash . "," . $request->bank_transfer . "," . $request->custompayment1 . "," . $request->custompayment2 . "," . $request->custompayment3;
+			// 	$input['is_vendor'] = 1;
+			// 	$input['is_subscribe'] = 1;	
+						
+			// }
+			$input['subscribe_expired'] = date('Y-m-d', $future_timestamp);
 
 		}
 
@@ -144,4 +158,40 @@ class RegisterController extends Controller
 		}
 	}
 
+	// Capcha Code Image
+    private function  code_image()
+    {
+        $actual_path = str_replace('project','',base_path());
+        $image = imagecreatetruecolor(200, 50);
+        $background_color = imagecolorallocate($image, 255, 255, 255);
+        imagefilledrectangle($image,0,0,200,50,$background_color);
+
+        $pixel = imagecolorallocate($image, 0,0,255);
+        for($i=0;$i<500;$i++)
+        {
+            imagesetpixel($image,rand()%200,rand()%50,$pixel);
+        }
+
+        $font = $actual_path.'assets/front/fonts/NotoSans-Bold.ttf';
+        $allowed_letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        $length = strlen($allowed_letters);
+        $letter = $allowed_letters[rand(0, $length-1)];
+        $word='';
+        //$text_color = imagecolorallocate($image, 8, 186, 239);
+        $text_color = imagecolorallocate($image, 0, 0, 0);
+        $cap_length=6;// No. of character in image
+        for ($i = 0; $i< $cap_length;$i++)
+        {
+            $letter = $allowed_letters[rand(0, $length-1)];
+            imagettftext($image, 25, 1, 35+($i*25), 35, $text_color, $font, $letter);
+            $word.=$letter;
+        }
+        $pixels = imagecolorallocate($image, 8, 186, 239);
+        for($i=0;$i<500;$i++)
+        {
+            imagesetpixel($image,rand()%200,rand()%50,$pixels);
+        }
+        session(['captcha_string' => $word]);
+        imagepng($image, $actual_path."assets/images/capcha_code.png");
+    }
 }

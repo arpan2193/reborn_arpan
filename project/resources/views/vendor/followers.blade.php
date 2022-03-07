@@ -86,7 +86,7 @@
                                                  <td>{{$user_list->user_country}}</td>
                                                  <td>
                                                     <i class="ecicon eci-check {{$user_list->email_subscriber==1?"text-success":"text-danger"}} style="height:auto" id="test"></i>
-                                                   
+                                                  
                                                 </td>
                                                  <td><a href="javascript:void(0)" onclick="blockfollow('{{$user_list->user_id}}')">Block</a>
                                                 </td>

@@ -38,99 +38,16 @@
                                 enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 @include('includes.admin.form-both')
-
-                                {{-- Sub Title Section --}}
-
-                                {{-- <div class="panel panel-default slider-panel">
-                                    <div class="panel-heading text-center">
-                                        <h3>{{ __('Sub Title') }}</h3>
-                                    </div>
-                                    <div class="panel-body">
-                                        <div class="form-group">
-                                          <div class="col-sm-12">
-                                            <label class="control-label" for="subtitle_text">{{ __('Text') }}*</label>
-
-                                            <textarea class="form-control" name="subtitle_text" id="subtitle_text" rows="5" placeholder="{{ __('Enter Title Text') }}">{{ $data->subtitle_text }}</textarea>
-                                          </div>
-                                        </div>
-
-
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                <div class="row">
-                                                    <div class="col-sm-4">
-                                                        <label class="control-label"
-                                                            for="subtitle_size">{{ __('Font Size') }} *<span>
-                                                                {{ __('(px)') }}</span></label>
-                                                        <input class="form-control" type="number" name="subtitle_size"
-                                                            value="{{ $data->subtitle_size }}" min="1">
-                                                    </div>
-                                                    <div class="col-sm-4">
-                                                        <label class="control-label"
-                                                            for="subtitle_color">{{ __('Font Color') }} *</label>
-                                                        <div class="input-group colorpicker-component cp">
-                                                            <input type="text" name="subtitle_color"
-                                                                value="{{ $data->subtitle_color }}"
-                                                                class="form-control cp" />
-                                                            <span class="input-group-addon"><i></i></span>
-                                                        </div>
-
-                                                    </div>
-                                                    <div class="col-sm-4">
-                                                        <label class="control-label"
-                                                            for="subtitle_anime">{{ __('Animation') }} *</label>
-                                                        <select class="form-control" id="subtitle_anime"
-                                                            name="subtitle_anime">
-                                                            <option value="fadeIn"
-                                                                {{ $data->subtitle_anime == 'fadeIn' ? 'selected' : '' }}>
-                                                                fadeIn</option>
-                                                            <option value="fadeInDown"
-                                                                {{ $data->subtitle_anime == 'fadeInDown' ? 'selected' : '' }}>
-                                                                fadeInDown</option>
-                                                            <option value="fadeInLeft"
-                                                                {{ $data->subtitle_anime == 'fadeInLeft' ? 'selected' : '' }}>
-                                                                fadeInLeft</option>
-                                                            <option value="fadeInRight"
-                                                                {{ $data->subtitle_anime == 'fadeInRight' ? 'selected' : '' }}>
-                                                                fadeInRight</option>
-                                                            <option value="fadeInUp"
-                                                                {{ $data->subtitle_anime == 'fadeInUp' ? 'selected' : '' }}>
-                                                                fadeInUp</option>
-                                                            <option value="flip"
-                                                                {{ $data->subtitle_anime == 'flip' ? 'selected' : '' }}>flip
-                                                            </option>
-                                                            <option value="flipInX"
-                                                                {{ $data->subtitle_anime == 'flipInX' ? 'selected' : '' }}>
-                                                                flipInX</option>
-                                                            <option value="flipInY"
-                                                                {{ $data->subtitle_anime == 'flipInY' ? 'selected' : '' }}>
-                                                                flipInY</option>
-                                                            <option value="slideInUp"
-                                                                {{ $data->subtitle_anime == 'slideInUp' ? 'selected' : '' }}>
-                                                                slideInUp</option>
-                                                            <option value="slideInDown"
-                                                                {{ $data->subtitle_anime == 'slideInDown' ? 'selected' : '' }}>
-                                                                slideInDown</option>
-                                                            <option value="slideInLeft"
-                                                                {{ $data->subtitle_anime == 'slideInLeft' ? 'selected' : '' }}>
-                                                                slideInLeft</option>
-                                                            <option value="slideInRight"
-                                                                {{ $data->subtitle_anime == 'slideInRight' ? 'selected' : '' }}>
-                                                                slideInRight</option>
-                                                            <option value="rollIn"
-                                                                {{ $data->subtitle_anime == 'rollIn' ? 'selected' : '' }}>
-                                                                rollIn</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> --}}
-
-                                {{-- Sub Title Section Ends --}}
-
+                                @php $all_lang = DB::table('languages')->get();
+                                 $id= $data->lang_id;
+                                $slected = DB::table('languages')->where('id',$id)->first(); 
+                                 @endphp
+                                <select name="lang_id" id="languages">
+                                    <option value="{{$slected->id}}" selected>{{$slected->language}}</option>                                 
+                                    @foreach($all_lang as $lang)
+                                    <option value="{{$lang->id}}">{{$lang->language}}</option>
+                                    @endforeach
+                                  </select> 
                                 {{-- Title Section --}}
 
                                 <div class="panel panel-default slider-panel">

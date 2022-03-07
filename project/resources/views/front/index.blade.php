@@ -1,8 +1,6 @@
 @extends('layouts.front')
 
 @section('content')
-
-
     <!-- Main Slider Start -->
     <div class="sticky-header-next-sec ec-main-slider section section-space-pb">
         <div class="ec-slider swiper-container main-slider-nav main-slider-dot">
@@ -10,7 +8,7 @@
             <div class="swiper-wrapper">
             @foreach($sliders as $slider)
 
-                <div class="ec-slide-item swiper-slide d-flex ec-slide-1" style="background-image: url('assets/front/images/main-slider-banner/'<?php echo $slider->photo; ?>); " !important>
+                <div class="ec-slide-item swiper-slide d-flex ec-slide-1" style="background-image: url({{asset('assets/images/sliders/'.$slider->photo.'')}})" !important>
                     <div class="container align-self-center">
                         <div class="row">
                             <div class="col-xl-6 col-lg-7 col-md-7 col-sm-7 align-self-center">
@@ -81,7 +79,7 @@
                             </h5>
                             <p class="ec-fs-pro-desc" id="{{$doll->id}}_recent_msg"></p>
                             <p class="ec-fs-pro-desc">
-                                Listed by  {{ $doll->user->shop_name}}({{$doll->user->name}})
+                                Listed by {{ $doll->user->shop_name}}({{$doll->user->name}})
                             </p>
                             <div class="w-100 d-flex justify-content-between">
                                 <p class="ec-fs-pro-desc-time">
@@ -96,8 +94,8 @@
                                              $datetime2 = new DateTime($dt);
                                              $interval = $datetime1->diff($datetime2);
                                  ?>
-                                </p>  
-                                <p class="artist-p-size">{{ $doll->length_by_inch}} " ({{ $doll->length_by_centimeters}} cm)</p>
+                                </p> 
+                                <p class="artist-p-size">{{ getDollLength($doll->length, $doll->length_unit) }}</p>
                             </div>
                             
                             <div class="w-100 d-flex justify-content-between">
@@ -135,10 +133,11 @@
                             <div class="col-sm-3">
                                 <div class="artist-product">
                                 <img src="{{asset('assets/images/products/'.$reborn->photo)}}">
-                                     <h5 class="ec-fs-pro-title">
-                                         <a href="{{ route('front.productdetails', $reborn->slug) }}" onclick="addrecent('{{$reborn->id}}')">
+                                     <h5 class="ec-fs-pro-title">                                        
+                                         <a href="{{ route('front.productdetails', $reborn->slug) }}" value="{{$reborn->id}}">
                                          {{$reborn->name}}
                                          </a>
+                                       
                                      </h5>
                                      <p class="ec-fs-pro-desc">
                                          Listed by {{ $reborn->user->shop_name}}({{$reborn->user->name}})      
@@ -156,7 +155,7 @@
                                              $datetime2 = new DateTime($dt);
                                              $interval = $datetime1->diff($datetime2); ?>                                             
                                             </p>  
-                                         <p class="artist-p-size">{{ $reborn->length_by_inch}} " ({{$reborn->length_by_centimeters}} cm)</p>
+                                         <p class="artist-p-size">{{ getDollLength($reborn->length, $reborn->length_unit) }}</p>
                                      </div>
                                      <div class="w-100 d-flex justify-content-between">
                                          <p class="time">{{ $attrPrice != 0 ?  $gs->currency_format == 0 ? $curr->sign.$withSelectedAtrributePrice : $withSelectedAtrributePrice.$curr->sign :$reborn->showPrice() }}
@@ -235,7 +234,7 @@
                                              $interval = $datetime1->diff($datetime2);
                             ?>
                             </p>  
-                            <p class="artist-p-size">{{ $listed_dall->length_by_inch}} " ({{$listed_dall->length_by_centimeters}} cm)</p>
+                            <p class="artist-p-size">{{ getDollLength($listed_dall->length, $listed_dall->length_unit) }}</p>
                         </div>
                         <div class="w-100 d-flex justify-content-between">
                             <p class="time">{{ $attrPrice != 0 ?  $gs->currency_format == 0 ? $curr->sign.$withSelectedAtrributePrice : $withSelectedAtrributePrice.$curr->sign :$listed_dall->showPrice() }}</p>
@@ -317,7 +316,7 @@
                                              $interval = $datetime1->diff($datetime2);
                                       ?>
                                     </p>  
-                                    <p class="artist-p-size">{{ $altdall->length_by_inch}} " ({{$altdall->length_by_centimeters}} cm)</p>
+                                    <p class="artist-p-size">{{ getDollLength($altdall->length, $altdall->length_unit) }}</p>
                                 </div>
                                 <div class="w-100 d-flex justify-content-between">
                                     <p class="time">{{ $attrPrice != 0 ?  $gs->currency_format == 0 ? $curr->sign.$withSelectedAtrributePrice : $withSelectedAtrributePrice.$curr->sign :$altdall->showPrice() }}</p>  
